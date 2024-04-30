@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(218, 216, 216);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.board {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border: 10px solid black;
+    width: 640px;
+    height: 640px;
+    box-sizing: content-box;
+
+    .numset {
+        position: absolute;
+        left: -80px;
+        width: 80px;
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+
+        &.append {
+            left: auto;
+            right: -80px;
+        }
+
+        .number {
+            width: inherit;
+            height: 80px; 
+            font-weight: 700;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .charset {
+        position: absolute;
+        top: -80px;
+        width: 100%;
+        height: 80px;
+        display: flex;
+
+        &.append {
+            top: auto;
+            bottom: -80px;
+        }
+
+        .char {
+            width: 80px;
+            height: inherit; 
+            font-weight: 700;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.white {
+        background-color: white;
+    }
+
+    &.black {
+        background-color: rgb(218, 151, 96);
+    }
+}
