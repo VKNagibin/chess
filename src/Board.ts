@@ -1,23 +1,28 @@
 import Cell from '@/Cell';
+import { cellCharsList, cellNumbersReversedList, CELLS_COUNT_IN_ROW } from '@/constants';
+import { CellColor, FigureTeam, HighlightType } from '@/enums';
 import Figure from '@/Figure';
-
-import { cellCharsList, cellNumbersReversedList, CELLS_COUNT_IN_ROW } from './constants';
-import { CellColor, FigureTeam, HighlightType } from './enums';
-import { figuresPlacesConfig } from './placesConfig';
-import { CharValueType, NumberValueType } from './types';
-
-function getCellId(char: CharValueType, number: NumberValueType): string {
-  return `${char}${number}`;
-}
+import { figuresPlacesConfig } from '@/placesConfig';
+import StepController from '@/StepController';
+import { CharValueType, NumberValueType } from '@/types';
+import { getCellId } from '@/utils';
 
 class Board {
-  highlightHandler?: () => any;
-
-  private static board: Board;
-
   constructor() {
     this.initBoard();
   }
+
+  private static board: Board;
+
+  cells: Cell[] = [];
+
+  figures: Figure[] = [];
+
+  stepController = new StepController();
+
+  focusedCellId?: string;
+
+  highlightHandler?: () => any;
 
   public static getBoard(): Board {
     if (!Board.board) {
@@ -31,13 +36,6 @@ class Board {
     this.initFigures();
     this.arrangeFigures();
   }
-
-  cells: Cell[] = [];
-
-  figures: Figure[] = [];
-
-  // stepController: StepController;
-  focusedCellId?: string;
 
   findCell = (id: string) => this.cells.find((cell) => cell.id === id);
 
@@ -55,6 +53,8 @@ class Board {
     this.focusedCellId = id;
     this.highlightHandler && this.highlightHandler();
     this.highlightHandler = handler;
+
+    if (!currentFocusedCell?.figure) return;
   };
 
   initFigures = () => {
