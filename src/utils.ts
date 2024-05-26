@@ -1,9 +1,14 @@
-import { CELL_CHAR, CELL_NUMBER } from '@/constants';
-import { CharValueType, NumberValueType } from '@/types';
+import { CELL_CHAR, CELL_NUMBER } from '@/entities/Cell/constants';
+import { CellIdType, CharValueType, NumberValueType } from '@/entities/Cell/types';
 
-export function getCellId(char: CharValueType, number: NumberValueType): string {
+export function getCellId(char: CharValueType, number: NumberValueType): CellIdType {
   return `${char}${number}`;
 }
+
+export const parseCellId = (id: CellIdType) => ({
+  char: id[0] as CharValueType,
+  number: id[1] as NumberValueType,
+});
 
 export function uniqId(prefix = '', random = false) {
   const sec = Date.now() * 1000 + Math.random() * 1000;
@@ -23,17 +28,53 @@ export function getPreviousChar(char: CharValueType): CharValueType | null {
 
 export function getNextNumber(number: NumberValueType): NumberValueType | null {
   if (number === CELL_NUMBER.EIGHT) return null;
-  return (number + 1) as NumberValueType;
+  return String(+number + 1) as NumberValueType;
 }
 
 export function getPreviousNumber(number: NumberValueType): NumberValueType | null {
   if (number === CELL_NUMBER.ONE) return null;
-  return (number - 1) as NumberValueType;
+  return String(+number - 1) as NumberValueType;
 }
 
-export function getTopRightId(id: string): string | null {
+export function getForwardId(id: CellIdType): CellIdType | null {
   const char = id[0] as CharValueType;
-  const number = Number(id[1]) as NumberValueType;
+  const number = id[1] as NumberValueType;
+  const nextNumber = getNextNumber(number);
+
+  if (!nextNumber) return null;
+  return getCellId(char, nextNumber);
+}
+
+export function getBackwardId(id: CellIdType): CellIdType | null {
+  const char = id[0] as CharValueType;
+  const number = id[1] as NumberValueType;
+  const previousNumber = getPreviousNumber(number);
+
+  if (!previousNumber) return null;
+  return getCellId(char, previousNumber);
+}
+
+export function getLeftId(id: CellIdType): CellIdType | null {
+  const char = id[0] as CharValueType;
+  const number = id[1] as NumberValueType;
+  const previousChar = getPreviousChar(char);
+
+  if (!previousChar) return null;
+  return getCellId(previousChar, number);
+}
+
+export function getRightId(id: CellIdType): CellIdType | null {
+  const char = id[0] as CharValueType;
+  const number = id[1] as NumberValueType;
+  const nextChar = getNextChar(char);
+
+  if (!nextChar) return null;
+  return getCellId(nextChar, number);
+}
+
+export function getTopRightId(id: CellIdType): CellIdType | null {
+  const char = id[0] as CharValueType;
+  const number = id[1] as NumberValueType;
   const nextChar = getNextChar(char);
   const nextNumber = getNextNumber(number);
 
@@ -41,9 +82,9 @@ export function getTopRightId(id: string): string | null {
   return getCellId(nextChar, nextNumber);
 }
 
-export function getTopLeftId(id: string): string | null {
+export function getTopLeftId(id: CellIdType): CellIdType | null {
   const char = id[0] as CharValueType;
-  const number = Number(id[1]) as NumberValueType;
+  const number = id[1] as NumberValueType;
   const previousChar = getPreviousChar(char);
   const nextNumber = getNextNumber(number);
 
@@ -51,9 +92,9 @@ export function getTopLeftId(id: string): string | null {
   return getCellId(previousChar, nextNumber);
 }
 
-export function getBottomRightId(id: string): string | null {
+export function getBottomRightId(id: CellIdType): CellIdType | null {
   const char = id[0] as CharValueType;
-  const number = Number(id[1]) as NumberValueType;
+  const number = id[1] as NumberValueType;
   const nextChar = getNextChar(char);
   const previousNumber = getPreviousNumber(number);
 
@@ -61,9 +102,9 @@ export function getBottomRightId(id: string): string | null {
   return getCellId(nextChar, previousNumber);
 }
 
-export function getBottomLeftId(id: string): string | null {
+export function getBottomLeftId(id: CellIdType): CellIdType | null {
   const char = id[0] as CharValueType;
-  const number = Number(id[1]) as NumberValueType;
+  const number = id[1] as NumberValueType;
   const previousChar = getPreviousChar(char);
   const previousNumber = getPreviousNumber(number);
 
