@@ -6,12 +6,12 @@
 
 .app-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgb(218, 216, 216);
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 
 .board {
@@ -20,7 +20,8 @@
     flex-wrap: wrap;
     background-color: white;
     border: 10px solid black;
-    width: 640px;
+    min-width: 640px;
+    max-width: 640px;
     height: 640px;
     box-sizing: content-box;
 }

@@ -3,19 +3,16 @@ import './App.less';
 import Cells from '@components/Cells';
 import Chars from '@components/Chars';
 import Numbers from '@components/Numbers';
-import { useMemo } from 'react';
-
-import Board from './Board';
+import StepTeam from '@components/StepTeam';
 
 function App() {
-  const { cells } = useMemo(() => Board.getBoard(), []);
-
   return (
     <div className="app-container">
+      <StepTeam />
       <div className="board">
         <Chars />
         <Numbers />
-        {cells ? <Cells cells={cells} /> : null}
+        <Cells />
         <Numbers className="append" />
         <Chars className="append" />
       </div>
