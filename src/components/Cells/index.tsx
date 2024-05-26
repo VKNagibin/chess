@@ -1,27 +1,11 @@
 import Cell from '@components/Cell';
-import { memo, useEffect } from 'react';
+import { useList } from 'effector-react';
 
-import CellClass from '@/Cell';
-import useForceUpdate from '@/hooks/useForceUpdate';
+import { $cells } from '@/stores/cell';
 
-interface ICellsProps {
-  cells: CellClass[];
-}
-
-const Cells = ({ cells }: ICellsProps) => {
-  const forceUpdate = useForceUpdate();
-
-  useEffect(() => {
-    forceUpdate();
-  }, [cells.length]);
-
-  return (
-    <>
-      {cells.map((cell) => (
-        <Cell key={cell.id} cell={cell} />
-      ))}
-    </>
-  );
+const Cells = () => {
+  const cellsList = useList($cells, (cell) => <Cell key={cell.id} cell={cell} />);
+  return <>{cellsList}</>;
 };
 
-export default memo(Cells);
+export default Cells;
