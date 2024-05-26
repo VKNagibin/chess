@@ -1,5 +1,5 @@
-import { CELL_CHAR } from '@/constants';
-import { CharValueType, NumberValueType } from '@/types';
+import { CELL_CHAR, CELL_NUMBER } from '@/entities/Cell/constants';
+import { CellIdType, CharValueType, NumberValueType } from '@/entities/Cell/types';
 import {
   getBottomLeftId,
   getBottomRightId,
@@ -18,10 +18,10 @@ interface IBoardStepsUtils {
   getPreviousChar: (char: CharValueType) => CharValueType | null;
   getNextNumber: (number: NumberValueType) => NumberValueType | null;
   getPreviousNumber: (number: NumberValueType) => NumberValueType | null;
-  getTopRightId: (id: string) => string | null;
-  getTopLeftId: (id: string) => string | null;
-  getBottomRightId: (id: string) => string | null;
-  getBottomLeftId: (id: string) => string | null;
+  getTopRightId: (id: CellIdType) => CellIdType | null;
+  getTopLeftId: (id: CellIdType) => CellIdType | null;
+  getBottomRightId: (id: CellIdType) => CellIdType | null;
+  getBottomLeftId: (id: CellIdType) => CellIdType | null;
 }
 
 const utils: IBoardStepsUtils = {
@@ -39,10 +39,10 @@ const utils: IBoardStepsUtils = {
 describe('board steps utils', () => {
   describe('getCellId', () => {
     it('getCellId for "a" 3 returns a3', () => {
-      expect(utils.getCellId('a', 3)).toBe('a3');
+      expect(utils.getCellId('a', CELL_NUMBER.THREE)).toBe('a3');
     });
     it('getCellId for "h" 8 returns h8', () => {
-      expect(utils.getCellId('h', 8)).toBe('h8');
+      expect(utils.getCellId('h', CELL_NUMBER.EIGHT)).toBe('h8');
     });
   });
 
@@ -72,25 +72,25 @@ describe('board steps utils', () => {
 
   describe('getNextNumber', () => {
     it('getNextNumber for 1 returns 2', () => {
-      expect(utils.getNextNumber(1)).toBe(2);
+      expect(utils.getNextNumber(CELL_NUMBER.ONE)).toBe(CELL_NUMBER.TWO);
     });
     it('getNextNumber for 8 returns null', () => {
-      expect(utils.getNextNumber(8)).toBeNull();
+      expect(utils.getNextNumber(CELL_NUMBER.EIGHT)).toBeNull();
     });
     it('getNextNumber for 4 returns 5', () => {
-      expect(utils.getNextNumber(4)).toBe(5);
+      expect(utils.getNextNumber(CELL_NUMBER.FOUR)).toBe(CELL_NUMBER.FIVE);
     });
   });
 
   describe('getPreviousNumber', () => {
     it('getPreviousNumber for 8 returns 7', () => {
-      expect(utils.getPreviousNumber(8)).toBe(7);
+      expect(utils.getPreviousNumber(CELL_NUMBER.EIGHT)).toBe(CELL_NUMBER.SEVEN);
     });
     it('getPreviousNumber for 4 returns 3', () => {
-      expect(utils.getPreviousNumber(4)).toBe(3);
+      expect(utils.getPreviousNumber(CELL_NUMBER.FOUR)).toBe(CELL_NUMBER.THREE);
     });
     it('getPreviousNumber for 1 returns null', () => {
-      expect(utils.getPreviousNumber(1)).toBeNull();
+      expect(utils.getPreviousNumber(CELL_NUMBER.ONE)).toBeNull();
     });
   });
 
@@ -102,7 +102,7 @@ describe('board steps utils', () => {
       expect(utils.getTopLeftId('b2')).toBe('a3');
     });
     it('getTopLeftId for d8 returns null', () => {
-      expect(utils.getTopLeftId('8d')).toBeNull();
+      expect(utils.getTopLeftId('d8')).toBeNull();
     });
     it('getTopLeftId for g5 returns f6', () => {
       expect(utils.getTopLeftId('g5')).toBe('f6');
