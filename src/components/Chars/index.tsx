@@ -2,7 +2,7 @@ import './index.less';
 
 import { memo } from 'react';
 
-import { cellCharsList } from '@/constants';
+import { cellCharsList } from '@/entities/Cell/constants';
 
 interface IProps {
   className?: string;
