@@ -109,6 +109,18 @@ function handlePawnStep(stepOwner: Cell, currentCell: Cell, cells: Cell[]) {
   });
 }
 
+export function changeTeamFilter(
+  cells: Cell[],
+  cellId: CellIdType,
+  currentStepTeam: FigureTeam,
+) {
+  const currentCell = findById(cells, cellId) as Cell;
+  const isIllegalFocus = currentCell.figure?.team !== currentStepTeam;
+  if (isIllegalFocus) return false;
+
+  return !!currentCell.figure && currentCell.highlight !== HighlightType.SELECTED;
+}
+
 export function getSteps(cells: Cell[], focusedCell: Cell) {
   if (!focusedCell.figure) return [];
   const handler = handlersByFigureTypeMap[focusedCell.figure.type];
@@ -133,7 +145,7 @@ export function getAfterStepBoardState(
   else
     afterStepCellsState = stepsWithoutHighlight.map((cell) => {
       if (cell.id === currentCell.id) return { ...cell, figure: currentFigure };
-      if (cell.id === stepOwner!.id) return { ...cell, figure: null };
+      if (cell.id === stepOwnerCell!.id) return { ...cell, figure: null };
       return cell;
     });
 
@@ -154,7 +166,7 @@ export function handleStep(currentCell: Cell, cells: Cell[]): Cell[] {
   if (ourKingEnemies.length) {
     if (saveStepsExist(preparedCells, currentFigure.team))
       return resetCellsHighlight(cells);
-    return resetCellsHighlight(cells).map((cell) => {
+    return preparedCells.map((cell) => {
       if (currentCell.id === cell.id)
         return {
           ...cell,
@@ -172,7 +184,7 @@ export function handleStep(currentCell: Cell, cells: Cell[]): Cell[] {
       )
     )
       return resetCellsHighlight(cells);
-    return resetCellsHighlight(cells).map((cell) => {
+    return preparedCells.map((cell) => {
       if (currentCell.id === cell.id)
         return {
           ...cell,
