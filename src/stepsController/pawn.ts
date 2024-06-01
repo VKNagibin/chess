@@ -46,7 +46,7 @@ export default function handlePawnSteps(cells: Cell[], focusedCell: Cell) {
   const { forward, topLeft, topRight } = teamHandlersMap[team];
   const oneToForwardId = forward(focusedCell.id);
 
-  const previousStepAdded = addDefaultStep(oneToForwardId, cells, steps);
+  const previousStepAdded = addPawnDefaultStep(oneToForwardId, cells, steps);
   if (previousStepAdded && focusedCell.figure!.isFirstStep) {
     const twoToForwardId = forward(oneToForwardId!);
     addPawnDefaultStep(twoToForwardId, cells, steps, oneToForwardId!);
