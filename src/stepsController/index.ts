@@ -3,6 +3,8 @@ import { FigureType } from '@/entities/Cell/enums';
 import handlePawnSteps from '@/stepsController/pawn';
 import { IStep } from '@/stores/cell/types';
 
+import handleKnightSteps from './knight';
+
 const handlersByFigureTypeMap: Record<
   FigureType,
   (cells: Cell[], focusedCell: Cell) => IStep[]
@@ -14,9 +16,7 @@ const handlersByFigureTypeMap: Record<
   [FigureType.QUEEN]: () => {
     return [];
   },
-  [FigureType.KNIGHT]: () => {
-    return [];
-  },
+  [FigureType.KNIGHT]: handleKnightSteps,
   [FigureType.BISHOP]: () => {
     return [];
   },
