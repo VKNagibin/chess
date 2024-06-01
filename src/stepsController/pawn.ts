@@ -43,17 +43,17 @@ function addPawnKillStep(
 export default function handlePawnSteps(cells: Cell[], focusedCell: Cell) {
   const steps: IStep[] = [];
   const team = focusedCell.figure!.team;
-  const { forward, left, right } = teamHandlersMap[team];
+  const { forward, topLeft, topRight } = teamHandlersMap[team];
   const oneToForwardId = forward(focusedCell.id);
 
-  const previousStepAdded = addPawnDefaultStep(oneToForwardId, cells, steps);
+  const previousStepAdded = addDefaultStep(oneToForwardId, cells, steps);
   if (previousStepAdded && focusedCell.figure!.isFirstStep) {
     const twoToForwardId = forward(oneToForwardId!);
     addPawnDefaultStep(twoToForwardId, cells, steps, oneToForwardId!);
   }
-  const leftId = left(focusedCell.id);
+  const leftId = topLeft(focusedCell.id);
   addPawnKillStep(leftId, cells, steps, team);
-  const rightId = right(focusedCell.id);
+  const rightId = topRight(focusedCell.id);
   addPawnKillStep(rightId, cells, steps, team);
 
   return steps;
