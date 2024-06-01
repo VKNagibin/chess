@@ -5,6 +5,8 @@ import {
   getBottomLeftId,
   getBottomRightId,
   getForwardId,
+  getLeftId,
+  getRightId,
   getTopLeftId,
   getTopRightId,
 } from '@/utils';
@@ -12,15 +14,19 @@ import {
 export const blackHandlersSet = {
   forward: getBackwardId,
   backward: getForwardId,
-  left: getBottomRightId,
-  right: getBottomLeftId,
+  topLeft: getBottomRightId,
+  topRight: getBottomLeftId,
+  left: getRightId,
+  right: getLeftId,
 };
 
 export const whiteHandlersSet = {
   forward: getForwardId,
   backward: getBackwardId,
-  left: getTopLeftId,
-  right: getTopRightId,
+  topLeft: getTopLeftId,
+  topRight: getTopRightId,
+  left: getLeftId,
+  right: getRightId,
 };
 
 export const teamHandlersMap: Record<FigureTeam, IStepsHandlersSet> = {
