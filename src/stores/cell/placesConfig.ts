@@ -36,7 +36,7 @@ export const teamsConfigs: Record<FigureTeam, ConfigItemType[]> = {
   ],
   [FigureTeam.WHITE]: [
     {
-      cellsIds: ['a2', 'b2', 'c2', 'd2', 'e2', 'g6', 'g2', 'h2'],
+      cellsIds: ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2'],
       figure: FigureType.PAWN,
     },
     {
