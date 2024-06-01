@@ -36,7 +36,8 @@ export function getPreviousNumber(number: NumberValueType): NumberValueType | nu
   return String(+number - 1) as NumberValueType;
 }
 
-export function getForwardId(id: CellIdType): CellIdType | null {
+export function getForwardId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const nextNumber = getNextNumber(number);
@@ -45,7 +46,8 @@ export function getForwardId(id: CellIdType): CellIdType | null {
   return getCellId(char, nextNumber);
 }
 
-export function getBackwardId(id: CellIdType): CellIdType | null {
+export function getBackwardId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const previousNumber = getPreviousNumber(number);
@@ -54,7 +56,8 @@ export function getBackwardId(id: CellIdType): CellIdType | null {
   return getCellId(char, previousNumber);
 }
 
-export function getLeftId(id: CellIdType): CellIdType | null {
+export function getLeftId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const previousChar = getPreviousChar(char);
@@ -63,7 +66,8 @@ export function getLeftId(id: CellIdType): CellIdType | null {
   return getCellId(previousChar, number);
 }
 
-export function getRightId(id: CellIdType): CellIdType | null {
+export function getRightId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const nextChar = getNextChar(char);
@@ -72,7 +76,8 @@ export function getRightId(id: CellIdType): CellIdType | null {
   return getCellId(nextChar, number);
 }
 
-export function getTopRightId(id: CellIdType): CellIdType | null {
+export function getTopRightId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const nextChar = getNextChar(char);
@@ -82,7 +87,8 @@ export function getTopRightId(id: CellIdType): CellIdType | null {
   return getCellId(nextChar, nextNumber);
 }
 
-export function getTopLeftId(id: CellIdType): CellIdType | null {
+export function getTopLeftId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const previousChar = getPreviousChar(char);
@@ -92,7 +98,8 @@ export function getTopLeftId(id: CellIdType): CellIdType | null {
   return getCellId(previousChar, nextNumber);
 }
 
-export function getBottomRightId(id: CellIdType): CellIdType | null {
+export function getBottomRightId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const nextChar = getNextChar(char);
@@ -102,7 +109,8 @@ export function getBottomRightId(id: CellIdType): CellIdType | null {
   return getCellId(nextChar, previousNumber);
 }
 
-export function getBottomLeftId(id: CellIdType): CellIdType | null {
+export function getBottomLeftId(id: CellIdType | null): CellIdType | null {
+  if (!id) return null;
   const char = id[0] as CharValueType;
   const number = id[1] as NumberValueType;
   const previousChar = getPreviousChar(char);
