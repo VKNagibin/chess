@@ -2,6 +2,7 @@ import './index.less';
 
 import LazySvg from '@components/LazySvg';
 import { useUnit } from 'effector-react';
+import { useEffect } from 'react';
 
 import CellClass from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
@@ -35,6 +36,15 @@ const Cell = ({ cell }: ICellsProps) => {
 
   const tabIndex = cell.figure ? 0 : -1;
 
+  useEffect(() => {
+    cell.isOver &&
+      alert(
+        `Game over! ${
+          cell.figure?.team === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK
+        } team win!`,
+      );
+  }, [cell.isOver]);
+
   return (
     <button
       onClick={() => handleCellFocus({ cellId: cell.id, currentStepTeam })}
@@ -43,7 +53,9 @@ const Cell = ({ cell }: ICellsProps) => {
       } ${hoverClass}`}
       tabIndex={tabIndex}
     >
-      {cell.figure ? <LazySvg name={getFigureSvgName(cell.figure)} /> : null}
+      {cell.figure && !cell.hiddenFigure ? (
+        <LazySvg name={getFigureSvgName(cell.figure)} />
+      ) : null}
     </button>
   );
 };
