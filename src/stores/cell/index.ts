@@ -6,6 +6,7 @@ import { CellIdType } from '@/entities/Cell/types';
 import { IStep } from '@/stores/cell/types';
 import {
   arrangeCells,
+  changeTeamFilter,
   checkIsStep,
   findById,
   findFocusedCell,
@@ -26,6 +27,7 @@ export const onCellFocus = createEvent<{
 }>();
 
 export const changeTeam = createEvent();
+export const onGameOver = createEvent();
 export const $currentStepTeam = createStore<FigureTeam>(FigureTeam.WHITE);
 export const $cells = createStore<Cell[]>(arrangeCells());
 
@@ -36,15 +38,13 @@ $currentStepTeam.on(changeTeam, (currentStepTeam) =>
 sample({
   clock: onCellFocus,
   source: $cells,
-  filter: (cells, { cellId, currentStepTeam }) => {
-    const currentCell = findById(cells, cellId) as Cell;
-    const isIllegalFocus = currentCell.figure?.team !== currentStepTeam;
-    if (isIllegalFocus) return false;
-
-    return !!currentCell.figure && currentCell.highlight !== HighlightType.SELECTED;
-  },
+  filter: (cells, { cellId, currentStepTeam }) =>
+    changeTeamFilter(cells, cellId, currentStepTeam),
   target: changeTeam,
 });
+
+$currentStepTeam.on(onGameOver, () => FigureTeam.WHITE);
+$cells.on(onGameOver, () => arrangeCells());
 
 $cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): Cell[] => {
   const cellAlreadyFocused = findFocusedCell(cells)?.id === cellId;
