@@ -9,12 +9,18 @@ function addPawnDefaultStep(
   targetCellId: CellIdType | null,
   cells: Cell[],
   steps: IStep[],
+  enPassantCellId?: CellIdType,
 ): boolean {
   if (!targetCellId) return false;
   const targetCell = findById(cells, targetCellId) as Cell;
   if (!targetCell) return false;
   if (targetCell.figure) return false;
-  steps.push({ cellId: targetCellId, highlight: HighlightType.DEFAULT_STEP });
+
+  steps.push({
+    cellId: targetCellId,
+    highlight: HighlightType.DEFAULT_STEP,
+    enPassantCellId: enPassantCellId,
+  });
   return true;
 }
 
@@ -43,7 +49,7 @@ export default function handlePawnSteps(cells: Cell[], focusedCell: Cell) {
   const previousStepAdded = addPawnDefaultStep(oneToForwardId, cells, steps);
   if (previousStepAdded && focusedCell.figure!.isFirstStep) {
     const twoToForwardId = forward(oneToForwardId!);
-    addPawnDefaultStep(twoToForwardId, cells, steps);
+    addPawnDefaultStep(twoToForwardId, cells, steps, oneToForwardId!);
   }
   const leftId = left(focusedCell.id);
   addPawnKillStep(leftId, cells, steps, team);
