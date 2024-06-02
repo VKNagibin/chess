@@ -1,6 +1,6 @@
 import { CellIdType } from '@/entities/Cell/types';
 
-type HandlerType = (id: CellIdType | null) => CellIdType | null;
+export type HandlerType = (id: CellIdType | null) => CellIdType | null;
 
 export interface IStepsHandlersSet {
   forward: HandlerType;
@@ -14,3 +14,4 @@ export interface IStepsHandlersSet {
 }
 
 export type PotentialStepType = { [key: string]: CellIdType | null };
+export type RecursiveStepType = HandlerType[];
