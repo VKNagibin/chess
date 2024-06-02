@@ -1,10 +1,10 @@
 import Cell from '@/entities/Cell/Cell';
 import { teamHandlersMap } from '@/stepsController/data';
-import { addStep } from '@/stepsController/knight';
 import { PotentialStepType } from '@/stepsController/types';
+import addStep from '@/stepsController/utils/addStep';
 import { IStep } from '@/stores/cell/types';
 
-export function handleKingSteps(cells: Cell[], focusedCell: Cell) {
+export default function (cells: Cell[], focusedCell: Cell) {
   const steps: IStep[] = [];
   const currentTeam = focusedCell.figure!.team;
   const { forward, topRight, bottomRight, bottomLeft, topLeft, left, right, backward } =
