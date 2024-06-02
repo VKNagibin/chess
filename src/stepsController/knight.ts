@@ -1,12 +1,11 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import { CellIdType } from '@/entities/Cell/types';
+import { PotentialStepType } from '@/stepsController/types';
 import { IStep } from '@/stores/cell/types';
 import { findById } from '@/stores/cell/utils';
 
 import { teamHandlersMap } from './data';
-
-type PotentialStepType = { [key: string]: CellIdType | null };
 
 export function addStep(
   targetCellId: CellIdType | null,
