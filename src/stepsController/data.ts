@@ -16,6 +16,8 @@ export const blackHandlersSet = {
   backward: getForwardId,
   topLeft: getBottomRightId,
   topRight: getBottomLeftId,
+  bottomLeft: getTopRightId,
+  bottomRight: getTopLeftId,
   left: getRightId,
   right: getLeftId,
 };
@@ -25,6 +27,8 @@ export const whiteHandlersSet = {
   backward: getBackwardId,
   topLeft: getTopLeftId,
   topRight: getTopRightId,
+  bottomLeft: getBottomLeftId,
+  bottomRight: getBottomRightId,
   left: getLeftId,
   right: getRightId,
 };
