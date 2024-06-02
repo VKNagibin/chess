@@ -19,6 +19,14 @@ interface IBoardState {
   currentFigure: Figure;
 }
 
+export function checkIsKing(cell: Cell): boolean {
+  if (!cell.figure) return false;
+  return cell.figure.type === FigureType.KING;
+}
+
+export const getEnemyTeam = (team: FigureTeam) =>
+  team === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK;
+
 export function arrangeCells(): Cell[] {
   const cellsList = new Array(64).fill(undefined);
 
@@ -144,6 +152,10 @@ export function getAfterStepBoardState(
     afterStepCellsState = handlePawnStep(stepOwnerCell, currentCell, cells);
   else
     afterStepCellsState = stepsWithoutHighlight.map((cell) => {
+      if (cell.hiddenFigure) {
+        cell.hiddenFigure = false;
+        cell.figure = null;
+      }
       if (cell.id === currentCell.id) return { ...cell, figure: currentFigure };
       if (cell.id === stepOwnerCell!.id) return { ...cell, figure: null };
       return cell;
@@ -157,10 +169,11 @@ export function handleStep(currentCell: Cell, cells: Cell[]): Cell[] {
     currentCell,
     cells,
   );
+
   const ourKingEnemies = getKingEnemies(preparedCells, currentFigure.team);
   const theirKingEnemies = getKingEnemies(
     preparedCells,
-    currentFigure.team === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK,
+    getEnemyTeam(currentFigure.team),
   );
 
   if (ourKingEnemies.length) {
@@ -183,7 +196,7 @@ export function handleStep(currentCell: Cell, cells: Cell[]): Cell[] {
         currentFigure.team === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK,
       )
     )
-      return resetCellsHighlight(cells);
+      return preparedCells;
     return preparedCells.map((cell) => {
       if (currentCell.id === cell.id)
         return {
@@ -217,7 +230,7 @@ export function saveStepsExist(cells: Cell[], currentTeam: FigureTeam): boolean 
         currentTeamCells[cellIndex],
       );
       const kingEnemies = getKingEnemies(testAfterStepCells, currentFigure.team);
-      if (!kingEnemies) return true;
+      if (!kingEnemies.length) return true;
     }
   }
 
@@ -229,8 +242,9 @@ export function getKingEnemies(cells: Cell[], currentTeam: FigureTeam): Cell[] {
   const enemyTeamCells = cellsWithFigures.filter(
     (cell) => cell.figure!.team !== currentTeam,
   );
+
   const kingCellId = cellsWithFigures.find(
-    (cell) => cell.figure!.team === currentTeam && cell.checkIsKing(),
+    (cell) => cell.figure!.team === currentTeam && checkIsKing(cell),
   )!.id;
 
   const kingEnemies: Cell[] = [];
