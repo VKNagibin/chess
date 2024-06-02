@@ -9,4 +9,8 @@ export interface IStepsHandlersSet {
   left: HandlerType;
   topLeft: HandlerType;
   topRight: HandlerType;
+  bottomLeft: HandlerType;
+  bottomRight: HandlerType;
 }
+
+export type PotentialStepType = { [key: string]: CellIdType | null };
