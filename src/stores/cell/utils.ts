@@ -146,7 +146,7 @@ export function getAfterStepBoardState(
   const currentFigure = stepOwnerCell.figure!;
   const stepsWithoutHighlight = resetCellsHighlight(cells);
 
-  let afterStepCellsState: Cell[] = [];
+  let afterStepCellsState: Cell[];
 
   if (currentFigure.type === FigureType.PAWN)
     afterStepCellsState = handlePawnStep(stepOwnerCell, currentCell, cells);
