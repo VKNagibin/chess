@@ -4,6 +4,7 @@ import { uniqId } from '@/utils';
 class Figure {
   id: string = uniqId();
   isFirstStep = true;
+  isUnderAttack = false;
 
   constructor(public type: FigureType, public team: FigureTeam) {}
 }
