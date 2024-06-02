@@ -1,6 +1,5 @@
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
-
-import { CharValueType, NumberValueType } from '../../entities/Cell/types';
+import { CharValueType, NumberValueType } from '@/entities/Cell/types';
 
 export type ConfigItemType = {
   cellsIds: `${CharValueType}${NumberValueType}`[];

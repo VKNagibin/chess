@@ -3,7 +3,7 @@ import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import { CellIdType } from '@/entities/Cell/types';
 import { teamHandlersMap } from '@/stepsController/data';
 import { IStep } from '@/stores/cell/types';
-import { findById } from '@/stores/cell/utils';
+import { findById } from '@/stores/cell/utils/utils';
 
 export default function (cells: Cell[], focusedCell: Cell) {
   const steps: IStep[] = [];

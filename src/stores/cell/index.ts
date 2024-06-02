@@ -4,6 +4,8 @@ import Cell from '@/entities/Cell/Cell';
 import { FigureTeam } from '@/entities/Cell/enums';
 import { CellIdType } from '@/entities/Cell/types';
 import { IStep } from '@/stores/cell/types';
+import arrangeCells from '@/stores/cell/utils/arrangeCells';
+import { handleStep } from '@/stores/cell/utils/handleStep';
 import {
   changeTeamFilter,
   checkIsStep,
@@ -12,9 +14,7 @@ import {
   getSteps,
   handleFigureSelect,
   resetCellsHighlight,
-} from '@/stores/cell/utils';
-import arrangeCells from '@/stores/cell/utils/arrangeCells';
-import { handleStep } from '@/stores/cell/utils/handleStep';
+} from '@/stores/cell/utils/utils';
 import { changeTeam, onGameOver } from '@/stores/events';
 
 export const onCellFocus = createEvent<{

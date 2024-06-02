@@ -1,5 +1,5 @@
 import Cell from '@/entities/Cell/Cell';
-import { resetCellsHighlight } from '@/stores/cell/utils';
+import { resetCellsHighlight } from '@/stores/cell/utils/utils';
 
 export default function (stepOwner: Cell, currentCell: Cell, cells: Cell[]) {
   const cellsWithoutHighlight = resetCellsHighlight(cells);
