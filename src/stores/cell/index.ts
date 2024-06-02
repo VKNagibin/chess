@@ -1,39 +1,28 @@
 import { createEvent, createStore, sample } from 'effector';
 
 import Cell from '@/entities/Cell/Cell';
-import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import { FigureTeam } from '@/entities/Cell/enums';
 import { CellIdType } from '@/entities/Cell/types';
 import { IStep } from '@/stores/cell/types';
 import {
-  arrangeCells,
   changeTeamFilter,
   checkIsStep,
   findById,
   findFocusedCell,
   getSteps,
   handleFigureSelect,
-  handleStep,
   resetCellsHighlight,
 } from '@/stores/cell/utils';
-
-export const stepTypeHighlightList = [
-  HighlightType.KILL_STEP,
-  HighlightType.DEFAULT_STEP,
-];
+import arrangeCells from '@/stores/cell/utils/arrangeCells';
+import { handleStep } from '@/stores/cell/utils/handleStep';
+import { changeTeam, onGameOver } from '@/stores/events';
 
 export const onCellFocus = createEvent<{
   cellId: CellIdType;
   currentStepTeam: FigureTeam;
 }>();
 
-export const changeTeam = createEvent();
-export const onGameOver = createEvent();
-export const $currentStepTeam = createStore<FigureTeam>(FigureTeam.WHITE);
 export const $cells = createStore<Cell[]>(arrangeCells());
-
-$currentStepTeam.on(changeTeam, (currentStepTeam) =>
-  currentStepTeam === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK,
-);
 
 sample({
   clock: onCellFocus,
@@ -43,7 +32,6 @@ sample({
   target: changeTeam,
 });
 
-$currentStepTeam.on(onGameOver, () => FigureTeam.WHITE);
 $cells.on(onGameOver, () => arrangeCells());
 
 $cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): Cell[] => {
