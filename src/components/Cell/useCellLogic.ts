@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam } from '@/entities/Cell/enums';
-import { $currentStepTeam, onCellFocus, onGameOver } from '@/stores/cell';
+import { onCellFocus } from '@/stores/cell';
+import { onGameOver } from '@/stores/events';
+import { $currentStepTeam } from '@/stores/team';
 
 import { classByHighlightType } from './data';
 import { getHoverClass } from './utils';

@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react';
 
-import { $currentStepTeam } from '@/stores/cell';
+import { $currentStepTeam } from '@/stores/team';
 
 function StepTeam() {
   const currentStepTeam = useUnit($currentStepTeam);
