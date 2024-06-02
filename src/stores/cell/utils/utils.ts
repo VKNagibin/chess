@@ -3,7 +3,7 @@ import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
 import { CellIdType } from '@/entities/Cell/types';
 import handlersByFigureTypeMap from '@/stepsController';
 
-import { IStep } from './types';
+import { IStep } from '../types';
 
 const stepTypeHighlightList = [HighlightType.KILL_STEP, HighlightType.DEFAULT_STEP];
 
