@@ -1,4 +1,5 @@
 import Cell from '@/entities/Cell/Cell';
+import { FigureTeam } from '@/entities/Cell/enums';
 import { teamHandlersMap } from '@/stepsController/data';
 import { PotentialStepType } from '@/stepsController/types';
 import addStep from '@/stepsController/utils/addStep';
@@ -6,9 +7,9 @@ import { IStep } from '@/stores/cell/types';
 
 export default function (cells: Cell[], focusedCell: Cell) {
   const steps: IStep[] = [];
-  const currentTeam = focusedCell.figure!.team;
+  const team = focusedCell.figure!.team;
   const { forward, topRight, bottomRight, bottomLeft, topLeft, left, right, backward } =
-    teamHandlersMap[currentTeam];
+    teamHandlersMap[team];
 
   const kingPotentialSteps: PotentialStepType = {
     oneToTop: forward(focusedCell.id),
@@ -22,8 +23,15 @@ export default function (cells: Cell[], focusedCell: Cell) {
   };
 
   Object.keys(kingPotentialSteps).forEach((stepName) => {
-    addStep(kingPotentialSteps[stepName], cells, steps, currentTeam);
+    addStep(kingPotentialSteps[stepName], cells, steps, team);
   });
 
+  addCastlingSteps(cells, steps, focusedCell, team);
+
   return steps;
+}
+
+function addCastlingSteps(cells: Cell[], steps: IStep[], king: Cell, team: FigureTeam) {
+  if (!king.figure!.isFirstStep) return;
+  if (!king.figure!.isUnderAttack) return;
 }
