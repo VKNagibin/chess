@@ -6,6 +6,7 @@ import { resetCellsHighlight } from '@/stores/cell/utils/utils';
 
 interface IBoardState {
   cells: Cell[];
+  stepOwnerCell: Cell;
   currentFigure: Figure;
 }
 
@@ -16,10 +17,8 @@ export default function (
 ): IBoardState {
   const stepOwnerCell =
     stepOwner || cells.find((cell) => cell.highlight === HighlightType.SELECTED)!;
-  if (!stepOwnerCell) throw new Error('Ups...Something went wrong...');
   const currentFigure = stepOwnerCell.figure!;
   const stepsWithoutHighlight = resetCellsHighlight(cells);
-
   let afterStepCellsState: Cell[];
 
   if (currentFigure.type === FigureType.PAWN)
@@ -35,5 +34,5 @@ export default function (
       return cell;
     });
 
-  return { cells: afterStepCellsState, currentFigure };
+  return { cells: afterStepCellsState, stepOwnerCell, currentFigure };
 }
