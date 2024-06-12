@@ -13,6 +13,7 @@ export enum HighlightType {
   SELECTED = 'selected',
   DEFAULT_STEP = 'step',
   KILL_STEP = 'kill',
+  CASTLING_STEP = 'castling',
 }
 
 export enum FigureType {
