@@ -12,7 +12,7 @@ export default function (
 ): Cell[] {
   if (isKingCanBeSaved(cells, team)) {
     return resetCellsHighlight(cells).map((cell) => {
-      if (cell.id === king?.id)
+      if (cell.id === king?.id && cell.figure)
         return { ...cell, figure: { ...cell.figure, isUnderAttack: true } } as Cell;
       return cell;
     });
