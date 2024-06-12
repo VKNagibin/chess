@@ -7,8 +7,7 @@ export const GlobalStyles = createGlobalStyle`
       box-sizing: border-box;
   }
   
-  #root
-  {
+  #root {
       height: 100vh;
       display: flex;
       flex-direction: column;
