@@ -1,5 +1,4 @@
-import './index.less';
-
+import { StyledCell } from '@components/Cell/styled';
 import LazySvg from '@components/LazySvg';
 
 import CellClass from '@/entities/Cell/Cell';
@@ -15,7 +14,7 @@ const Cell = ({ cell }: ICellsProps) => {
   const { tabIndex, handleCellFocus, currentStepTeam, className } = useCellLogic(cell);
 
   return (
-    <button
+    <StyledCell
       onClick={() => handleCellFocus({ cellId: cell.id, currentStepTeam })}
       className={className}
       tabIndex={tabIndex}
@@ -23,7 +22,7 @@ const Cell = ({ cell }: ICellsProps) => {
       {cell.figure && !cell.hiddenFigure ? (
         <LazySvg name={getFigureSvgName(cell.figure)} />
       ) : null}
-    </button>
+    </StyledCell>
   );
 };
 
