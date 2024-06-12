@@ -11,7 +11,7 @@ export default function (
 ) {
   if (isKingCanBeSaved(preparedCells, getEnemyTeam(team))) {
     return preparedCells.map((cell) => {
-      if (cell.id === king?.id)
+      if (cell.id === king?.id && cell.figure)
         return { ...cell, figure: { ...cell.figure, isUnderAttack: true } } as Cell;
       return cell;
     });
