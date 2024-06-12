@@ -1,24 +1,19 @@
-import './index.less';
-
+import { StyledChar, StyledChars } from '@components/Chars/styled';
 import { memo } from 'react';
 
 import { cellCharsList } from '@/entities/Cell/constants';
 
 interface IProps {
-  className?: string;
+  append?: boolean;
 }
 
-const Chars = ({ className }: IProps) => {
+const Chars = ({ append }: IProps) => {
   return (
-    <div className={`charset ${className}`}>
-      {cellCharsList.map((char) => {
-        return (
-          <div key={char} className="char">
-            {char}
-          </div>
-        );
-      })}
-    </div>
+    <StyledChars $append={append}>
+      {cellCharsList.map((char) => (
+        <StyledChar key={char}>{char}</StyledChar>
+      ))}
+    </StyledChars>
   );
 };
 
