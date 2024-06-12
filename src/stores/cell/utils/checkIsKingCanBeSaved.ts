@@ -2,7 +2,7 @@ import Cell from '@/entities/Cell/Cell';
 import { FigureTeam } from '@/entities/Cell/enums';
 import getAfterStepBoardState from '@/stores/cell/utils/getAfterStepBoardState';
 import getKingEnemies from '@/stores/cell/utils/getKingEnemies';
-import { getSteps } from '@/stores/cell/utils/utils';
+import { getSteps } from '@/stores/cell/utils/helpers';
 
 export default function (cells: Cell[], currentTeam: FigureTeam): boolean {
   const cellsWithFigures = cells.filter((cell) => cell.figure);

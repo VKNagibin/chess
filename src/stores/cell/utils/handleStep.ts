@@ -4,7 +4,7 @@ import getAfterStepBoardState from '@/stores/cell/utils/getAfterStepBoardState';
 import getKingEnemies from '@/stores/cell/utils/getKingEnemies';
 import getOurKingAttackResult from '@/stores/cell/utils/getOurKingAttackResult';
 import getTheirKingAttackResult from '@/stores/cell/utils/getTheirKingAttackResult';
-import { checkIsKing, getEnemyTeam } from '@/stores/cell/utils/utils';
+import { checkIsKing, getEnemyTeam } from '@/stores/cell/utils/helpers';
 
 const clearCastling = (cells: Cell[]) => cells.map((cell) => ({ ...cell, castling: [] }));
 

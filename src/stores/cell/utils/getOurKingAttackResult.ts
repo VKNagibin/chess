@@ -1,7 +1,7 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam } from '@/entities/Cell/enums';
 import isKingCanBeSaved from '@/stores/cell/utils/checkIsKingCanBeSaved';
-import { resetCellsHighlight } from '@/stores/cell/utils/utils';
+import { resetCellsHighlight } from '@/stores/cell/utils/helpers';
 
 export default function (
   king: Cell,

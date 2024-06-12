@@ -1,7 +1,7 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam } from '@/entities/Cell/enums';
 import Figure from '@/entities/Figure';
-import { checkIsStep } from '@/stores/cell/utils/utils';
+import { checkIsStep } from '@/stores/cell/utils/helpers';
 
 export const getHoverClass = (cell: Cell, currentStepTeam: FigureTeam) => {
   const isStep = checkIsStep(cell.highlight);

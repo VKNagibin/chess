@@ -2,7 +2,7 @@ import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import { CellIdType } from '@/entities/Cell/types';
 import { IStep } from '@/stores/cell/types';
-import { findById } from '@/stores/cell/utils/utils';
+import { findById } from '@/stores/cell/utils/helpers';
 
 type AddStepResultType = { done: boolean; type?: HighlightType };
 

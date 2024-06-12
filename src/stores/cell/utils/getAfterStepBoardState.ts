@@ -2,7 +2,7 @@ import Cell from '@/entities/Cell/Cell';
 import { FigureType, HighlightType } from '@/entities/Cell/enums';
 import Figure from '@/entities/Figure';
 import handlePawnStep from '@/stores/cell/utils/handlePawnStep';
-import { resetCellsHighlight } from '@/stores/cell/utils/utils';
+import { resetCellsHighlight } from '@/stores/cell/utils/helpers';
 
 interface IBoardState {
   cells: Cell[];
