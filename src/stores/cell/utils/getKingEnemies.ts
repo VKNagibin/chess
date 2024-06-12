@@ -15,7 +15,7 @@ export default function (cells: Cell[], currentTeam: FigureTeam): Cell[] {
   const kingEnemies: Cell[] = [];
 
   enemyTeamCells.forEach((enemyCell) => {
-    const cellSteps = getSteps(cells, enemyCell);
+    const cellSteps = getSteps(cells, enemyCell, true);
     cellSteps.forEach((step) => {
       step.cellId === kingCellId && kingEnemies.push(enemyCell);
     });
