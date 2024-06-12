@@ -10,7 +10,7 @@ import { IStep } from '@/stores/cell/types';
 
 const handlersByFigureTypeMap: Record<
   FigureType,
-  (cells: Cell[], focusedCell: Cell) => IStep[]
+  (cells: Cell[], focusedCell: Cell, ignoreCastling?: boolean) => IStep[]
 > = {
   [FigureType.PAWN]: handlePawnSteps,
   [FigureType.KING]: handleKingSteps,
