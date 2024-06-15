@@ -1,3 +1,4 @@
+import Modals from '@components/Modals';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -8,6 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
     <App />
+    <Modals />
   </React.StrictMode>,
   document.getElementById('root'),
 );
