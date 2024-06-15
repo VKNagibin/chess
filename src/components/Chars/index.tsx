@@ -3,13 +3,9 @@ import { memo } from 'react';
 
 import { cellCharsList } from '@/entities/Cell/constants';
 
-interface IProps {
-  append?: boolean;
-}
-
-const Chars = ({ append }: IProps) => {
+const Chars = () => {
   return (
-    <StyledChars $append={append}>
+    <StyledChars>
       {cellCharsList.map((char) => (
         <StyledChar key={char}>{char}</StyledChar>
       ))}
