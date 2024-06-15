@@ -2,15 +2,14 @@ import styled from 'styled-components';
 
 export const StyledBoardWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const StyledBoard = styled.div`
+export const StyledBoardCenter = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  background-color: white;
-  border: 10px solid black;
-  width: 640px;
-  height: 640px;
-  box-sizing: content-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
