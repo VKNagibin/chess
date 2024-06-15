@@ -1,8 +1,9 @@
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
-import { uniqId } from '@/utils';
+import { uniqId } from '@/entities/Cell/utils';
 
 class Figure {
   id: string = uniqId();
+  isMutatedPawn = false;
   isFirstStep = true;
   isUnderAttack = false;
 
