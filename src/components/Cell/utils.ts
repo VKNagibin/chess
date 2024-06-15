@@ -1,6 +1,5 @@
 import Cell from '@/entities/Cell/Cell';
-import { FigureTeam } from '@/entities/Cell/enums';
-import Figure from '@/entities/Figure';
+import { FigureTeam, FigureType } from '@/entities/Cell/enums';
 import { checkIsStep } from '@/stores/cell/utils/helpers';
 
 export const getHoverClass = (cell: Cell, currentStepTeam: FigureTeam) => {
@@ -9,4 +8,10 @@ export const getHoverClass = (cell: Cell, currentStepTeam: FigureTeam) => {
   return isStep || isCurrentTeam ? 'filled' : '';
 };
 
-export const getFigureSvgName = (figure: Figure) => `${figure.type}_${figure.team}`;
+interface IFigureSvgData {
+  type: FigureType;
+  team: FigureTeam;
+}
+
+export const getFigureSvgName = (figure: IFigureSvgData) =>
+  `${figure.type}_${figure.team}`;
