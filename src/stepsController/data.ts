@@ -1,5 +1,4 @@
 import { FigureTeam } from '@/entities/Cell/enums';
-import { IStepsHandlersSet } from '@/stepsController/types';
 import {
   getBackwardId,
   getBottomLeftId,
@@ -9,7 +8,8 @@ import {
   getRightId,
   getTopLeftId,
   getTopRightId,
-} from '@/utils';
+} from '@/entities/Cell/utils';
+import { IStepsHandlersSet } from '@/stepsController/types';
 
 export const blackHandlersSet = {
   forward: getBackwardId,

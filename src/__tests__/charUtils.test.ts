@@ -10,7 +10,7 @@ import {
   getPreviousNumber,
   getTopLeftId,
   getTopRightId,
-} from '@/utils';
+} from '@/entities/Cell/utils';
 
 interface IBoardStepsUtils {
   getCellId: (char: CharValueType, number: NumberValueType) => string;

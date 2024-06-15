@@ -6,9 +6,9 @@ import {
 } from '@/entities/Cell/constants';
 import { CellColor, FigureTeam } from '@/entities/Cell/enums';
 import { CharValueType, NumberValueType } from '@/entities/Cell/types';
+import { getCellId } from '@/entities/Cell/utils';
 import Figure from '@/entities/Figure';
 import { teamsConfigs } from '@/stores/cell/placesConfig';
-import { getCellId } from '@/utils';
 
 export default function (): Cell[] {
   const cellsList = new Array(64).fill(undefined);
