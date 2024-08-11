@@ -33,11 +33,13 @@ module.exports = {
   ],
   plugins: ['simple-import-sort', 'prettier'],
   rules: {
+    'prefer-const': 'off',
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/accessible-emoji': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'jsx-a11y/anchor-is-valid': [

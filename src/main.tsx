@@ -1,13 +1,17 @@
-import './index.css';
+import './lang/i18n';
 
+import Modals from '@components/Modals';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { createPortal } from 'react-dom';
 
-import App from './App';
+import App from '@/components/App/App';
+import { GlobalStyles } from '@/global.styled';
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyles />
     <App />
+    {createPortal(<Modals />, document.body)}
   </React.StrictMode>,
   document.getElementById('root'),
 );

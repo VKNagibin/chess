@@ -1,0 +1,10 @@
+{
+  "team": {
+    "white": "White",
+    "black": "Black"
+  },
+  "pawnMutationModal": {
+    "title": "Choose a figure to replace the {{ cellId }} pawn",
+    "submitButton": "Confirm"
+  }
+}
