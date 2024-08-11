@@ -1,0 +1,10 @@
+{
+  "team": {
+    "white": "Белые",
+    "black": "Черные"
+  },
+  "pawnMutationModal": {
+    "title": "Выберите фигуру взамен пешки {{ cellId }}",
+    "submitButton": "Подтвердить"
+  }
+}

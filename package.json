@@ -4,21 +4,21 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
-    "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
-    "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
-    "lint": "npm run lint:format && npm run lint:fix ",
+    "lint": "eslint --ext .jsx,.js,.ts,.tsx --ignore-path .gitignore .",
     "type-check": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" "
   },
   "dependencies": {
     "@babel/preset-env": "^7.24.5",
     "effector": "^23.2.1",
     "effector-react": "^23.2.1",
+    "i18next": "^23.11.5",
     "less": "^4.2.0",
     "mobx-react": "^9.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-i18next": "^14.1.2",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
