@@ -1,9 +1,9 @@
-import { getFigureSvgName } from '@components/Cell/utils';
-import LazySvg from '@components/LazySvg';
+import { getFigureSvgName } from '_comp/Cell/utils';
+import LazySvg from '_comp/LazySvg';
 import {
   StyledFigureButton,
   StyledFiguresContainer,
-} from '@components/PawnMutateModal/components/FiguresList/styled';
+} from '_comp/PawnMutateModal/components/FiguresList/styled';
 import { useUnit } from 'effector-react';
 import { useState } from 'react';
 

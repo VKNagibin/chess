@@ -5,9 +5,11 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   plugins: [svgr(), react()],
-  alias: {
-    '@': path.resolve(__dirname, './src'),
-    '~': path.resolve(__dirname, './public'),
-    '@components': path.resolve(__dirname, './src/components'),
+  resolve: {
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
+      { find: '_comp', replacement: path.resolve(__dirname, './src/components') },
+      { find: '_img', replacement: path.resolve(__dirname, './src/assets') },
+    ],
   },
 });

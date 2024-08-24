@@ -1,6 +1,6 @@
 import './lang/i18n';
 
-import Modals from '@components/Modals';
+import Modals from '_comp/Modals';
 import React from 'react';
 import ReactDOM, { createPortal } from 'react-dom';
 

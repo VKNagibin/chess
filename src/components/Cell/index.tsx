@@ -1,6 +1,7 @@
-import { StyledCell } from '@components/Cell/styled';
+import { StyledCell } from '_comp/Cell/styled';
+import figuresSvg from '_img/figures';
+import { ReactSVG } from 'react-svg';
 
-import figuresSvg from '@/assets/figures';
 import CellClass from '@/entities/Cell/Cell';
 
 import useCellLogic from './useCellLogic';
@@ -20,7 +21,7 @@ const Cell = ({ cell }: ICellsProps) => {
       tabIndex={tabIndex}
     >
       {cell.figure && !cell.hiddenFigure ? (
-        <img src={figuresSvg[getFigureSvgName(cell.figure)]} alt="figure" />
+        <ReactSVG src={figuresSvg[getFigureSvgName(cell.figure)]} />
       ) : null}
     </StyledCell>
   );
