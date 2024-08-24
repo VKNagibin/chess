@@ -9,7 +9,7 @@ const useLazySvg = (name: string) => {
     setLoading(true);
     const importIcon = async () => {
       try {
-        importRef.current = (await import(`../assets/${name}.svg?react`)).default;
+        importRef.current = (await import(`~/assets/${name}.svg?react`)).default;
       } catch (err) {
         setError(err as Error);
       } finally {
