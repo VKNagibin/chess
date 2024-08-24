@@ -1,3 +1,4 @@
+import { FigureSvgNameType } from '@/assets/figures';
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
 import { checkIsStep } from '@/stores/cell/utils/helpers';
@@ -13,5 +14,5 @@ interface IFigureSvgData {
   team: FigureTeam;
 }
 
-export const getFigureSvgName = (figure: IFigureSvgData) =>
+export const getFigureSvgName = (figure: IFigureSvgData): FigureSvgNameType =>
   `${figure.type}_${figure.team}`;

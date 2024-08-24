@@ -1,6 +1,6 @@
 import { StyledCell } from '@components/Cell/styled';
-import LazySvg from '@components/LazySvg';
 
+import figuresSvg from '@/assets/figures';
 import CellClass from '@/entities/Cell/Cell';
 
 import useCellLogic from './useCellLogic';
@@ -20,7 +20,7 @@ const Cell = ({ cell }: ICellsProps) => {
       tabIndex={tabIndex}
     >
       {cell.figure && !cell.hiddenFigure ? (
-        <LazySvg name={getFigureSvgName(cell.figure)} />
+        <img src={figuresSvg[getFigureSvgName(cell.figure)]} alt="figure" />
       ) : null}
     </StyledCell>
   );
