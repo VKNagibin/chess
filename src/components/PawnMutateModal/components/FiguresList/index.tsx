@@ -1,11 +1,11 @@
 import { getFigureSvgName } from '_comp/Cell/utils';
-import LazySvg from '_comp/LazySvg';
 import {
   StyledFigureButton,
   StyledFiguresContainer,
 } from '_comp/PawnMutateModal/components/FiguresList/styled';
+import figuresSvg from '_img/figures';
 import { useUnit } from 'effector-react';
-import { useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
 import { FigureType } from '@/entities/Cell/enums';
 import { $mutatingEntity } from '@/stores/pawnMutateModal';
@@ -37,7 +37,9 @@ const FiguresList = ({ selectedType, onSelectFigure }: IProps) => {
             onSelectFigure(type);
           }}
         >
-          <LazySvg name={getFigureSvgName({ type, team: entityForMutation.team })} />
+          <ReactSVG
+            src={figuresSvg[getFigureSvgName({ type, team: entityForMutation.team })]}
+          />
         </StyledFigureButton>
       ))}
     </StyledFiguresContainer>
