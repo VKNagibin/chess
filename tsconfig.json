@@ -19,7 +19,8 @@
     "paths": {
       "@/*": ["src/*"],
       "_comp/*": ["src/components/*"],
-      "_img/*": ["src/assets/*"]
+      "_img/*": ["src/assets/*"],
+      "@mui/styled-engine": ["@mui/styled-engine-sc"],
     }
   },
   "include": ["src"],

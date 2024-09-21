@@ -10,6 +10,7 @@ export default defineConfig({
       { find: '@', replacement: path.resolve(__dirname, 'src') },
       { find: '_comp', replacement: path.resolve(__dirname, './src/components') },
       { find: '_img', replacement: path.resolve(__dirname, './src/assets') },
+      { find: '@mui/styled-engine', replacement: '@mui/styled-engine-sc' },
     ],
   },
 });
