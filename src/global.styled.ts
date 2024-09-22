@@ -13,15 +13,29 @@ export const GlobalStyles = createGlobalStyle`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: rgb(218, 216, 216);
+      background-color: rgb(231 212 186);
   }
+
+  // TODO вынести в более подходящее место
+  .figureIconContainer {
+    position: relative;
+    z-index: 100;
+    will-change: transform;
+    transition: transform .3s;
+
+    &.kill:hover {
+      transform: scale(1.05);
+    }
+
+    &.currentTeam:hover {
+      transform: scale(1.05);
+    } 
+  }
+  
   
   body {
     min-width: max-content;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    font-family: 'Roboto', sans-serif;
   }
   
 `;

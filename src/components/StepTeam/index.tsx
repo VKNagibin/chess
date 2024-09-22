@@ -6,7 +6,7 @@ import { $currentStepTeam } from '@/stores/team';
 function StepTeam() {
   const currentStepTeam = useUnit($currentStepTeam);
 
-  return <h1>{t(`team.${currentStepTeam}`)}</h1>;
+  return <h2>{t(`team.${currentStepTeam}`)}</h2>;
 }
 
 export default StepTeam;

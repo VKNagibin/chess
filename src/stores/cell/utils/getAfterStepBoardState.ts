@@ -1,5 +1,8 @@
+import { FigureSvgNameType } from '_img/figures';
+
 import Cell from '@/entities/Cell/Cell';
 import { FigureType, HighlightType } from '@/entities/Cell/enums';
+import { AnimationActionType } from '@/entities/Cell/types';
 import Figure from '@/entities/Figure';
 import handlePawnStep from '@/stores/cell/utils/handlePawnStep';
 import { resetCellsHighlight } from '@/stores/cell/utils/helpers';
@@ -29,8 +32,30 @@ export default function (
         cell.hiddenFigure = false;
         cell.figure = null;
       }
-      if (cell.id === currentCell.id) return { ...cell, figure: currentFigure };
-      if (cell.id === stepOwnerCell!.id) return { ...cell, figure: null };
+      // TODO рефакторинг для упрощения понимания
+
+      if (cell.id === currentCell.id)
+        return {
+          ...cell,
+          figure: currentFigure,
+          animationConfig: {
+            actorIcon: currentCell.figure
+              ? (`${currentCell.figure?.type}_${currentCell.figure?.team}` as FigureSvgNameType)
+              : null,
+            action: currentCell.figure ? AnimationActionType.DEAD : null,
+          },
+        };
+      if (cell.id === stepOwnerCell!.id)
+        return {
+          ...cell,
+          figure: null,
+          animationConfig: {
+            actorIcon:
+              `${stepOwnerCell.figure?.type}_${stepOwnerCell.figure?.team}` as FigureSvgNameType,
+            action: AnimationActionType.MOVE,
+            coordinates: currentCell.coordinates,
+          },
+        };
       return cell;
     });
 

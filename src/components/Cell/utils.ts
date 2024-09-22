@@ -11,7 +11,8 @@ interface IFigureSvgData {
 export const getHoverClass = (cell: Cell, currentStepTeam: FigureTeam) => {
   const isStep = checkIsStep(cell.highlight);
   const isCurrentTeam = currentStepTeam === cell.figure?.team;
-  return isStep || isCurrentTeam ? 'filled' : '';
+  if (isStep) return 'filled';
+  if (isCurrentTeam) return 'currentTeam';
 };
 
 export const getFigureSvgName = (figure: IFigureSvgData): FigureSvgNameType =>

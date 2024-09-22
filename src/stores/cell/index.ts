@@ -17,7 +17,7 @@ import {
   resetCellsHighlight,
 } from '@/stores/cell/utils/helpers';
 import { changeTeam, onGameOver } from '@/stores/events';
-import { onCloseMutateModal, onStartPawnMutate } from '@/stores/pawnMutateModal';
+import { onStartPawnMutate } from '@/stores/pawnMutateModal';
 
 export const onCellFocus = createEvent<ICellFocusHandler>();
 export const onSelectFigureForMutate = createEvent<ISelectedFigureForMutate>();
@@ -71,16 +71,24 @@ $cells.on(onSelectFigureForMutate, (cells, { cellId, type }) => {
 });
 
 $cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): Cell[] => {
-  const cellAlreadyFocused = findFocusedCell(cells)?.id === cellId;
-  if (cellAlreadyFocused) return cells;
+  const cellsClearedFromLastIteration = cells.map((cell) => {
+    if (!cell.animationConfig) return cell;
+    return {
+      ...cell,
+      animationConfig: null,
+    };
+  });
+  const cellAlreadyFocused =
+    findFocusedCell(cellsClearedFromLastIteration)?.id === cellId;
+  if (cellAlreadyFocused) return cellsClearedFromLastIteration;
 
-  const currentCell = findById(cells, cellId) as Cell;
+  const currentCell = findById(cellsClearedFromLastIteration, cellId) as Cell;
   const isStep = checkIsStep(currentCell.highlight);
   const isIllegalFocus = currentCell.figure?.team !== currentStepTeam;
-  const cellsWithoutHighlights = resetCellsHighlight(cells);
+  const cellsWithoutHighlights = resetCellsHighlight(cellsClearedFromLastIteration);
 
   if (!isStep && isIllegalFocus) return cellsWithoutHighlights;
-  if (isStep) return handleStep(currentCell, cells);
+  if (isStep) return handleStep(currentCell, cellsClearedFromLastIteration);
 
   const steps: IStep[] = getSteps(cellsWithoutHighlights, currentCell);
 
