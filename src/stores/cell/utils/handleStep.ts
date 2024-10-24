@@ -6,7 +6,11 @@ import getOurKingAttackResult from '@/stores/cell/utils/getOurKingAttackResult';
 import getTheirKingAttackResult from '@/stores/cell/utils/getTheirKingAttackResult';
 import { checkIsKing, getEnemyTeam } from '@/stores/cell/utils/helpers';
 
-const clearCastling = (cells: Cell[]) => cells.map((cell) => ({ ...cell, castling: [] }));
+const clearCastling = (cells: Cell[]) =>
+  cells.map((cell) => {
+    if (!cell.castling.length) return cell;
+    return { ...cell, castling: [] };
+  });
 
 function getKing(cells: Cell[], team: FigureTeam) {
   return cells.find((cell) => cell.figure?.team === team && checkIsKing(cell));
@@ -52,6 +56,5 @@ export function handleStep(currentCell: Cell, cells: Cell[]): Cell[] {
     );
     return clearCastling(afterStepState.cells);
   }
-
   return clearCastling(preparedCells);
 }

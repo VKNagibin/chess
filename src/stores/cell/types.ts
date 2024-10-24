@@ -1,6 +1,5 @@
-import { ICastling } from '@/entities/Cell/Cell';
 import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
-import { CellIdType } from '@/entities/Cell/types';
+import { CellIdType, ICastling } from '@/entities/Cell/types';
 
 export interface IStep {
   cellId: CellIdType;

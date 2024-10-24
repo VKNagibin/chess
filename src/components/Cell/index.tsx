@@ -1,32 +1,55 @@
 import AnimationActor from '_comp/AnimationActor';
 import { StyledCell } from '_comp/Cell/styled';
 import figuresSvg from '_img/figures';
+import { EventCallable } from 'effector';
+import { memo } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import CellClass from '@/entities/Cell/Cell';
+import { CellColor, FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
+import { CellIdType, IFigureActionAnimationConfig } from '@/entities/Cell/types';
+import { ICellFocusHandler } from '@/stores/cell/types';
 
 import useCellLogic from './useCellLogic';
 import { getFigureSvgName } from './utils';
 
 interface IProps {
-  cell: CellClass;
+  id: CellIdType;
+  animationConfig: IFigureActionAnimationConfig | null;
+  hiddenFigure: boolean;
+  color: CellColor;
+  highlight: HighlightType;
+  isOver: boolean;
+  setCoordinates: (x: number, y: number) => void;
+  x: number;
+  y: number;
+  figureTeam?: FigureTeam;
+  figureType?: FigureType;
+  figureUnderAttack?: boolean;
 }
 
-const Cell = ({ cell }: IProps) => {
+const Cell = (props: IProps) => {
+  const { id, animationConfig, figureTeam, figureType, x, y } = props;
+
   const {
     cellRef,
+    currentStepTeam,
     showFigure,
     iconRef,
     tabIndex,
     handleCellFocus,
-    currentStepTeam,
     className,
-  } = useCellLogic(cell);
+  } = useCellLogic(props);
 
   return (
     <StyledCell
       ref={cellRef}
-      onClick={() => handleCellFocus({ cellId: cell.id, currentStepTeam })}
+      onClick={() => {
+        if (!currentStepTeam) return;
+        (handleCellFocus as EventCallable<ICellFocusHandler>)({
+          cellId: id,
+          currentStepTeam,
+        });
+      }}
       className={className}
       tabIndex={tabIndex}
     >
@@ -35,18 +58,18 @@ const Cell = ({ cell }: IProps) => {
           // @ts-ignore
           ref={iconRef}
           className={`figureIconContainer ${className}`}
-          src={figuresSvg[getFigureSvgName(cell.figure!)]}
+          src={figuresSvg[getFigureSvgName({ team: figureTeam!, type: figureType! })]}
         />
       ) : null}
-      {!!cell.animationConfig && (
+      {!!animationConfig && (
         <AnimationActor
           className={className}
-          animationConfig={cell.animationConfig}
-          coordinates={cell.coordinates}
+          animationConfig={animationConfig}
+          coordinates={[x, y]}
         />
       )}
     </StyledCell>
   );
 };
 
-export default Cell;
+export default memo(Cell);

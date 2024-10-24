@@ -72,10 +72,11 @@ $cells.on(onSelectFigureForMutate, (cells, { cellId, type }) => {
 
 $cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): Cell[] => {
   const cellsClearedFromLastIteration = cells.map((cell) => {
-    if (!cell.animationConfig) return cell;
+    if (!cell.animationConfig && !cell.figure?.isUnderAttack) return cell;
     return {
       ...cell,
       animationConfig: null,
+      figure: cell.figure ? { ...cell.figure, isUnderAttack: false } : null,
     };
   });
   const cellAlreadyFocused =

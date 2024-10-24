@@ -1,10 +1,12 @@
+import { EventCallable, StoreWritable } from 'effector';
 import { useUnit } from 'effector-react';
 import { useEffect, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import Cell from '@/entities/Cell/Cell';
-import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import { CellColor, FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import { IFigureActionAnimationConfig } from '@/entities/Cell/types';
 import { onCellFocus } from '@/stores/cell';
+import { ICellFocusHandler } from '@/stores/cell/types';
 import { onGameOver } from '@/stores/events';
 import { $currentStepTeam } from '@/stores/team';
 
@@ -15,44 +17,66 @@ import {
 } from './data';
 import { getHoverClass } from './utils';
 
-export default function useCellLogic(cell: Cell) {
+interface IProps {
+  figureTeam?: FigureTeam;
+  animationConfig: IFigureActionAnimationConfig | null;
+  hiddenFigure: boolean;
+  color: CellColor;
+  highlight: HighlightType;
+  setCoordinates: (x: number, y: number) => void;
+  isOver: boolean;
+  figureUnderAttack?: boolean;
+}
+
+type StoreData = (
+  | EventCallable<void>
+  | EventCallable<ICellFocusHandler>
+  | StoreWritable<FigureTeam>
+)[];
+
+const getStoreData = (highlight: HighlightType, figureTeam?: FigureTeam): StoreData => {
+  const values: StoreData = [onCellFocus, onGameOver];
+  if (highlight !== HighlightType.NONE || figureTeam) values.push($currentStepTeam);
+  return values;
+};
+
+export default function useCellLogic({
+  figureTeam,
+  animationConfig,
+  hiddenFigure,
+  color,
+  highlight,
+  isOver,
+  figureUnderAttack,
+  setCoordinates,
+}: IProps) {
   const cellRef = useRef<HTMLButtonElement | null>(null);
   const iconRef = useRef<ReactSVG | null>(null);
-  const [handleCellFocus, handleGameOver, currentStepTeam] = useUnit([
-    onCellFocus,
-    onGameOver,
-    $currentStepTeam,
-  ]);
+  const [handleCellFocus, handleGameOver, currentStepTeam = null] = useUnit(
+    getStoreData(highlight, figureTeam),
+  );
 
-  const hoverClass = getHoverClass(cell, currentStepTeam);
-  const tabIndex = cell.figure ? 0 : -1;
-  const showFigure = !cell.animationConfig && cell.figure && !cell.hiddenFigure;
-
-  const className = `cell ${cell.color} ${
-    classByHighlightType[cell.highlight]
-  } ${hoverClass}`;
+  const hoverClass = getHoverClass({ currentStepTeam, highlight, figureTeam });
+  const tabIndex = figureTeam ? 0 : -1;
+  const showFigure = !animationConfig && figureTeam && !hiddenFigure;
+  const className = `cell ${color} ${classByHighlightType[highlight]} ${hoverClass}`;
 
   useEffect(() => {
-    if (cell.isOver) {
+    if (isOver) {
       setTimeout(() => {
-        handleGameOver();
+        (handleGameOver as EventCallable<void>)();
 
         alert(
           `Game over! ${
-            cell.figure?.team === FigureTeam.BLACK ? FigureTeam.BLACK : FigureTeam.WHITE
+            figureTeam === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK
           } team win!`,
         );
       }, 200);
     }
-  }, [cell.isOver]);
+  }, [isOver]);
 
   useEffect(() => {
-    if (
-      cell.highlight === HighlightType.SELECTED ||
-      !cell.figure ||
-      !cell.figure?.isUnderAttack
-    )
-      return;
+    if (!figureUnderAttack) return;
     iconRef?.current?.reactWrapper?.animate?.(
       kingAnimationKeyframes,
       kingAnimationOptions,
@@ -68,14 +92,13 @@ export default function useCellLogic(cell: Cell) {
       top = 0,
     } = cellRef.current.getBoundingClientRect();
 
-    cell.setCoordinates(
+    setCoordinates(
       parseInt(String(left - width / 2)),
       parseInt(String(top - height / 2)),
     );
   }, [cellRef.current]);
 
   return {
-    hoverClass,
     tabIndex,
     currentStepTeam,
     className,

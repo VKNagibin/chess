@@ -1,5 +1,5 @@
 import Cell from '@/entities/Cell/Cell';
-import { FigureTeam } from '@/entities/Cell/enums';
+import { FigureTeam, FigureType } from '@/entities/Cell/enums';
 import isKingCanBeSaved from '@/stores/cell/utils/checkIsKingCanBeSaved';
 import { resetCellsHighlight } from '@/stores/cell/utils/helpers';
 
@@ -12,7 +12,7 @@ export default function (
 ): Cell[] {
   if (isKingCanBeSaved(cells, team)) {
     return resetCellsHighlight(cells).map((cell) => {
-      if (cell.id === king?.id && cell.figure)
+      if (cell.id === king?.id && cell.figure?.type === FigureType.KING)
         return { ...cell, figure: { ...cell.figure, isUnderAttack: true } } as Cell;
       return cell;
     });

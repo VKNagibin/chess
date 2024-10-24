@@ -1,6 +1,5 @@
 import { FigureSvgNameType } from '@/assets/figures';
-import Cell from '@/entities/Cell/Cell';
-import { FigureTeam, FigureType } from '@/entities/Cell/enums';
+import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
 import { checkIsStep } from '@/stores/cell/utils/helpers';
 
 interface IFigureSvgData {
@@ -8,9 +7,18 @@ interface IFigureSvgData {
   team: FigureTeam;
 }
 
-export const getHoverClass = (cell: Cell, currentStepTeam: FigureTeam) => {
-  const isStep = checkIsStep(cell.highlight);
-  const isCurrentTeam = currentStepTeam === cell.figure?.team;
+export const getHoverClass = ({
+  figureTeam,
+  highlight,
+  currentStepTeam,
+}: {
+  figureTeam?: FigureTeam;
+  highlight: HighlightType;
+  currentStepTeam?: FigureTeam | null;
+}) => {
+  if (!currentStepTeam) return;
+  const isStep = checkIsStep(highlight);
+  const isCurrentTeam = currentStepTeam === figureTeam;
   if (isStep) return 'filled';
   if (isCurrentTeam) return 'currentTeam';
 };
