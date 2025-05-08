@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -17,12 +21,23 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "_comp/*": ["src/components/*"],
-      "_img/*": ["src/assets/*"],
-      "@mui/styled-engine": ["@mui/styled-engine-sc"],
+      "@/*": [
+        "src/*"
+      ],
+      "@img/*": [
+        "src/assets/*"
+      ],
+      "@mui/styled-engine": [
+        "@mui/styled-engine-sc"
+      ]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

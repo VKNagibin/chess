@@ -1,6 +1,6 @@
-import AnimationActor from '_comp/AnimationActor';
-import { StyledCell } from '_comp/Cell/styled';
-import figuresSvg from '_img/figures';
+import AnimationActor from '@/components/AnimationActor';
+import { StyledCell } from '@/components/Cell/styled';
+import figuresSvg from '@img/figures';
 import { ReactSVG } from 'react-svg';
 
 import CellClass from '@/entities/Cell/Cell';

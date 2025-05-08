@@ -1,4 +1,4 @@
-import { StyledChar, StyledChars } from '_comp/Chars/styled';
+import { StyledChar, StyledChars } from '@/components/Chars/styled';
 import { memo } from 'react';
 
 import { cellCharsList } from '@/entities/Cell/constants';

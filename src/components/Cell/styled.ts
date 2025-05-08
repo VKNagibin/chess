@@ -1,5 +1,5 @@
-import blackWood from '_img/blackWood.jpg';
-import whiteWood from '_img/whiteWood.png';
+import blackWood from '@img/blackWood.jpg';
+import whiteWood from '@img/whiteWood.png';
 import styled from 'styled-components';
 
 export const StyledCell = styled.button`

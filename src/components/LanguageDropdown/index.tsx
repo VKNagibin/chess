@@ -1,4 +1,4 @@
-import { StyledContainer } from '_comp/LanguageDropdown/styled';
+import { StyledContainer } from '@/components/LanguageDropdown/styled';
 
 function LanguageDropdown() {
   return (

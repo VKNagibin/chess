@@ -1,9 +1,9 @@
-import { getFigureSvgName } from '_comp/Cell/utils';
+import { getFigureSvgName } from '@/components/Cell/utils';
 import {
   StyledFigureButton,
   StyledFiguresContainer,
-} from '_comp/PawnMutateModal/components/FiguresList/styled';
-import figuresSvg from '_img/figures';
+} from '@/components/PawnMutateModal/components/FiguresList/styled';
+import figuresSvg from '@img/figures';
 import { useUnit } from 'effector-react';
 import { ReactSVG } from 'react-svg';
 

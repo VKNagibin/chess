@@ -1,7 +1,7 @@
-import { StyledApp } from '_comp/App/styled';
-import Board from '_comp/Board';
-import LanguageDropdown from '_comp/LanguageDropdown';
-import StepTeam from '_comp/StepTeam';
+import { StyledApp } from '@/components/App/styled';
+import Board from '@/components/Board';
+import LanguageDropdown from '@/components/LanguageDropdown';
+import StepTeam from '@/components/StepTeam';
 
 function App() {
   return (

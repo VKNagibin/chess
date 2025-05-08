@@ -1,7 +1,7 @@
-import { StyledBoardCenter, StyledBoardWrapper } from '_comp/Board/styled';
-import Cells from '_comp/Cells';
-import Chars from '_comp/Chars';
-import Numbers from '_comp/Numbers';
+import { StyledBoardCenter, StyledBoardWrapper } from '@/components/Board/styled';
+import Cells from '@/components/Cells';
+import Chars from '@/components/Chars';
+import Numbers from '@/components/Numbers';
 
 function Board() {
   return (

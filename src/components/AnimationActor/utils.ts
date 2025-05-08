@@ -1,6 +1,9 @@
-import { deadAnimationOptions, moveAnimationOptions } from '_comp/AnimationActor/data';
 import { WrapperType } from 'react-svg';
 
+import {
+  deadAnimationOptions,
+  moveAnimationOptions,
+} from '@/components/AnimationActor/data';
 import { AnimationActionType, IFigureActionAnimationConfig } from '@/entities/Cell/types';
 import { RectangularCoordinates } from '@/shared/types';
 

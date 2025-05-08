@@ -1,4 +1,4 @@
-import { FigureSvgNameType } from '_img/figures';
+import { FigureSvgNameType } from '@img/figures';
 
 import Cell from '@/entities/Cell/Cell';
 import { AnimationActionType } from '@/entities/Cell/types';

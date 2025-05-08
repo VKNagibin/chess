@@ -1,4 +1,4 @@
-import PawnMutateModal from '_comp/PawnMutateModal';
+import PawnMutateModal from '@/components/PawnMutateModal';
 
 const Modals = () => {
   return <PawnMutateModal />;

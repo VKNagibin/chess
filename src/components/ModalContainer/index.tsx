@@ -3,7 +3,7 @@ import {
   StyledHeader,
   StyledModalCard,
   StyledOverlay,
-} from '_comp/ModalContainer/styled';
+} from '@/components/ModalContainer/styled';
 import React, { memo, PropsWithChildren } from 'react';
 
 interface IProps {

@@ -1,5 +1,5 @@
-import Cell from '_comp/Cell';
-import { StyledCellsWrapper } from '_comp/Cells/styled';
+import Cell from '@/components/Cell';
+import { StyledCellsWrapper } from '@/components/Cells/styled';
 import { useList } from 'effector-react';
 import React from 'react';
 

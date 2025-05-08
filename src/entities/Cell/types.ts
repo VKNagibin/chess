@@ -1,4 +1,4 @@
-import { FigureSvgNameType } from '_img/figures';
+import { FigureSvgNameType } from '@img/figures';
 
 import Cell from '@/entities/Cell/Cell';
 import { CELL_CHAR, CELL_NUMBER } from '@/entities/Cell/constants';
