@@ -1,5 +1,5 @@
-import { ICastling } from '@/entities/Cell/Cell';
 import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
+import { ICastling } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
 
 export interface IStep {
@@ -18,4 +18,5 @@ export interface ICellFocusHandler {
   cellId: CellIdType;
   currentStepTeam: FigureTeam;
 }
+
 1;

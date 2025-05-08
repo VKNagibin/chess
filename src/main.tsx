@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client';
 import App from '@/components/App/App';
 import { GlobalStyles } from '@/global.styled';
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GlobalStyles />
     <App />

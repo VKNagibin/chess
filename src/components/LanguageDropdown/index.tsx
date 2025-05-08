@@ -1,6 +1,4 @@
 import { StyledContainer } from '_comp/LanguageDropdown/styled';
-import i18n from 'i18next';
-import { useState } from 'react';
 
 function LanguageDropdown() {
   return (
