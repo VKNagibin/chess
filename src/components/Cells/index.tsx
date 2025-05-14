@@ -1,8 +1,8 @@
-import Cell from '@/components/Cell';
-import { StyledCellsWrapper } from '@/components/Cells/styled';
 import { useList } from 'effector-react';
 import React from 'react';
 
+import Cell from '@/components/Cell';
+import { StyledCellsWrapper } from '@/components/Cells/styled';
 import { $cells } from '@/stores/cell';
 
 const Cells = () => {

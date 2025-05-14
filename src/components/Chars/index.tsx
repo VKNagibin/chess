@@ -1,6 +1,6 @@
-import { StyledChar, StyledChars } from '@/components/Chars/styled';
 import { memo } from 'react';
 
+import { StyledChar, StyledChars } from '@/components/Chars/styled';
 import { cellCharsList } from '@/entities/Cell/constants';
 
 const Chars = () => {

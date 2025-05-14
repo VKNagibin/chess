@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import ModalContainer from '@/components/ModalContainer';
 import FiguresList from '@/components/PawnMutateModal/components/FiguresList';
 import {
@@ -5,7 +7,6 @@ import {
   StyledButtonsContainer,
 } from '@/components/PawnMutateModal/styled';
 import usePawnMutateModal from '@/components/PawnMutateModal/usePawnMutateModal';
-import { t } from 'i18next';
 
 const PawnMutateModal = () => {
   const { isOpen, selectedType, entityForMutation, setSelectedType, onSubmit } =

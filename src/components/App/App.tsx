@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { StyledApp } from '@/components/App/styled';
 import Board from '@/components/Board';
 import LanguageDropdown from '@/components/LanguageDropdown';

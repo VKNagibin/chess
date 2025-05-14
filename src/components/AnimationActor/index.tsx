@@ -1,8 +1,8 @@
-import { runActorAnimation } from '@/components/AnimationActor/utils';
 import figuresSvg, { FigureSvgNameType } from '@img/figures';
 import { useEffect, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
+import { runActorAnimation } from '@/components/AnimationActor/utils';
 import { IFigureActionAnimationConfig } from '@/entities/Cell/types';
 import { RectangularCoordinates } from '@/shared/types';
 

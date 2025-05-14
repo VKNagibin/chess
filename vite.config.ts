@@ -1,30 +1,33 @@
-import { federation } from '@module-federation/vite';
+// import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { defineConfig } from 'vite';
 
+// import { dependencies } from './package.json';
+
 export default defineConfig({
   plugins: [
     react(),
-    federation({
-      name: 'chess',
-      manifest: true,
-      remotes: {
-        redButton: {
-          type: 'module',
-          name: 'redButton',
-          entry: 'http://localhost:3001',
-        },
-      },
-      shared: {
-        react: {
-          singleton: true,
-        },
-        'react/': {
-          singleton: true,
-        },
-      },
-    }),
+    // federation({
+    //   name: 'chess',
+    //   remotes: {
+    //     redButton: {
+    //       name: 'redButton',
+    //       type: 'module',
+    //       entry: './dist/remoteEntry.js',
+    //     },
+    //   },
+    //   shared: {
+    //     react: {
+    //       singleton: true,
+    //       requiredVersion: dependencies['react'],
+    //     },
+    //     'react-dom': {
+    //       singleton: true,
+    //       requiredVersion: dependencies['react-dom'],
+    //     },
+    //   },
+    // }),
   ],
   server: {
     origin: 'http://localhost:2000',

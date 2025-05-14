@@ -1,12 +1,12 @@
+import figuresSvg from '@img/figures';
+import { useUnit } from 'effector-react';
+import { ReactSVG } from 'react-svg';
+
 import { getFigureSvgName } from '@/components/Cell/utils';
 import {
   StyledFigureButton,
   StyledFiguresContainer,
 } from '@/components/PawnMutateModal/components/FiguresList/styled';
-import figuresSvg from '@img/figures';
-import { useUnit } from 'effector-react';
-import { ReactSVG } from 'react-svg';
-
 import { FigureType } from '@/entities/Cell/enums';
 import { $mutatingEntity } from '@/stores/pawnMutateModal';
 

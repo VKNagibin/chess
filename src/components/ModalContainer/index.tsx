@@ -1,10 +1,11 @@
+import React, { memo, PropsWithChildren } from 'react';
+
 import {
   StyledCrossButton,
   StyledHeader,
   StyledModalCard,
   StyledOverlay,
 } from '@/components/ModalContainer/styled';
-import React, { memo, PropsWithChildren } from 'react';
 
 interface IProps {
   title: string;
