@@ -9,8 +9,8 @@ import arrangeCells from '@/stores/cell/utils/arrangeCells';
 import handleFigureSelect from '@/stores/cell/utils/handleFigureSelect';
 import { handleStep } from '@/stores/cell/utils/handleStep';
 import {
-  changeTeamFilter,
   checkIsStep,
+  checkIsTimeToChangeStepTeam,
   findById,
   findFocusedCell,
   getSteps,
@@ -28,7 +28,7 @@ sample({
   clock: onCellFocus,
   source: $cells,
   filter: (cells, { cellId, currentStepTeam }) =>
-    changeTeamFilter(cells, cellId, currentStepTeam),
+    checkIsTimeToChangeStepTeam(cells, cellId, currentStepTeam),
   target: changeTeam,
 });
 
@@ -78,6 +78,7 @@ $cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): Cell[] => {
       animationConfig: null,
     };
   });
+
   const cellAlreadyFocused =
     findFocusedCell(cellsClearedFromLastIteration)?.id === cellId;
   if (cellAlreadyFocused) return cellsClearedFromLastIteration;

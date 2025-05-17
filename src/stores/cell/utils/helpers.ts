@@ -26,16 +26,16 @@ export const findById = (list: { id: string }[], id: string) =>
 export const findFocusedCell = (cells: Cell[]) =>
   cells.find((cell) => cell.highlight === HighlightType.SELECTED);
 
-export function changeTeamFilter(
+export function checkIsTimeToChangeStepTeam(
   cells: Cell[],
   cellId: CellIdType,
   currentStepTeam: FigureTeam,
 ) {
-  const currentCell = findById(cells, cellId) as Cell;
-  const isIllegalFocus = currentCell.figure?.team !== currentStepTeam;
-  if (isIllegalFocus) return false;
+  const selectedCell = findById(cells, cellId) as Cell;
+  const isTryToSelectEnemiesTeamFigure = selectedCell.figure?.team !== currentStepTeam;
+  if (isTryToSelectEnemiesTeamFigure) return false;
 
-  return !!currentCell.figure && currentCell.highlight !== HighlightType.SELECTED;
+  return !!selectedCell.figure && selectedCell.highlight !== HighlightType.SELECTED;
 }
 
 export function getSteps(cells: Cell[], focusedCell: Cell, ignoreCastling = false) {
