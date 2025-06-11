@@ -1,6 +1,6 @@
 import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
-import { ICastling } from '@/entities/Cell/types';
-import { CellIdType } from '@/entities/Cell/types';
+import type { ICastling, ICellAsPlainObject } from '@/entities/Cell/types';
+import type { CellIdType } from '@/entities/Cell/types';
 
 export interface IStep {
   cellId: CellIdType;
@@ -19,4 +19,9 @@ export interface ICellFocusHandler {
   currentStepTeam: FigureTeam;
 }
 
-1;
+export interface StepDataInterface {
+  currentCell: ICellAsPlainObject;
+  cells: ICellAsPlainObject[];
+  stepOwner?: ICellAsPlainObject;
+  ignoreCastling?: boolean;
+}

@@ -1,8 +1,4 @@
-import blackWood from '@img/blackWood.jpg';
-import whiteWood from '@img/whiteWood.png';
-import styled from 'styled-components';
-
-export const StyledCell = styled.button`
+.cell {
   position: relative;
   border-radius: 2px;
   width: 80px;
@@ -13,30 +9,11 @@ export const StyledCell = styled.button`
   border: none;
 
   &.white {
-    background: url(${whiteWood});
+    background-image: url('/white_wood.svg');
   }
 
   &.black {
-    background: url(${blackWood});
-  }
-
-  &.currentTeam {
-    cursor: pointer;
-  }
-
-  &.filled:hover {
-    cursor: pointer;
-    background: rgb(166, 143, 124);
-  }
-
-  &.filled:hover.black {
-    cursor: pointer;
-    background: url(${blackWood});
-  }
-
-  &.filled:hover.white {
-    cursor: pointer;
-    background: url(${whiteWood});
+      background: url('/black_wood.svg'); 
   }
 
   &.selected {
@@ -53,26 +30,30 @@ export const StyledCell = styled.button`
   }
 
   &.step::after {
-    will-change: transform;
-    transition: transform 0.3s;
     content: '';
     position: absolute;
+    will-change: transform;
+    transition: transform 0.3s;
     top: 50%;
     left: 50%;
-    border-radius: 50%;
     width: 16px;
     height: 16px;
+    border-radius: 50%;
     background: radial-gradient(circle, rgb(0 0 0) 54%, rgb(235 203 161) 61%);
     transform: translate(-50%, -50%);
   }
-
+ 
   &.step:hover {
+    cursor: pointer;
+
     &::after {
       transform: translate(-50%, -50%) scale(1.2);
     }
   }
 
   &.kill {
+    cursor: pointer; 
+
     &::after {
       will-change: transform;
       position: absolute;
@@ -86,14 +67,13 @@ export const StyledCell = styled.button`
       background: #6f2626;
       height: 3px;
     }
-    }
-
-    &:hover {
-      border-width: 6px;
-    }
   }
 
-  &.castling {
+  &.currentTeam {
+      cursor: pointer;
+  }
+
+   &.castling {
     &::after {
       will-change: transform;
       transition: transform 0.3s;
@@ -110,6 +90,24 @@ export const StyledCell = styled.button`
       &::after {
         transform: translate(-50%, -50%) scale(1.2);
       }
-    }
+    } 
   }
-`;
+}  
+
+.FigureIcon {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: transform 0.3s;
+  will-change: transform;
+  background: transparent;
+
+  &.kill:hover {
+      transform: scale(1.05);
+  }
+
+  &.currentTeam:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+  }
+}

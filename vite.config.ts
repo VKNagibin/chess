@@ -6,6 +6,10 @@ import { defineConfig } from 'vite';
 // import { dependencies } from './package.json';
 
 export default defineConfig({
+  publicDir: 'public',
+  build: {
+    outDir: 'build',
+  },
   plugins: [
     react(),
     // federation({
@@ -29,6 +33,12 @@ export default defineConfig({
     //   },
     // }),
   ],
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
+      generateScopedName: '[name]__[local]___[hash:base64:5]',
+    },
+  },
   server: {
     origin: 'http://localhost:2000',
     port: 2000,

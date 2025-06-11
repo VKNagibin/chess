@@ -1,26 +1,21 @@
-import { WrapperType } from 'react-svg';
-
 import {
   deadAnimationOptions,
   moveAnimationOptions,
 } from '@/components/AnimationActor/data';
 import { AnimationActionType, IFigureActionAnimationConfig } from '@/entities/Cell/types';
-import { RectangularCoordinates } from '@/shared/types';
+import { RectangularCoordinatesType } from '@/shared/types';
 
 interface IRunActorAnimation {
-  actor: WrapperType;
+  actor: SVGElement;
   animationConfig: IFigureActionAnimationConfig;
-  coordinates: RectangularCoordinates;
+  coordinates: RectangularCoordinatesType;
 }
 
 const checkIsMoveAnimationType = (
-  action?: AnimationActionType | null,
-  coordinates?: RectangularCoordinates,
-  animationCoordinates?: RectangularCoordinates,
-) =>
-  action === AnimationActionType.MOVE &&
-  coordinates?.length === 2 &&
-  animationCoordinates?.length === 2;
+  action: AnimationActionType,
+  coordinates: RectangularCoordinatesType,
+  animationCoordinates?: RectangularCoordinatesType | null,
+) => action === AnimationActionType.MOVE && coordinates && animationCoordinates;
 
 const checkIsDeadAnimationType = (action?: AnimationActionType | null) =>
   action === AnimationActionType.DEAD;
@@ -39,7 +34,7 @@ export const runActorAnimation = ({
   actor,
   animationConfig,
   coordinates,
-}: IRunActorAnimation) => {
+}: IRunActorAnimation): Animation | null => {
   if (
     checkIsMoveAnimationType(
       animationConfig.action,
@@ -47,14 +42,14 @@ export const runActorAnimation = ({
       animationConfig.coordinates,
     )
   ) {
-    const x = animationConfig.coordinates![0] - coordinates![0];
-    const y = animationConfig.coordinates![1] - coordinates![1];
-    actor.animate(getMoveAnimationKeyframes(x, y), moveAnimationOptions);
-    return;
+    const x = animationConfig.coordinates!.x - coordinates.x;
+    const y = animationConfig.coordinates!.y - coordinates.y;
+    return actor.animate(getMoveAnimationKeyframes(x, y), moveAnimationOptions);
   }
 
   if (checkIsDeadAnimationType(animationConfig?.action)) {
-    actor.animate(getDeadAnimationKeyframes(), deadAnimationOptions);
-    return;
+    return actor.animate(getDeadAnimationKeyframes(), deadAnimationOptions);
   }
+
+  return null;
 };

@@ -1,52 +1,42 @@
-import figuresSvg from '@img/figures';
-import { ReactSVG } from 'react-svg';
+import './index.scss';
+
+import { memo } from 'react';
 
 import AnimationActor from '@/components/AnimationActor';
-import { StyledCell } from '@/components/Cell/styled';
-import CellClass from '@/entities/Cell/Cell';
+import { ICellAsPlainObject } from '@/entities/Cell/types';
+import { useAppActions } from '@/redux/hooks';
 
 import useCellLogic from './useCellLogic';
 import { getFigureSvgName } from './utils';
 
 interface IProps {
-  cell: CellClass;
+  cell: ICellAsPlainObject;
 }
 
 const Cell = ({ cell }: IProps) => {
-  const {
-    cellRef,
-    showFigure,
-    iconRef,
-    tabIndex,
-    handleCellFocus,
-    currentStepTeam,
-    className,
-  } = useCellLogic(cell);
+  const { clickOnCell } = useAppActions();
+  const { cellRef, showFigure, currentStepTeam, className } = useCellLogic(cell);
 
   return (
-    <StyledCell
+    <button
       ref={cellRef}
-      onClick={() => handleCellFocus({ cellId: cell.id, currentStepTeam })}
-      className={className}
-      tabIndex={tabIndex}
+      onClick={() => {
+        clickOnCell({ cellId: cell.id, currentStepTeam });
+      }}
+      className={`cell ${className}`}
+      tabIndex={cell.figure ? 0 : -1}
     >
-      {showFigure ? (
-        <ReactSVG
-          // @ts-ignore
-          ref={iconRef}
-          className={`figureIconContainer ${className}`}
-          src={figuresSvg[getFigureSvgName(cell.figure!)]}
-        />
-      ) : null}
-      {!!cell.animationConfig && (
-        <AnimationActor
-          className={className}
-          animationConfig={cell.animationConfig}
-          coordinates={cell.coordinates}
-        />
+      {!!showFigure && (
+        <svg className={`FigureIcon ${className}`}>
+          <use href={`/sprite.svg#${getFigureSvgName(cell.figure!)}`} />
+        </svg>
       )}
-    </StyledCell>
+      <AnimationActor
+        animationConfig={cell.animationConfig}
+        coordinates={cell.coordinates}
+      />
+    </button>
   );
 };
 
-export default Cell;
+export default memo(Cell);

@@ -1,3 +1,6 @@
 export type noneFn = () => void;
 
-export type RectangularCoordinates = [number, number];
+export type RectangularCoordinatesType = {
+  x: number;
+  y: number;
+};

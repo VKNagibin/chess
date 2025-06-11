@@ -1,4 +1,3 @@
-import figuresSvg from '@img/figures';
 import { useUnit } from 'effector-react';
 import { ReactSVG } from 'react-svg';
 

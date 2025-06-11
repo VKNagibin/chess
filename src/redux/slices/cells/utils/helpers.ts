@@ -1,6 +1,7 @@
-import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
+import { StepDataInterface } from '@/redux/slices/cells/types';
 import handlersByFigureTypeMap from '@/stepsController';
 
 const stepTypeHighlightList = [
@@ -9,13 +10,11 @@ const stepTypeHighlightList = [
   HighlightType.CASTLING_STEP,
 ];
 
-export const checkIsStep = (highlightType: HighlightType): boolean =>
+export const checkIsStep = (highlightType: HighlightType) =>
   stepTypeHighlightList.includes(highlightType);
 
-export function checkIsKing(cell: Cell): boolean {
-  if (!cell.figure) return false;
-  return cell.figure.type === FigureType.KING;
-}
+export const checkIsKing = (cell: ICellAsPlainObject) =>
+  cell.figure?.type === FigureType.KING;
 
 export const getEnemyTeam = (team: FigureTeam) =>
   team === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK;
@@ -23,32 +22,33 @@ export const getEnemyTeam = (team: FigureTeam) =>
 export const findById = (list: { id: string }[], id: string) =>
   list.find((item) => item.id === id);
 
-export const findFocusedCell = (cells: Cell[]) =>
+export const findFocusedCell = (cells: ICellAsPlainObject[]) =>
   cells.find((cell) => cell.highlight === HighlightType.SELECTED);
 
 export function checkIsTimeToChangeStepTeam(
-  cells: Cell[],
+  cells: ICellAsPlainObject[],
   cellId: CellIdType,
   currentStepTeam: FigureTeam,
 ) {
-  const selectedCell = findById(cells, cellId) as Cell;
+  const selectedCell = findById(cells, cellId) as ICellAsPlainObject;
   const isTryToSelectEnemiesTeamFigure = selectedCell.figure?.team !== currentStepTeam;
   if (isTryToSelectEnemiesTeamFigure) return false;
 
   return !!selectedCell.figure && selectedCell.highlight !== HighlightType.SELECTED;
 }
 
-export function getSteps(cells: Cell[], focusedCell: Cell, ignoreCastling = false) {
-  if (!focusedCell.figure) return [];
-  const handler = handlersByFigureTypeMap[focusedCell.figure.type];
-  return handler(cells, focusedCell, ignoreCastling);
+export function getSteps({
+  cells,
+  currentCell,
+  ignoreCastling = false,
+}: StepDataInterface) {
+  if (!currentCell.figure) return [];
+  const handler = handlersByFigureTypeMap[currentCell.figure.type];
+  return handler({ cells, currentCell, ignoreCastling });
 }
 
-export const resetCellsHighlight = (cells: Cell[]) =>
-  cells.map((cell) => {
-    if (cell.highlight === HighlightType.NONE) return cell;
-    return {
-      ...cell,
-      highlight: HighlightType.NONE,
-    };
+export const resetCellsHighlight = (cells: ICellAsPlainObject[]) => {
+  cells.forEach((cell) => {
+    if (cell.highlight !== HighlightType.NONE) cell.highlight = HighlightType.NONE;
   });
+};

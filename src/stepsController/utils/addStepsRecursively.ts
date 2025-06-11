@@ -1,14 +1,14 @@
-import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
+import { IStep } from '@/redux/slices/cells/types';
 import { HandlerType } from '@/stepsController/types';
 import addStep from '@/stepsController/utils/addStep';
-import { IStep } from '@/stores/cell/types';
 
 export interface IRecursiveStepsHandler {
   targetCellId: CellIdType | null;
   currentTeam: FigureTeam;
-  cells: Cell[];
+  cells: ICellAsPlainObject[];
   steps: IStep[];
   handler: HandlerType;
 }

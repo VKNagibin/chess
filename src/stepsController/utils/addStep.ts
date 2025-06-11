@@ -1,14 +1,15 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
-import { IStep } from '@/stores/cell/types';
-import { findById } from '@/stores/cell/utils/helpers';
+import { IStep } from '@/redux/slices/cells/types';
+import { findById } from '@/redux/slices/cells/utils/helpers';
 
 type AddStepResultType = { done: boolean; type?: HighlightType };
 
 export default function addStep(
   targetCellId: CellIdType | null,
-  cells: Cell[],
+  cells: ICellAsPlainObject[],
   steps: IStep[],
   currentTeam: FigureTeam,
 ): AddStepResultType {

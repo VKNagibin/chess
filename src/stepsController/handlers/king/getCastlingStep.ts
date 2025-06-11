@@ -1,9 +1,10 @@
 import Cell from '@/entities/Cell/Cell';
 import { HighlightType } from '@/entities/Cell/enums';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
+import { IStep } from '@/redux/slices/cells/types';
+import { findById } from '@/redux/slices/cells/utils/helpers';
 import { HandlerType } from '@/stepsController/types';
-import { IStep } from '@/stores/cell/types';
-import { findById } from '@/stores/cell/utils/helpers';
 
 export default function ({
   enemiesStepsIds,
@@ -14,9 +15,9 @@ export default function ({
   moveHandler,
 }: {
   moveHandler: HandlerType;
-  kingCell: Cell;
-  rookCell: Cell;
-  cells: Cell[];
+  kingCell: ICellAsPlainObject;
+  rookCell: ICellAsPlainObject;
+  cells: ICellAsPlainObject[];
   steps: IStep[];
   enemiesStepsIds: CellIdType[];
 }) {

@@ -1,22 +1,26 @@
-import Cell from '@/entities/Cell/Cell';
 import { FigureType } from '@/entities/Cell/enums';
-import { CellIdType } from '@/entities/Cell/types';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import type { CellIdType } from '@/entities/Cell/types';
+import { IStep } from '@/redux/slices/cells/types';
+import { getSteps } from '@/redux/slices/cells/utils/helpers';
 import { teamHandlersMap } from '@/stepsController/data';
 import getCastlingStep from '@/stepsController/handlers/king/getCastlingStep';
-import { IStep } from '@/stores/cell/types';
-import { getSteps } from '@/stores/cell/utils/helpers';
 
 export enum CastlingType {
   'SHORT' = 'short',
   'LONG' = 'long',
 }
 
-export const getCastlingType = (cell: Cell) => {
+export const getCastlingType = (cell: ICellAsPlainObject) => {
   const { left } = teamHandlersMap[cell.figure!.team];
   return left(cell.id) ? CastlingType.SHORT : CastlingType.LONG;
 };
 
-export default function (cells: Cell[], steps: IStep[], kingCell: Cell) {
+export default function (
+  cells: ICellAsPlainObject[],
+  steps: IStep[],
+  kingCell: ICellAsPlainObject,
+) {
   const team = kingCell.figure!.team;
   const rookCells = cells.filter(
     (cell) => cell.figure?.type === FigureType.ROOK && cell.figure.team === team,
@@ -26,7 +30,9 @@ export default function (cells: Cell[], steps: IStep[], kingCell: Cell) {
   );
 
   const enemiesStepsIds: CellIdType[] = enemyTeamCells.flatMap((cell) =>
-    getSteps(cells, cell, true).map((step) => step.cellId),
+    getSteps({ cells, currentCell: cell, ignoreCastling: true }).map(
+      (step) => step.cellId,
+    ),
   );
 
   rookCells.forEach((rookCell) => {

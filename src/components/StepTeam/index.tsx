@@ -1,10 +1,9 @@
-import { useUnit } from 'effector-react';
 import { t } from 'i18next';
 
-import { $currentStepTeam } from '@/stores/team';
+import { useAppSelector } from '@/redux/hooks';
 
 function StepTeam() {
-  const currentStepTeam = useUnit($currentStepTeam);
+  const currentStepTeam = useAppSelector(({ currentTeam }) => currentTeam.currentTeam);
 
   return <h2>{t(`team.${currentStepTeam}`)}</h2>;
 }

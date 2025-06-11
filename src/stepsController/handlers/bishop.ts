@@ -1,12 +1,12 @@
-import Cell from '@/entities/Cell/Cell';
+import { IStep, StepDataInterface } from '@/redux/slices/cells/types';
 import { teamHandlersMap } from '@/stepsController/data';
 import { RecursiveStepType } from '@/stepsController/types';
 import addStepsRecursively from '@/stepsController/utils/addStepsRecursively';
-import { IStep } from '@/stores/cell/types';
 
-export default function (cells: Cell[], focusedCell: Cell) {
+export default function ({ cells, currentCell }: StepDataInterface) {
   const steps: IStep[] = [];
-  const currentTeam = focusedCell.figure!.team;
+  const currentTeam = currentCell.figure?.team;
+  if (!currentTeam) return [];
   const { topRight, bottomRight, topLeft, bottomLeft } = teamHandlersMap[currentTeam];
 
   const bishopStepsHandlers: RecursiveStepType = [
@@ -18,7 +18,7 @@ export default function (cells: Cell[], focusedCell: Cell) {
 
   bishopStepsHandlers.forEach((handler) => {
     addStepsRecursively({
-      targetCellId: focusedCell.id,
+      targetCellId: currentCell.id,
       currentTeam,
       cells,
       steps,

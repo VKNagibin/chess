@@ -4,10 +4,14 @@ import Cell from '@/entities/Cell/Cell';
 import { CELL_NUMBER } from '@/entities/Cell/constants';
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
 import Figure from '@/entities/Figure';
-import { ICellFocusHandler, ISelectedFigureForMutate, IStep } from '@/stores/cell/types';
-import arrangeCells from '@/stores/cell/utils/arrangeCells';
-import handleFigureSelect from '@/stores/cell/utils/handleFigureSelect';
-import { handleStep } from '@/stores/cell/utils/handleStep';
+import {
+  ICellFocusHandler,
+  ISelectedFigureForMutate,
+  IStep,
+} from '@/redux/slices/cells/types';
+import arrangeCells from '@/redux/slices/cells/utils/arrangeCells';
+import handleFigureSelect from '@/redux/slices/cells/utils/handleFigureSelect';
+import { handleStep } from '@/redux/slices/cells/utils/handleStep';
 import {
   checkIsStep,
   checkIsTimeToChangeStepTeam,
@@ -15,7 +19,7 @@ import {
   findFocusedCell,
   getSteps,
   resetCellsHighlight,
-} from '@/stores/cell/utils/helpers';
+} from '@/redux/slices/cells/utils/helpers';
 import { changeTeam, onGameOver } from '@/stores/events';
 import { onStartPawnMutate } from '@/stores/pawnMutateModal';
 
@@ -70,7 +74,7 @@ $cells.on(onSelectFigureForMutate, (cells, { cellId, type }) => {
   });
 });
 
-$cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): Cell[] => {
+$cells.on(onCellFocus, (cells, { cellId, currentStepTeam }): ICellAsPlainObject[] => {
   const cellsClearedFromLastIteration = cells.map((cell) => {
     if (!cell.animationConfig) return cell;
     return {

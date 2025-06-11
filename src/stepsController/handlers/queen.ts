@@ -1,12 +1,11 @@
-import Cell from '@/entities/Cell/Cell';
+import { IStep, StepDataInterface } from '@/redux/slices/cells/types';
 import { teamHandlersMap } from '@/stepsController/data';
 import { RecursiveStepType } from '@/stepsController/types';
 import addStepsRecursively from '@/stepsController/utils/addStepsRecursively';
-import { IStep } from '@/stores/cell/types';
 
-export default function (cells: Cell[], focusedCell: Cell) {
+export default function ({ cells, currentCell: queenCell }: StepDataInterface) {
   const steps: IStep[] = [];
-  const currentTeam = focusedCell.figure!.team;
+  const currentTeam = queenCell.figure!.team;
   const { topRight, bottomRight, topLeft, bottomLeft, forward, backward, left, right } =
     teamHandlersMap[currentTeam];
 
@@ -23,7 +22,7 @@ export default function (cells: Cell[], focusedCell: Cell) {
 
   queenStepsHandlers.forEach((handler) => {
     addStepsRecursively({
-      targetCellId: focusedCell.id,
+      targetCellId: queenCell.id,
       currentTeam,
       cells,
       steps,

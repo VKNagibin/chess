@@ -1,39 +1,43 @@
-import figuresSvg, { FigureSvgNameType } from '@img/figures';
-import { useEffect, useRef } from 'react';
-import { ReactSVG } from 'react-svg';
+import { memo, useEffect, useRef } from 'react';
 
 import { runActorAnimation } from '@/components/AnimationActor/utils';
-import { IFigureActionAnimationConfig } from '@/entities/Cell/types';
-import { RectangularCoordinates } from '@/shared/types';
+import { AnimationActionType, IFigureActionAnimationConfig } from '@/entities/Cell/types';
+import { useAppActions } from '@/redux/hooks';
+import type { RectangularCoordinatesType } from '@/shared/types';
 
 interface IProps {
-  className?: string;
-  animationConfig: IFigureActionAnimationConfig;
-  coordinates: RectangularCoordinates;
+  animationConfig: IFigureActionAnimationConfig | null;
+  coordinates: RectangularCoordinatesType | null;
 }
 
-const AnimationActor = ({ className = '', animationConfig, coordinates }: IProps) => {
-  const actorRef = useRef<ReactSVG | null>(null);
+const AnimationActor = ({ animationConfig, coordinates }: IProps) => {
+  const actorRef = useRef<SVGSVGElement | null>(null);
+  const { resetCellsAnimation, changeTeam } = useAppActions();
 
   useEffect(() => {
-    if (!actorRef.current?.reactWrapper) return;
-    runActorAnimation({
-      actor: actorRef.current?.reactWrapper,
+    if (!actorRef.current || !animationConfig || !coordinates) return;
+
+    const animation = runActorAnimation({
+      actor: actorRef.current,
       animationConfig,
       coordinates,
     });
-  }, [animationConfig, coordinates, actorRef.current?.reactWrapper]);
 
-  if (!animationConfig?.actorIcon) return null;
+    if (animationConfig.action !== AnimationActionType.MOVE || !animation) return;
+
+    animation.onfinish = () => {
+      resetCellsAnimation();
+      changeTeam();
+    };
+  }, [animationConfig]);
+
+  if (!animationConfig) return;
 
   return (
-    <ReactSVG
-      // @ts-ignore
-      ref={actorRef}
-      className={`figureIconContainer ${className}`}
-      src={figuresSvg[animationConfig.actorIcon as FigureSvgNameType]}
-    />
+    <svg ref={actorRef} className="FigureIcon">
+      <use href={`/sprite.svg#${animationConfig.figureName}`} />
+    </svg>
   );
 };
 
-export default AnimationActor;
+export default memo(AnimationActor);

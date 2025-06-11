@@ -5,12 +5,16 @@ import {
   CELLS_COUNT_IN_ROW,
 } from '@/entities/Cell/constants';
 import { CellColor, FigureTeam } from '@/entities/Cell/enums';
-import { CharValueType, NumberValueType } from '@/entities/Cell/types';
+import type {
+  CharValueType,
+  ICellAsPlainObject,
+  NumberValueType,
+} from '@/entities/Cell/types';
 import { getCellId } from '@/entities/Cell/utils';
 import Figure from '@/entities/Figure';
 import { teamsConfigs } from '@/stores/cell/placesConfig';
 
-export default function (): Cell[] {
+export default function (): ICellAsPlainObject[] {
   const cellsList = new Array(64).fill(undefined);
 
   const cells = cellsList.map((_, index) => {
@@ -24,16 +28,18 @@ export default function (): Cell[] {
     const isEvenCell = index % 2 === 0;
     const cellId = getCellId(cellChar, cellNumber);
 
-    if (!isEvenRow && isEvenCell) return new Cell(cellId, CellColor.BLACK);
-    if (isEvenRow && !isEvenCell) return new Cell(cellId, CellColor.BLACK);
-    return new Cell(cellId, CellColor.WHITE);
+    if (!isEvenRow && isEvenCell)
+      return new Cell(cellId, CellColor.BLACK).toPlainObject();
+    if (isEvenRow && !isEvenCell)
+      return new Cell(cellId, CellColor.BLACK).toPlainObject();
+    return new Cell(cellId, CellColor.WHITE).toPlainObject();
   });
 
   arrangeFiguresIntoCells(cells);
   return cells;
 }
 
-function arrangeFiguresIntoCells(cells: Cell[]) {
+function arrangeFiguresIntoCells(cells: ICellAsPlainObject[]) {
   const teamsNames = Object.keys(teamsConfigs) as FigureTeam[];
   teamsNames.forEach((teamName) => {
     const teamConfigs = teamsConfigs[teamName];
@@ -42,7 +48,8 @@ function arrangeFiguresIntoCells(cells: Cell[]) {
         (cellId) => cells.find((cell) => cell.id === cellId)!,
       );
       targetCellsList.forEach(
-        (cell) => (cell.figure = new Figure(figureConfigs.figure, teamName)),
+        (cell) =>
+          (cell.figure = new Figure(figureConfigs.figure, teamName).toPlainObject()),
       );
     });
   });

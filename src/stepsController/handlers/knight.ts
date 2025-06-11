@@ -1,24 +1,24 @@
-import Cell from '@/entities/Cell/Cell';
+import { IStep, StepDataInterface } from '@/redux/slices/cells/types';
 import { PotentialStepType } from '@/stepsController/types';
 import addStep from '@/stepsController/utils/addStep';
-import { IStep } from '@/stores/cell/types';
 
 import { teamHandlersMap } from '../data';
 
-export default function (cells: Cell[], focusedCell: Cell) {
+export default function ({ cells, currentCell: knightCell }: StepDataInterface) {
   const steps: IStep[] = [];
-  const currentTeam = focusedCell.figure!.team;
+  const currentTeam = knightCell.figure?.team;
+  if (!currentTeam) return [];
   const { forward, left, right, backward } = teamHandlersMap[currentTeam];
 
   const knightPotentialSteps: PotentialStepType = {
-    oneTopTwoLeftStep: forward(left(left(focusedCell.id))),
-    oneTopTwoRightStep: forward(right(right(focusedCell.id))),
-    oneBottomTwoLeftStep: backward(left(left(focusedCell.id))),
-    oneBottomTwoRightStep: backward(right(right(focusedCell.id))),
-    twoTopOneLeftStep: left(forward(forward(focusedCell.id))),
-    twoTopOneRightStep: right(forward(forward(focusedCell.id))),
-    twoBottomOneLeftStep: left(backward(backward(focusedCell.id))),
-    twoBottomOneRightStep: right(backward(backward(focusedCell.id))),
+    oneTopTwoLeftStep: forward(left(left(knightCell.id))),
+    oneTopTwoRightStep: forward(right(right(knightCell.id))),
+    oneBottomTwoLeftStep: backward(left(left(knightCell.id))),
+    oneBottomTwoRightStep: backward(right(right(knightCell.id))),
+    twoTopOneLeftStep: left(forward(forward(knightCell.id))),
+    twoTopOneRightStep: right(forward(forward(knightCell.id))),
+    twoBottomOneLeftStep: left(backward(backward(knightCell.id))),
+    twoBottomOneRightStep: right(backward(backward(knightCell.id))),
   };
 
   Object.keys(knightPotentialSteps).forEach((stepName) => {

@@ -1,24 +1,26 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
+import { IStep, StepDataInterface } from '@/redux/slices/cells/types';
+import { findById } from '@/redux/slices/cells/utils/helpers';
 import { teamHandlersMap } from '@/stepsController/data';
-import { IStep } from '@/stores/cell/types';
-import { findById } from '@/stores/cell/utils/helpers';
 
-export default function (cells: Cell[], focusedCell: Cell) {
+export default function ({ cells, currentCell: pawnCell }: StepDataInterface) {
+  if (!pawnCell.figure) return [];
   const steps: IStep[] = [];
-  const team = focusedCell.figure!.team;
+  const team = pawnCell.figure.team;
   const { forward, topLeft, topRight } = teamHandlersMap[team];
-  const oneToForwardId = forward(focusedCell.id);
+  const oneToForwardId = forward(pawnCell.id);
 
   const previousStepAdded = addPawnDefaultStep(oneToForwardId, cells, steps);
-  if (previousStepAdded && focusedCell.figure!.isFirstStep) {
-    const twoToForwardId = forward(oneToForwardId!);
+  if (previousStepAdded && pawnCell.figure.isFirstStep) {
+    const twoToForwardId = forward(oneToForwardId);
     addPawnDefaultStep(twoToForwardId, cells, steps, oneToForwardId!);
   }
-  const leftId = topLeft(focusedCell.id);
+  const leftId = topLeft(pawnCell.id);
   addPawnKillStep(leftId, cells, steps, team);
-  const rightId = topRight(focusedCell.id);
+  const rightId = topRight(pawnCell.id);
   addPawnKillStep(rightId, cells, steps, team);
 
   return steps;
@@ -26,7 +28,7 @@ export default function (cells: Cell[], focusedCell: Cell) {
 
 function addPawnDefaultStep(
   targetCellId: CellIdType | null,
-  cells: Cell[],
+  cells: ICellAsPlainObject[],
   steps: IStep[],
   enPassantCellId?: CellIdType,
 ): boolean {
@@ -45,7 +47,7 @@ function addPawnDefaultStep(
 
 function addPawnKillStep(
   targetCellId: CellIdType | null,
-  cells: Cell[],
+  cells: ICellAsPlainObject[],
   steps: IStep[],
   currentTeam: FigureTeam,
 ): boolean {

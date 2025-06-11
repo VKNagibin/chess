@@ -1,11 +1,14 @@
-import Cell from '@/entities/Cell/Cell';
+import { IStep, StepDataInterface } from '@/redux/slices/cells/types';
 import { teamHandlersMap } from '@/stepsController/data';
 import addCastlingSteps from '@/stepsController/handlers/king/addCastlingSteps';
 import { PotentialStepType } from '@/stepsController/types';
 import addStep from '@/stepsController/utils/addStep';
-import { IStep } from '@/stores/cell/types';
 
-export default function (cells: Cell[], kingCell: Cell, ignoreCastling?: boolean) {
+export default function ({
+  cells,
+  currentCell: kingCell,
+  ignoreCastling,
+}: StepDataInterface) {
   const steps: IStep[] = [];
   const team = kingCell.figure!.team;
   const { forward, topRight, bottomRight, bottomLeft, topLeft, left, right, backward } =
