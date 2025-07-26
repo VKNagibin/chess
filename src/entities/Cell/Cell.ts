@@ -3,9 +3,9 @@ import {
   CellIdType,
   ICastling,
   ICellAsPlainObject,
-  IFigureActionAnimationConfig,
+  IFigureAnimationConfig,
 } from '@/entities/Cell/types';
-import Figure from '@/entities/Figure';
+import Figure from '@/entities/Figure/Figure';
 import { RectangularCoordinatesType } from '@/shared/types';
 
 class Cell {
@@ -16,7 +16,9 @@ class Cell {
   highlight: HighlightType = HighlightType.NONE;
   figure: Figure | null = null;
   isOver = false;
-  animationConfig: IFigureActionAnimationConfig | null = null;
+  allowNextStep = false;
+  allowPawnMutation = false;
+  animationConfig: IFigureAnimationConfig | null = null;
 
   constructor(public id: CellIdType, public color: CellColor) {}
 
@@ -28,6 +30,8 @@ class Cell {
     coordinates: this.coordinates,
     hiddenFigure: this.hiddenFigure,
     highlight: this.highlight,
+    allowNextStep: this.allowNextStep,
+    allowPawnMutation: this.allowPawnMutation,
     figure: this.figure?.toPlainObject() || null,
     isOver: this.isOver,
     animationConfig: this.animationConfig,

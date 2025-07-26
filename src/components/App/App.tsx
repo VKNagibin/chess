@@ -1,10 +1,8 @@
-import React from 'react';
-
-import deepSeekApi from '@/api/deepSeekApi';
 import { StyledApp } from '@/components/App/styled';
 import Board from '@/components/Board';
 import LanguageDropdown from '@/components/LanguageDropdown';
 import StepTeam from '@/components/StepTeam';
+import deepSeekApi from '@/services/api/deepSeekApi';
 
 function App() {
   return (

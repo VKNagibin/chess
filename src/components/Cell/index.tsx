@@ -1,13 +1,13 @@
-import './index.scss';
+import '@/components/Cell/index.scss';
 
 import { memo } from 'react';
 
-import AnimationActor from '@/components/AnimationActor';
+import AnimationActor from '@/components/Cell/components/AnimationActor';
+import useCellLogic from '@/components/Cell/hooks/useCellLogic';
+import FigureIcon from '@/components/FigureIcon';
 import { ICellAsPlainObject } from '@/entities/Cell/types';
-import { useAppActions } from '@/redux/hooks';
-
-import useCellLogic from './useCellLogic';
-import { getFigureSvgName } from './utils';
+import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
+import { useAppActions } from '@/store/hooks';
 
 interface IProps {
   cell: ICellAsPlainObject;
@@ -15,21 +15,19 @@ interface IProps {
 
 const Cell = ({ cell }: IProps) => {
   const { clickOnCell } = useAppActions();
-  const { cellRef, showFigure, currentStepTeam, className } = useCellLogic(cell);
+  const { cellRef, showFigure, currentTeam, additionalClasses } = useCellLogic(cell);
 
   return (
     <button
       ref={cellRef}
       onClick={() => {
-        clickOnCell({ cellId: cell.id, currentStepTeam });
+        clickOnCell({ cellId: cell.id, currentTeam });
       }}
-      className={`cell ${className}`}
+      className={`cell ${additionalClasses}`}
       tabIndex={cell.figure ? 0 : -1}
     >
       {!!showFigure && (
-        <svg className={`FigureIcon ${className}`}>
-          <use href={`/sprite.svg#${getFigureSvgName(cell.figure!)}`} />
-        </svg>
+        <FigureIcon className={additionalClasses} name={getFigureSvgName(cell.figure!)} />
       )}
       <AnimationActor
         animationConfig={cell.animationConfig}

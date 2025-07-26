@@ -1,3 +1,5 @@
+import { ArrayElement } from '@/shared/types';
+
 export const CELLS_COUNT_IN_ROW = 8;
 
 export const CELL_CHAR = {
@@ -24,3 +26,6 @@ export const CELL_NUMBER = {
 
 export const cellCharsList = Object.values(CELL_CHAR);
 export const cellNumbersReversedList = Object.values(CELL_NUMBER).reverse();
+
+export const cellNumbersForPawnMutateList = [CELL_NUMBER.ONE, CELL_NUMBER.EIGHT];
+export type PawnMutateCellNumbersType = ArrayElement<typeof cellNumbersForPawnMutateList>;

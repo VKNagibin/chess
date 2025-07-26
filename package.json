@@ -1,6 +1,10 @@
 {
-  "name": "vite-reactts-eslint-prettier",
-  "version": "0.0.0",
+  "name": "chess",
+  "version": "1.0.0",
+  "author": {
+    "name": "Vyacheslav Nagibin",
+    "email": "itisnotstupid@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -17,25 +21,20 @@
   },
   "dependencies": {
     "@module-federation/vite": "^1.2.7",
-    "@mui/material": "^7.0.2",
-    "@mui/styled-engine-sc": "^7.0.2",
     "@reduxjs/toolkit": "^2.8.2",
     "@types/axios": "^0.14.4",
     "axios": "^1.9.0",
-    "effector": "^23.3.0",
-    "effector-react": "^23.3.0",
     "i18next": "^25.0.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.1",
     "react-redux": "^9.2.0",
-    "react-svg": "^16.3.0",
-    "redux-logger": "^3.0.6",
     "scss": "^0.2.4",
     "styled-components": "^6.1.17"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.27.1",
+    "@sentry/react": "^9.29.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.17",
     "@types/react": "^19.1.2",

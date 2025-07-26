@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/store/hooks';
 
 function StepTeam() {
   const currentStepTeam = useAppSelector(({ currentTeam }) => currentTeam.currentTeam);

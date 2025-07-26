@@ -1,21 +1,10 @@
 import Cell from '@/entities/Cell/Cell';
 import { CELL_CHAR, CELL_NUMBER } from '@/entities/Cell/constants';
-import { FigureAsPlainObjectType, FigureSvgNameType } from '@/entities/Figure';
+import { FigureTeam, FigureType } from '@/entities/Cell/enums';
+import { FigureAsPlainObjectType, FigureSvgNameType } from '@/entities/Figure/Figure';
 import { RectangularCoordinatesType } from '@/shared/types';
 
-export interface ICellAsPlainObject
-  extends Pick<
-    Cell,
-    | 'id'
-    | 'color'
-    | 'enPassantCellId'
-    | 'castling'
-    | 'coordinates'
-    | 'hiddenFigure'
-    | 'highlight'
-    | 'isOver'
-    | 'animationConfig'
-  > {
+export interface ICellAsPlainObject extends Omit<Cell, 'toPlainObject' | 'figure'> {
   figure: FigureAsPlainObjectType | null;
 }
 
@@ -36,10 +25,18 @@ export enum AnimationActionType {
   DEAD = 'dead',
   MOVE = 'move',
   HIDE = 'hide',
+  KING_PULSATE = 'kingPulsate',
+  KING_ENEMY_PULSATE = 'kingEnemyPulsate',
 }
 
-export interface IFigureActionAnimationConfig {
+export interface IFigureAnimationConfig {
+  id: string;
   figureName?: FigureSvgNameType;
   action: AnimationActionType;
   coordinates?: RectangularCoordinatesType | null;
+}
+
+export interface IFigureSvgData {
+  type: FigureType;
+  team: FigureTeam;
 }

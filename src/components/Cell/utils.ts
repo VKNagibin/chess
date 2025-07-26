@@ -1,12 +1,8 @@
-import { FigureTeam, FigureType } from '@/entities/Cell/enums';
+import { FigureTeam } from '@/entities/Cell/enums';
 import type { ICellAsPlainObject } from '@/entities/Cell/types';
-import { FigureSvgNameType } from '@/entities/Figure';
-import { checkIsStep } from '@/redux/slices/cells/utils/helpers';
-
-interface IFigureSvgData {
-  type: FigureType;
-  team: FigureTeam;
-}
+import { RectangularCoordinatesType } from '@/shared/types';
+import { checkIsStep } from '@/store/slices/cells/utils/helpers';
+import { getEnemyTeam } from '@/store/slices/cells/utils/helpers';
 
 export const getHoverClass = (cell: ICellAsPlainObject, currentStepTeam: FigureTeam) => {
   const isStep = checkIsStep(cell.highlight);
@@ -15,5 +11,24 @@ export const getHoverClass = (cell: ICellAsPlainObject, currentStepTeam: FigureT
   if (isCurrentTeam) return 'currentTeam';
 };
 
-export const getFigureSvgName = (figure: IFigureSvgData): FigureSvgNameType =>
-  `${figure.type}_${figure.team}`;
+export const getCellCoordinates = (
+  cellElement: HTMLButtonElement,
+): RectangularCoordinatesType => {
+  const {
+    height = 0,
+    left = 0,
+    width = 0,
+    top = 0,
+  } = cellElement.getBoundingClientRect();
+
+  return {
+    x: parseInt(String(left - width / 2)),
+    y: parseInt(String(top - height / 2)),
+  };
+};
+
+export const handleGameOver = (team: FigureTeam) => {
+  setTimeout(() => {
+    alert(`Game over! ${getEnemyTeam(team)} team win!`);
+  });
+};

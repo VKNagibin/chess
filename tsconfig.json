@@ -33,7 +33,12 @@
     }
   },
   "include": [
-    "src"
+    "src", "global.d.ts"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/build",
+    "**/__tests__",
   ],
   "references": [
     {

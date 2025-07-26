@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+}
+
+.figure {
+    padding: 4px 8px;
+    display: flex;
+    border-radius: 12px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent
+}
+
+.figure.selected {
+    background-color: aquamarine;
+}
+
+.figure:hover {
+    background-color: rgba(222, 244, 236, 0.44);
+}
+
+.figure.selected:hover {
+    background-color: aquamarine;
+}
+
+.svg {
+    width: 80px
+}
