@@ -1,4 +1,4 @@
-import { CellColor, HighlightType } from '@/entities/Cell/enums';
+import { CellColor, FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import {
   CellIdType,
   ICastling,
@@ -15,10 +15,7 @@ class Cell {
   hiddenFigure = false;
   highlight: HighlightType = HighlightType.NONE;
   figure: Figure | null = null;
-  isOver = false;
-  allowNextStep = false;
-  allowPawnMutation = false;
-  animationConfig: IFigureAnimationConfig | null = null;
+  animationConfig: IFigureAnimationConfig[] = [];
 
   constructor(public id: CellIdType, public color: CellColor) {}
 
@@ -30,10 +27,7 @@ class Cell {
     coordinates: this.coordinates,
     hiddenFigure: this.hiddenFigure,
     highlight: this.highlight,
-    allowNextStep: this.allowNextStep,
-    allowPawnMutation: this.allowPawnMutation,
     figure: this.figure?.toPlainObject() || null,
-    isOver: this.isOver,
     animationConfig: this.animationConfig,
   });
 }

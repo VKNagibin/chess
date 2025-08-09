@@ -4,7 +4,11 @@
     "black": "Черные"
   },
   "pawnMutationModal": {
-    "title": "Выберите фигуру взамен пешки {{ cellId }}",
-    "submitButton": "Подтвердить"
-  }
+    "title": "Выберите фигуру взамен пешки {{ cellId }}"
+  },
+  "gameOverModal": {
+    "title": "Игра окончена, {{ team }} победили"
+  },
+  "confirm": "Подтвердить",
+  "gotIt": "Понятно"
 }

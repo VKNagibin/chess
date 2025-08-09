@@ -1,49 +1,48 @@
 .overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .card {
-    position: relative;
-    padding: 24px;
-    gap: 48px;
-    display: flex;
-    flex-direction: column;
-    background-color: antiquewhite;
-    width: 600px;
-    border-radius: 10px;
-    min-height: 50px;
+  position: relative;
+  padding: 24px;
+  gap: 48px;
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  width: 600px;
+  border-radius: 10px;
+  min-height: 50px;
 }
 
 .header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .cross {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    background-color: beige;
-
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background-color: beige;
 }
 
 .cross:after {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    inset: 0;
-    content: 'x';
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  content: 'x';
 }

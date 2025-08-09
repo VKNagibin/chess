@@ -7,10 +7,7 @@ export interface IRunActorAnimation {
   actor: SVGElement;
   animationConfig: IFigureAnimationConfig;
   coordinates: RectangularCoordinatesType;
-  addAnimation: ActionCreatorWithPayload<
-    { animation: IFigureAnimationConfig },
-    'figuresAnimations/addAnimation'
-  >;
+  addAnimation: ActionCreatorWithPayload<string, 'figuresAnimations/addAnimation'>;
 }
 
 export type CheckIsMoveAnimationType = (

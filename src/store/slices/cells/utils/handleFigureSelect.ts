@@ -10,7 +10,7 @@ export default function (
   steps: IStep[],
 ): void {
   cells.forEach((cell) => {
-    if (cell.id === cellId) {
+    if (cell.id === cellId && cell.figure) {
       cell.highlight = HighlightType.SELECTED;
       return;
     }
@@ -22,7 +22,7 @@ export default function (
       selectedCell.castling.push(step.castling!);
     }
 
-    if (step) {
+    if (step?.highlight) {
       cell.highlight = step.highlight as HighlightType;
       cell.enPassantCellId = step.enPassantCellId || null;
     }

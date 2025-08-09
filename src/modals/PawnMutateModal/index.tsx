@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from 'react';
 
 import { FigureType } from '@/entities/Cell/enums';
 import FiguresList from '@/modals/PawnMutateModal/components/FiguresList';
-import classes from '@/modals/PawnMutateModal/index.module.css';
+import ModalButtons from '@/shared/components/Modal/ModalButtons';
 import ModalTemplate from '@/shared/components/Modal/ModalTemplate';
 import { ModalComponentProps } from '@/shared/components/Modal/types';
 
@@ -23,15 +23,14 @@ const PawnMutateModal: FunctionComponent<
   return (
     <ModalTemplate
       buttons={
-        <div className={classes.buttonsContainer}>
-          <button
-            className={classes.button}
-            disabled={!selectedType}
-            onClick={() => submit({ selectedType })}
-          >
-            {t('pawnMutationModal.submitButton')}
-          </button>
-        </div>
+        <ModalButtons
+          items={[
+            {
+              text: t('confirm'),
+              onClick: () => submit({ selectedType }),
+            },
+          ]}
+        />
       }
       title={t('pawnMutationModal.title', { cellId })}
     >

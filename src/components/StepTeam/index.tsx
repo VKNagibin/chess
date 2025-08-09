@@ -1,9 +1,11 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@/store/hooks';
 
 function StepTeam() {
-  const currentStepTeam = useAppSelector(({ currentTeam }) => currentTeam.currentTeam);
+  const { t } = useTranslation();
+
+  const currentStepTeam = useAppSelector(({ cells }) => cells.currentTeam);
 
   return <h2>{t(`team.${currentStepTeam}`)}</h2>;
 }

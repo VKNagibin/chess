@@ -1,45 +1,30 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "types": ["jest", "node"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": false,
-    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@/assets/*": [
-        "src/assets/*"
-      ],
-      "@mui/styled-engine": [
-        "@mui/styled-engine-sc"
-      ]
+      "@/*": ["src/*"],
+      "@/assets/*": ["src/assets/*"],
+      "test-utils": ["src/test-utils"]
     }
   },
-  "include": [
-    "src", "global.d.ts"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "**/build",
-    "**/__tests__",
-  ],
+  "include": ["src", "global.d.ts", "setupTests.ts"],
+  "exclude": ["**/node_modules", "**/build"],
   "references": [
     {
       "path": "./tsconfig.node.json"

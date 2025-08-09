@@ -1,6 +1,10 @@
 import Cell from '@/entities/Cell/Cell';
 import { HighlightType } from '@/entities/Cell/enums';
-import { ICastlingStep } from '@/services/stepsController/handlers/king/getCastlingSteps';
+import { ICastling } from '@/entities/Cell/types';
+import {
+  CastlingType,
+  ICastlingStep,
+} from '@/services/stepsController/handlers/king/getCastlingSteps';
 import { findById } from '@/shared/utils/findById';
 
 export default function ({
@@ -23,10 +27,11 @@ export default function ({
     highlight: HighlightType.CASTLING_STEP,
     castling: {
       targetCellId: secondKingSiblingCellId,
+      type: CastlingType.SHORT,
       dependent: {
         ownerCell: rookCell,
         targetCell: kingSiblingCell,
       },
-    },
+    } as ICastling,
   };
 }

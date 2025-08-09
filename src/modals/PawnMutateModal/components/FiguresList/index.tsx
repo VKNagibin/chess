@@ -17,7 +17,7 @@ interface IProps {
 }
 
 const FiguresList = ({ selectedType, onSelectFigure }: IProps) => {
-  const currentStepTeam = useAppSelector(({ currentTeam }) => currentTeam.currentTeam);
+  const currentStepTeam = useAppSelector(({ cells }) => cells.currentTeam);
 
   const getClasses = (type: FigureType) => {
     let classList = [classes.figure];

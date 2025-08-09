@@ -9,7 +9,6 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-import Logger from '@/services/Logger';
 import {
   IModal,
   IOpenModal,

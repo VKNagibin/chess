@@ -132,6 +132,14 @@ export const longCastlingConfig: Record<FigureTeam, ConfigItemType[]> = {
       cellsIds: ['e8'],
       figure: FigureType.KING,
     },
+    {
+      cellsIds: ['h8'],
+      figure: FigureType.ROOK,
+    },
+    {
+      cellsIds: ['a8'],
+      figure: FigureType.ROOK,
+    },
   ],
   [FigureTeam.WHITE]: [
     {
@@ -140,6 +148,10 @@ export const longCastlingConfig: Record<FigureTeam, ConfigItemType[]> = {
     },
     {
       cellsIds: ['a1'],
+      figure: FigureType.ROOK,
+    },
+    {
+      cellsIds: ['h1'],
       figure: FigureType.ROOK,
     },
   ],

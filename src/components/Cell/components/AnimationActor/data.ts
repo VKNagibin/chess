@@ -1,7 +1,8 @@
 import { AnimationActionType } from '@/entities/Cell/types';
 
-const hideAnimationDuration = 100;
-const moveAnimationDuration = 600;
+const hideAnimationDuration = 10;
+const swapAnimationDuration = 200;
+const moveAnimationDuration = 300;
 const killAnimationDuration = 400;
 const pulsateAnimationDuration = 600;
 const pulsateScale = '1.5';
@@ -35,7 +36,7 @@ export const hideAnimationOptions = {
 
 export const deadAnimationKeyframes = [
   { transform: 'translate(0, 0)' },
-  { transform: `translate(0, ${killAnimationDistance})`, visibility: 'none' },
+  { transform: `translate(0, ${killAnimationDistance})` },
 ];
 
 export const hideAnimationKeyframes = [{ opacity: 1 }, { opacity: 0 }];
@@ -50,3 +51,24 @@ export const kingAnimationOptions = {
   duration: pulsateAnimationDuration,
   iterations: pulsateIterations,
 };
+
+export const swapAnimationKeyframes = [
+  { transform: 'scale(1)' },
+  { transform: `scale(0)` },
+];
+
+export const secondSwapAnimationOptions = {
+  duration: swapAnimationDuration,
+  fill: 'forwards' as FillMode,
+  delay: swapAnimationDuration,
+};
+
+export const swapAnimationOptions = {
+  duration: swapAnimationDuration,
+  fill: 'forwards' as FillMode,
+};
+
+export const secondActorSwapAnimationKeyframes = [
+  { transform: `scale(0)` },
+  { transform: 'scale(1)' },
+];

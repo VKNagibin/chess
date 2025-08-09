@@ -18,12 +18,6 @@ export const checkIsKing = (cell: ICellAsPlainObject) =>
 export const findFocusedCell = (cells: ICellAsPlainObject[]) =>
   cells.find((cell) => cell.highlight === HighlightType.SELECTED);
 
-export const clearCastling = (cells: ICellAsPlainObject[]) => {
-  cells.forEach((cell) => {
-    cell.castling = [];
-  });
-};
-
 export const getKing = (cells: ICellAsPlainObject[], team: FigureTeam) => {
   return cells.find((cell) => cell.figure?.team === team && checkIsKing(cell));
 };
@@ -38,8 +32,19 @@ export function getSteps({
   return handler({ cells, currentCell, ignoreCastling });
 }
 
-export const resetCellsHighlight = (cells: ICellAsPlainObject[]) => {
+export const resetCellsHighlight = (
+  cells: ICellAsPlainObject[],
+  currentTeam: FigureTeam,
+) => {
   cells.forEach((cell) => {
+    if (cell.figure && cell.figure.team === currentTeam) {
+      cell.highlight = HighlightType.TEAM;
+      return;
+    }
+    if (cell.figure && cell.figure?.team !== currentTeam) {
+      cell.highlight = HighlightType.ENEMY;
+      return;
+    }
     if (cell.highlight !== HighlightType.NONE) cell.highlight = HighlightType.NONE;
   });
 };

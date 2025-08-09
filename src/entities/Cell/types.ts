@@ -2,6 +2,7 @@ import Cell from '@/entities/Cell/Cell';
 import { CELL_CHAR, CELL_NUMBER } from '@/entities/Cell/constants';
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
 import { FigureAsPlainObjectType, FigureSvgNameType } from '@/entities/Figure/Figure';
+import { CastlingType } from '@/services/stepsController/handlers/king/getCastlingSteps';
 import { RectangularCoordinatesType } from '@/shared/types';
 
 export interface ICellAsPlainObject extends Omit<Cell, 'toPlainObject' | 'figure'> {
@@ -15,6 +16,7 @@ export type CellIdType = `${CharValueType}${NumberValueType}`;
 
 export interface ICastling {
   targetCellId: CellIdType;
+  type: CastlingType;
   dependent: {
     ownerCell: ICellAsPlainObject;
     targetCell: ICellAsPlainObject;
@@ -23,6 +25,8 @@ export interface ICastling {
 
 export enum AnimationActionType {
   DEAD = 'dead',
+  SWAP_HIDE = 'swap_hide',
+  SWAP_SHOW = 'swap_show',
   MOVE = 'move',
   HIDE = 'hide',
   KING_PULSATE = 'kingPulsate',
@@ -34,6 +38,7 @@ export interface IFigureAnimationConfig {
   figureName?: FigureSvgNameType;
   action: AnimationActionType;
   coordinates?: RectangularCoordinatesType | null;
+  styles?: React.CSSProperties;
 }
 
 export interface IFigureSvgData {

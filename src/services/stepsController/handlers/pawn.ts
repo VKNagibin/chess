@@ -34,13 +34,12 @@ function addPawnDefaultStep(
 ): boolean {
   if (!targetCellId) return false;
   const targetCell = findById(targetCellId, cells) as Cell;
-  if (!targetCell) return false;
-  if (targetCell.figure) return false;
+  if (!targetCell || targetCell.figure) return false;
 
   steps.push({
     cellId: targetCellId,
     highlight: HighlightType.DEFAULT_STEP,
-    enPassantCellId: enPassantCellId,
+    enPassantCellId,
   });
   return true;
 }

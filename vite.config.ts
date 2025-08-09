@@ -3,12 +3,20 @@ import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { defineConfig } from 'vite';
 
+import app from './package.json';
+
 // import { dependencies } from './package.json';
 
 export default defineConfig({
   publicDir: 'public',
   build: {
     outDir: 'build',
+  },
+  define: {
+    __APP__: JSON.stringify({
+      name: app.name,
+      version: app.version,
+    }),
   },
   plugins: [
     react(),

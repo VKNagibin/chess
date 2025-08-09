@@ -4,7 +4,7 @@ import {
   cellNumbersReversedList,
   CELLS_COUNT_IN_ROW,
 } from '@/entities/Cell/constants';
-import { CellColor, FigureTeam } from '@/entities/Cell/enums';
+import { CellColor, FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import type {
   CharValueType,
   ICellAsPlainObject,
@@ -12,9 +12,11 @@ import type {
 } from '@/entities/Cell/types';
 import Figure from '@/entities/Figure/Figure';
 import { getCellId } from '@/services/stepsController/utils';
-import { pawnMutateConfig as teamsConfigs } from '@/store/slices/cells/placesConfig';
+import { ConfigItemType } from '@/store/slices/cells/placesConfig';
 
-export default function (): ICellAsPlainObject[] {
+export default function (
+  config: Record<FigureTeam, ConfigItemType[]>,
+): ICellAsPlainObject[] {
   const cellsList = new Array(64).fill(undefined);
 
   const cells = cellsList.map((_, index) => {
@@ -35,22 +37,26 @@ export default function (): ICellAsPlainObject[] {
     return new Cell(cellId, CellColor.WHITE).toPlainObject();
   });
 
-  arrangeFiguresIntoCells(cells);
+  arrangeFiguresIntoCells(cells, config);
   return cells;
 }
 
-function arrangeFiguresIntoCells(cells: ICellAsPlainObject[]) {
-  const teamsNames = Object.keys(teamsConfigs) as FigureTeam[];
+function arrangeFiguresIntoCells(
+  cells: ICellAsPlainObject[],
+  config: Record<FigureTeam, ConfigItemType[]>,
+) {
+  const teamsNames = Object.keys(config) as FigureTeam[];
   teamsNames.forEach((teamName) => {
-    const teamConfigs = teamsConfigs[teamName];
+    const teamConfigs = config[teamName];
     teamConfigs.forEach((figureConfigs) => {
       const targetCellsList = figureConfigs.cellsIds.map(
         (cellId) => cells.find((cell) => cell.id === cellId)!,
       );
-      targetCellsList.forEach(
-        (cell) =>
-          (cell.figure = new Figure(figureConfigs.figure, teamName).toPlainObject()),
-      );
+      targetCellsList.forEach((cell) => {
+        cell.figure = new Figure(figureConfigs.figure, teamName).toPlainObject();
+        if (cell.figure.team === FigureTeam.WHITE) cell.highlight = HighlightType.TEAM;
+        if (cell.figure.team === FigureTeam.BLACK) cell.highlight = HighlightType.ENEMY;
+      });
     });
   });
 }

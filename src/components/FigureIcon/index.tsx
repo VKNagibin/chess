@@ -8,17 +8,19 @@ interface IFigureIconProps {
   className?: string;
   baseClass?: string;
   name: FigureSvgNameType;
-  ref?: RefObject<SVGSVGElement | null>;
+  ref?: RefObject<SVGSVGElement | null> | null;
+  styles?: React.CSSProperties;
 }
 
 const FigureIcon = ({
   baseClass = 'FigureIcon',
   className = '',
+  styles = {},
   name,
   ref,
 }: IFigureIconProps) => {
   return (
-    <svg ref={ref} className={`${baseClass} ${className}`}>
+    <svg ref={ref} style={styles} className={`${baseClass} ${className}`}>
       <use href={`/sprite.svg#${name}`} />
     </svg>
   );

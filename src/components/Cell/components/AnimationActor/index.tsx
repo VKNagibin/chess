@@ -8,9 +8,10 @@ import { useAppActions } from '@/store/hooks';
 interface IProps {
   animationConfig: IFigureAnimationConfig | null;
   coordinates: RectangularCoordinatesType | null;
+  styles?: React.CSSProperties;
 }
 
-const AnimationActor = ({ animationConfig, coordinates }: IProps) => {
+const AnimationActor = ({ animationConfig, coordinates, styles }: IProps) => {
   const actorRef = useRef<SVGSVGElement | null>(null);
   const { addAnimation, removeAnimation } = useAppActions();
 
@@ -28,14 +29,14 @@ const AnimationActor = ({ animationConfig, coordinates }: IProps) => {
 
     animation.onfinish = () => {
       setTimeout(() => {
-        removeAnimation({ id: animationConfig.id });
+        removeAnimation(animationConfig.id);
       });
     };
   }, [animationConfig]);
 
   if (!animationConfig?.figureName) return;
 
-  return <FigureIcon ref={actorRef} name={animationConfig.figureName} />;
+  return <FigureIcon styles={styles} ref={actorRef} name={animationConfig.figureName} />;
 };
 
 export default memo(AnimationActor);

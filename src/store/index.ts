@@ -1,17 +1,12 @@
-import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-import cellsReducer, { ICellsState } from '@/store/slices/cells/cellsSlice';
-import currentTeamReducer from '@/store/slices/currentTeamSlice';
-import figuresAnimationsReducer from '@/store/slices/figuresAnimationsSlice';
+import rootReducer from './rootReducer';
 
-const rootReducer = combineReducers({
-  cells: cellsReducer as Reducer<ICellsState>,
-  currentTeam: currentTeamReducer,
-  figuresAnimations: figuresAnimationsReducer,
-});
 export const store = configureStore({
   reducer: rootReducer,
 });
+
+export const dispatch = store.dispatch;
 
 export type AppStore = typeof store;
 export type RootState = ReturnType<typeof store.getState>;

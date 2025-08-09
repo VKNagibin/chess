@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IFigureAnimationConfig } from '@/entities/Cell/types';
-
 export interface IBlockingAnimationsState {
-  animations: IFigureAnimationConfig[];
+  animationsIds: string[];
   animationsInAction: boolean;
 }
 
 const initialState: IBlockingAnimationsState = {
-  animations: [],
+  animationsIds: [],
   animationsInAction: false,
 };
 
@@ -18,14 +16,15 @@ export const figuresAnimationsSlice = createSlice({
   reducers: {
     addAnimation: (state, { payload }) => {
       state.animationsInAction = true;
-      state.animations.push(payload.animation);
+      state.animationsIds.push(payload);
     },
     removeAnimation: (state, { payload }) => {
-      state.animations = state.animations.filter(
-        (animation) => payload.id !== animation.id,
+      state.animationsIds = state.animationsIds.filter(
+        (animationId) => payload !== animationId,
       );
-      if (!state.animations.length) state.animationsInAction = false;
+      if (!state.animationsIds.length) state.animationsInAction = false;
     },
+    resetFiguresAnimationsState: () => initialState,
   },
 });
 
