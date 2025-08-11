@@ -1,28 +1,33 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "types": ["jest", "node"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
+    "skipLibCheck": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "_comp/*": ["src/components/*"],
-      "_img/*": ["src/assets/*"],
-      "@mui/styled-engine": ["@mui/styled-engine-sc"],
+      "@/assets/*": ["src/assets/*"],
+      "test-utils": ["src/test-utils"]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "global.d.ts", "setupTests.ts"],
+  "exclude": ["**/node_modules", "**/build"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

@@ -1,20 +1,22 @@
-import { StyledBoardCenter, StyledBoardWrapper } from '_comp/Board/styled';
-import Cells from '_comp/Cells';
-import Chars from '_comp/Chars';
-import Numbers from '_comp/Numbers';
+import { memo } from 'react';
+
+import classes from '@/components/Board/index.module.css';
+import Cells from '@/components/Cells';
+import Chars from '@/components/Chars';
+import Numbers from '@/components/Numbers';
 
 function Board() {
   return (
-    <StyledBoardWrapper>
+    <div className={classes.board}>
       <Numbers />
-      <StyledBoardCenter>
+      <div className={classes.boardCenter}>
         <Chars />
         <Cells />
         <Chars />
-      </StyledBoardCenter>
+      </div>
       <Numbers />
-    </StyledBoardWrapper>
+    </div>
   );
 }
 
-export default Board;
+export default memo(Board);

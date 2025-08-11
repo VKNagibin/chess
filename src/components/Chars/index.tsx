@@ -1,15 +1,17 @@
-import { StyledChar, StyledChars } from '_comp/Chars/styled';
 import { memo } from 'react';
 
+import classes from '@/components/Chars/index.module.css';
 import { cellCharsList } from '@/entities/Cell/constants';
 
 const Chars = () => {
   return (
-    <StyledChars>
+    <ul className={classes.charset}>
       {cellCharsList.map((char) => (
-        <StyledChar key={char}>{char}</StyledChar>
+        <li key={char} className={classes.char}>
+          {char}
+        </li>
       ))}
-    </StyledChars>
+    </ul>
   );
 };
 

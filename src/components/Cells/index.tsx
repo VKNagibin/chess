@@ -1,13 +1,31 @@
-import Cell from '_comp/Cell';
-import { StyledCellsWrapper } from '_comp/Cells/styled';
-import { useList } from 'effector-react';
-import React from 'react';
+import { memo } from 'react';
 
-import { $cells } from '@/stores/cell';
+import Cell from '@/components/Cell';
+import classes from '@/components/Cells/index.module.css';
+import { useAppSelector } from '@/store/hooks';
 
 const Cells = () => {
-  const cellsList = useList($cells, (cell) => <Cell key={cell.id} cell={cell} />);
-  return <StyledCellsWrapper>{cellsList}</StyledCellsWrapper>;
+  const { cells, figuresAnimationsInAction } = useAppSelector(
+    ({ cells, figuresAnimations }) => ({
+      cells: cells.cells,
+      figuresAnimationsInAction: figuresAnimations.animationsInAction,
+    }),
+  );
+
+  const getContainerClassName = () => {
+    let className = `${classes.container}`;
+    if (figuresAnimationsInAction) className += ` ${classes.disabled}`;
+
+    return className;
+  };
+
+  return (
+    <div className={getContainerClassName()}>
+      {cells?.map((cell) => (
+        <Cell key={cell.id} cell={cell} />
+      ))}
+    </div>
+  );
 };
 
-export default Cells;
+export default memo(Cells);

@@ -1,0 +1,14 @@
+{
+  "team": {
+    "white": "White",
+    "black": "Black"
+  },
+  "pawnMutationModal": {
+    "title": "Choose a figure to replace the {{ cellId }} pawn"
+  },
+  "gameOverModal": {
+    "title": "Game over, {{ team }} win"
+  },
+  "confirm": "Confirm",
+  "gotIt": "Got it"
+}

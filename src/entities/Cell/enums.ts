@@ -14,6 +14,8 @@ export enum HighlightType {
   DEFAULT_STEP = 'step',
   KILL_STEP = 'kill',
   CASTLING_STEP = 'castling',
+  TEAM = 'team',
+  ENEMY = 'enemy',
 }
 
 export enum FigureType {

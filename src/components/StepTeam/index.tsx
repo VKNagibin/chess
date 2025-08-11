@@ -1,10 +1,11 @@
-import { useUnit } from 'effector-react';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
-import { $currentStepTeam } from '@/stores/team';
+import { useAppSelector } from '@/store/hooks';
 
 function StepTeam() {
-  const currentStepTeam = useUnit($currentStepTeam);
+  const { t } = useTranslation();
+
+  const currentStepTeam = useAppSelector(({ cells }) => cells.currentTeam);
 
   return <h2>{t(`team.${currentStepTeam}`)}</h2>;
 }

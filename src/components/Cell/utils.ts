@@ -1,19 +1,26 @@
-import { FigureSvgNameType } from '@/assets/figures';
-import Cell from '@/entities/Cell/Cell';
-import { FigureTeam, FigureType } from '@/entities/Cell/enums';
-import { checkIsStep } from '@/stores/cell/utils/helpers';
+import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
+import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import { RectangularCoordinatesType } from '@/shared/types';
+import { checkIsStep } from '@/store/slices/cells/utils/helpers';
 
-interface IFigureSvgData {
-  type: FigureType;
-  team: FigureTeam;
-}
-
-export const getHoverClass = (cell: Cell, currentStepTeam: FigureTeam) => {
-  const isStep = checkIsStep(cell.highlight);
-  const isCurrentTeam = currentStepTeam === cell.figure?.team;
-  if (isStep) return 'filled';
-  if (isCurrentTeam) return 'currentTeam';
+export const getHoverClass = (cell: ICellAsPlainObject) => {
+  if (checkIsStep(cell.highlight)) return ' filled';
+  if (cell.highlight === HighlightType.TEAM) return ' currentTeam';
+  return '';
 };
 
-export const getFigureSvgName = (figure: IFigureSvgData): FigureSvgNameType =>
-  `${figure.type}_${figure.team}`;
+export const getCellCoordinates = (
+  cellElement: HTMLButtonElement,
+): RectangularCoordinatesType => {
+  const {
+    height = 0,
+    left = 0,
+    width = 0,
+    top = 0,
+  } = cellElement.getBoundingClientRect();
+
+  return {
+    x: parseInt(String(left - width / 2)),
+    y: parseInt(String(top - height / 2)),
+  };
+};

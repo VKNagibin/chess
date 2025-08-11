@@ -1,27 +1,35 @@
-import { CellColor, HighlightType } from '@/entities/Cell/enums';
+import { CellColor, FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import {
   CellIdType,
   ICastling,
-  IFigureActionAnimationConfig,
+  ICellAsPlainObject,
+  IFigureAnimationConfig,
 } from '@/entities/Cell/types';
-import Figure from '@/entities/Figure';
-import { RectangularCoordinates } from '@/shared/types';
+import Figure from '@/entities/Figure/Figure';
+import { RectangularCoordinatesType } from '@/shared/types';
 
 class Cell {
   enPassantCellId: CellIdType | null = null;
   castling: ICastling[] = [];
-  coordinates!: RectangularCoordinates;
+  coordinates: RectangularCoordinatesType | null = null;
   hiddenFigure = false;
   highlight: HighlightType = HighlightType.NONE;
   figure: Figure | null = null;
-  isOver = false;
-  animationConfig: IFigureActionAnimationConfig | null = null;
+  animationConfig: IFigureAnimationConfig[] = [];
 
   constructor(public id: CellIdType, public color: CellColor) {}
 
-  setCoordinates = (x: number, y: number) => {
-    this.coordinates = [x, y];
-  };
+  toPlainObject = (): ICellAsPlainObject => ({
+    id: this.id,
+    color: this.color,
+    enPassantCellId: this.enPassantCellId,
+    castling: this.castling,
+    coordinates: this.coordinates,
+    hiddenFigure: this.hiddenFigure,
+    highlight: this.highlight,
+    figure: this.figure?.toPlainObject() || null,
+    animationConfig: this.animationConfig,
+  });
 }
 
 export default Cell;

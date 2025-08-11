@@ -1,52 +1,50 @@
-import AnimationActor from '_comp/AnimationActor';
-import { StyledCell } from '_comp/Cell/styled';
-import figuresSvg from '_img/figures';
-import { ReactSVG } from 'react-svg';
+import '@/components/Cell/index.scss';
 
-import CellClass from '@/entities/Cell/Cell';
+import { memo } from 'react';
 
-import useCellLogic from './useCellLogic';
-import { getFigureSvgName } from './utils';
+import AnimationActor from '@/components/Cell/components/AnimationActor';
+import useCellLogic from '@/components/Cell/useCellLogic';
+import FigureIcon from '@/components/FigureIcon';
+import { HighlightType } from '@/entities/Cell/enums';
+import { ICellAsPlainObject } from '@/entities/Cell/types';
+import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
+import { useAppActions } from '@/store/hooks';
 
 interface IProps {
-  cell: CellClass;
+  cell: ICellAsPlainObject;
 }
 
+const rejectedHighlightType = [HighlightType.SELECTED, HighlightType.ENEMY];
+
 const Cell = ({ cell }: IProps) => {
-  const {
-    cellRef,
-    showFigure,
-    iconRef,
-    tabIndex,
-    handleCellFocus,
-    currentStepTeam,
-    className,
-  } = useCellLogic(cell);
+  const { clickOnCell } = useAppActions();
+  const { cellRef, showFigure, additionalClasses, withAnimation } = useCellLogic(cell);
 
   return (
-    <StyledCell
+    <button
+      data-testid={cell.id}
       ref={cellRef}
-      onClick={() => handleCellFocus({ cellId: cell.id, currentStepTeam })}
-      className={className}
-      tabIndex={tabIndex}
+      onClick={() => {
+        if (rejectedHighlightType.includes(cell.highlight)) return;
+        clickOnCell({ cellId: cell.id });
+      }}
+      className={`cell ${additionalClasses}`}
+      tabIndex={cell.figure ? 0 : -1}
     >
-      {showFigure ? (
-        <ReactSVG
-          // @ts-ignore
-          ref={iconRef}
-          className={`figureIconContainer ${className}`}
-          src={figuresSvg[getFigureSvgName(cell.figure!)]}
-        />
-      ) : null}
-      {!!cell.animationConfig && (
-        <AnimationActor
-          className={className}
-          animationConfig={cell.animationConfig}
-          coordinates={cell.coordinates}
-        />
+      {!!showFigure && (
+        <FigureIcon className={additionalClasses} name={getFigureSvgName(cell.figure!)} />
       )}
-    </StyledCell>
+      {!!withAnimation &&
+        cell.animationConfig?.map((config) => (
+          <AnimationActor
+            key={config.id}
+            styles={config.styles}
+            animationConfig={config}
+            coordinates={cell.coordinates}
+          />
+        ))}
+    </button>
   );
 };
 
-export default Cell;
+export default memo(Cell);
