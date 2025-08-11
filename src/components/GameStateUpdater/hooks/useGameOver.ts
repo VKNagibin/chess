@@ -16,7 +16,7 @@ const useGameOver = () => {
         team: getEnemyTeam(team),
       });
       resetFiguresAnimationsState();
-      startNewGame();
+      startNewGame(null);
     } catch (error) {
       console.error('Ошибка в модальном окне окончания партии: ', error);
     }

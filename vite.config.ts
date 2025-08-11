@@ -48,14 +48,14 @@ export default defineConfig({
     },
   },
   server: {
-    origin: 'http://localhost:2000',
     port: 2000,
+    strictPort: true,
+    open: true,
   },
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
-      { find: '@img', replacement: path.resolve(__dirname, './src/assets') },
-      { find: '@mui/styled-engine', replacement: '@mui/styled-engine-sc' },
+      { find: 'test', replacement: path.resolve(__dirname, 'test') },
     ],
   },
 });

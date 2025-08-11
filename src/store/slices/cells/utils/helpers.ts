@@ -48,5 +48,22 @@ export const resetCellsHighlight = (
     if (cell.highlight !== HighlightType.NONE) cell.highlight = HighlightType.NONE;
   });
 };
+
 export const getEnemyTeam = (team: FigureTeam) =>
   team === FigureTeam.BLACK ? FigureTeam.WHITE : FigureTeam.BLACK;
+
+interface ICalculateFiftyStepsRuleCount {
+  canChangeTeam?: boolean;
+  needResetFiftyStepsRule?: boolean;
+  fiftyStepsRuleCount: number;
+}
+
+export const calculateFiftyStepsRuleCount = ({
+  canChangeTeam,
+  needResetFiftyStepsRule,
+  fiftyStepsRuleCount,
+}: ICalculateFiftyStepsRuleCount): number => {
+  if (!canChangeTeam) return fiftyStepsRuleCount;
+  if (needResetFiftyStepsRule) return 0;
+  return fiftyStepsRuleCount + 1;
+};

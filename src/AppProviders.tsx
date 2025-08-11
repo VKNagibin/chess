@@ -1,3 +1,5 @@
+import '@/services/lang/i18n';
+
 import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 

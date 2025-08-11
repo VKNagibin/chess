@@ -33,6 +33,7 @@ const FiguresList = ({ selectedType, onSelectFigure }: IProps) => {
     <div className={classes.container}>
       {figuresTypesList.map((type) => (
         <button
+          data-testid={`mutate_${type}`}
           className={getClasses(type)}
           key={type}
           onClick={() => {

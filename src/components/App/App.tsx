@@ -5,7 +5,6 @@ import LanguageDropdown from '@/components/LanguageDropdown';
 import StepTeam from '@/components/StepTeam';
 import deepSeekApi from '@/services/api/deepSeekApi';
 import Cache from '@/services/Cache';
-import Logger from '@/services/Logger';
 
 if (Cache.get('figuresAnimations') === null) Cache.set('figuresAnimations', true);
 

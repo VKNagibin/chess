@@ -14,9 +14,15 @@ const StaticGameStateUpdater = () => {
 
   useEffect(() => {
     if (deadKingTeam) handleGameOver(deadKingTeam);
+  }, [deadKingTeam]);
+
+  useEffect(() => {
     if (cellWithMutablePawnId) handlePawnMutation(cellWithMutablePawnId);
+  }, [cellWithMutablePawnId]);
+
+  useEffect(() => {
     if (canChangeTeam) changeActiveTeam();
-  }, [deadKingTeam, cellWithMutablePawnId, canChangeTeam]);
+  }, [canChangeTeam]);
 
   return <></>;
 };

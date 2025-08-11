@@ -4,12 +4,12 @@ module.exports = {
   rootDir: './',
   testEnvironment: 'jsdom',
   roots: ['<rootDir>'],
-  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
-  moduleDirectories: ['node_modules', 'src'],
+  setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
+  moduleDirectories: ['node_modules', 'src', 'test'],
   moduleNameMapper: {
     '\\.module\\.(css|less|scss|sss|styl)$': 'identity-obj-proxy',
-    '\\.(css|less|scss|sss|styl)$': '<rootDir>/__mocks__/styleMock.js',
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/test/__mocks__/styleMock.js',
     '@/(.*)': '<rootDir>/src/$1',
-    '^.+\\.(png|jpg|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    '^.+\\.(png|jpg|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
   },
 };
