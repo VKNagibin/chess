@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 
 import { classByHighlightType } from '@/components/Cell/data';
 import { getCellCoordinates, getHoverClass } from '@/components/Cell/utils';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import type { ICell } from '@/entities/Cell/types';
 import Cache from '@/services/Cache';
 import { useAppActions } from '@/store/hooks';
 
-export default function useCellLogic(cell: ICellAsPlainObject) {
+export default function useCellLogic(cell: ICell) {
   const cellRef = useRef<HTMLButtonElement | null>(null);
   const { setCellCoordinates } = useAppActions();
   const allowFiguresAnimations = Cache.get('figuresAnimations');

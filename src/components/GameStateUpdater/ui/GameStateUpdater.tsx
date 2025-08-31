@@ -4,7 +4,7 @@ import useGameUpdater from '../hooks/useGameUpdater';
 
 const GameStateUpdater = () => {
   const {
-    figureAnimationsInAction,
+    actionsBlocked,
     cellWithMutablePawnId,
     deadKingTeam,
     canChangeTeam,
@@ -14,11 +14,11 @@ const GameStateUpdater = () => {
   } = useGameUpdater();
 
   useEffect(() => {
-    if (figureAnimationsInAction) return;
+    if (actionsBlocked) return;
     if (deadKingTeam) handleGameOver(deadKingTeam);
     if (cellWithMutablePawnId) handlePawnMutation(cellWithMutablePawnId);
     if (canChangeTeam) changeActiveTeam();
-  }, [figureAnimationsInAction]);
+  }, [actionsBlocked]);
 
   return <></>;
 };

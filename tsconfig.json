@@ -19,10 +19,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "test/*": ["test/*"]
+      "test/*": ["test/*"],
+      "icons": ["src/assets/icons"]
     }
   },
-  "include": ["src", "global.d.ts", "test"],
+  "include": ["src", "test", "global.d.ts", "env.d.ts", "vite.config.ts"],
   "exclude": ["**/node_modules", "**/build"],
   "references": [
     {

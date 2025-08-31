@@ -1,6 +1,6 @@
 // import OpenAI from 'openai';
-import type { ApiConfig } from '@/services/api/index';
-import ApiService from '@/services/api/index';
+import type { ApiConfig } from '@/shared/services/api/index';
+import ApiService from '@/shared/services/api/index';
 
 const deepSeekToken = 'sk-rC64EfC12tlhYR4B1uzOParrefdnrptE';
 const deepSeekBaseURL = 'https://api.proxyapi.ru/deepseek/v1';

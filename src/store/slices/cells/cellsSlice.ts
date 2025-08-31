@@ -1,9 +1,5 @@
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
-import {
-  AnimationActionType,
-  CellIdType,
-  ICellAsPlainObject,
-} from '@/entities/Cell/types';
+import { AnimationActionType, CellIdType, ICell } from '@/entities/Cell/types';
 import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
 import { findById } from '@/shared/utils/findById';
 import { uniqId } from '@/shared/utils/uniqId';
@@ -22,23 +18,19 @@ import {
 } from '@/store/slices/cells/utils/helpers';
 import makeFEN from '@/store/slices/cells/utils/makeFEN';
 
-interface IGameHistoryItem {
-  cells: ICellAsPlainObject[];
-  FEN: string;
-  from: string;
-  to: string;
-}
-
-export interface ICellsState {
-  cells: ICellAsPlainObject[];
-  currentTeam: FigureTeam;
+export interface IGameEngineState {
+  cells: ICell[];
+  nextMove: string | null;
+  loading: boolean;
+  errorMessage: boolean;
+  userTeam: FigureTeam;
+  activeTeam: FigureTeam;
   canChangeTeam: boolean;
   deadKingTeam: FigureTeam | null;
   cellWithMutablePawnId: CellIdType | null;
   FEN: string | null;
   fullmoveNumber: number;
   fiftyStepsRuleCount: number;
-  history: IGameHistoryItem[];
 }
 
 const initialCells = arrangeCells(teamsConfigs);
@@ -46,31 +38,37 @@ const initialActiveTeam = FigureTeam.WHITE;
 const initialFiftyStepsRuleCount = 0;
 const initialFullmoveNumber = 1;
 
-const initialState: ICellsState = {
+const initialState: IGameEngineState = {
   cells: initialCells,
-  currentTeam: initialActiveTeam,
+  nextMove: null,
+  loading: false,
+  errorMessage: false,
+  userTeam: FigureTeam.WHITE,
+  activeTeam: initialActiveTeam,
   canChangeTeam: false,
   deadKingTeam: null,
   cellWithMutablePawnId: null,
   FEN: makeFEN({
     cells: initialCells,
-    currentTeam: initialActiveTeam,
+    activeTeam: initialActiveTeam,
     fiftyStepsRuleCount: initialFiftyStepsRuleCount,
     fullmoveNumber: initialFullmoveNumber,
   }),
   fullmoveNumber: initialFullmoveNumber,
   fiftyStepsRuleCount: initialFiftyStepsRuleCount,
-  history: [],
 };
 
-export const cellsSlice = createCustomSlice({
-  name: 'cells',
+export const gameEngineSlice = createCustomSlice({
+  name: 'gameEngine',
   initialState,
   reducers: {
+    selectTeam(state, action) {
+      state.userTeam = action.payload;
+    },
     clickOnCell(state, action) {
       const { cellId } = action.payload;
-      const { cells, currentTeam, fiftyStepsRuleCount } = state;
-      const currentCell = findById(cellId, cells) as ICellAsPlainObject;
+      const { cells, activeTeam, fiftyStepsRuleCount } = state;
+      const currentCell = findById(cellId, cells) as ICell;
 
       if (checkIsStep(currentCell.highlight)) {
         cells.forEach((cell) => {
@@ -90,16 +88,13 @@ export const cellsSlice = createCustomSlice({
           cells,
         });
 
-        const activeTaamAfterStep = canChangeTeam
-          ? getEnemyTeam(currentTeam)
-          : currentTeam;
+        const activeTaamAfterStep = canChangeTeam ? getEnemyTeam(activeTeam) : activeTeam;
 
         resetCellsHighlight(updatedCells, activeTaamAfterStep);
 
         state.cellWithMutablePawnId = cellWithMutablePawnId;
         state.cells = updatedCells;
         state.deadKingTeam = deadKingTeam;
-        state.canChangeTeam = !!canChangeTeam;
         canUpdateFullmoveNumber && ++state.fullmoveNumber;
 
         state.fiftyStepsRuleCount = calculateFiftyStepsRuleCount({
@@ -110,10 +105,12 @@ export const cellsSlice = createCustomSlice({
 
         state.FEN = makeFEN({
           cells: state.cells,
-          currentTeam: activeTaamAfterStep,
+          activeTeam: activeTaamAfterStep,
           fullmoveNumber: state.fullmoveNumber,
           fiftyStepsRuleCount: state.fiftyStepsRuleCount,
         });
+
+        state.canChangeTeam = !!canChangeTeam;
 
         return;
       }
@@ -122,17 +119,17 @@ export const cellsSlice = createCustomSlice({
         cells,
         currentCell,
       });
-      resetCellsHighlight(cells, state.currentTeam);
+      resetCellsHighlight(cells, state.activeTeam);
 
       handleFigureSelect(cells, cellId, allowedSteps);
     },
     mutateFigure(state, action) {
-      const { cells, currentTeam } = state;
+      const { cells, activeTeam } = state;
       const { cellId, figureType } = action.payload;
       state.cells.forEach((cell) => {
         if (cell.animationConfig) cell.animationConfig = [];
       });
-      const currentCell = findById(cellId, cells) as ICellAsPlainObject;
+      const currentCell = findById(cellId, cells) as ICell;
       if (!currentCell?.figure) return;
       currentCell.highlight = HighlightType.SELECTED;
 
@@ -166,25 +163,26 @@ export const cellsSlice = createCustomSlice({
         cells,
       });
 
-      const activeTaamAfterStep = canChangeTeam ? getEnemyTeam(currentTeam) : currentTeam;
+      const activeTaamAfterStep = canChangeTeam ? getEnemyTeam(activeTeam) : activeTeam;
 
       resetCellsHighlight(updatedCells, activeTaamAfterStep);
 
       state.cellWithMutablePawnId = cellWithMutablePawnId;
       state.cells = updatedCells;
-      state.canChangeTeam = !!canChangeTeam;
       canUpdateFullmoveNumber && ++state.fullmoveNumber;
       state.deadKingTeam = deadKingTeam;
       state.FEN = makeFEN({
         cells: updatedCells,
-        currentTeam: activeTaamAfterStep,
+        activeTeam: activeTaamAfterStep,
         fullmoveNumber: state.fullmoveNumber,
         fiftyStepsRuleCount: state.fiftyStepsRuleCount,
       });
+
+      state.canChangeTeam = !!canChangeTeam;
     },
     changeActiveTeam(state) {
       state.canChangeTeam = false;
-      state.currentTeam = getEnemyTeam(state.currentTeam);
+      state.activeTeam = getEnemyTeam(state.activeTeam);
       state.cells.forEach((cell) => {
         if (cell.animationConfig.length) cell.animationConfig = [];
       });
@@ -206,7 +204,7 @@ export const cellsSlice = createCustomSlice({
           cells,
           FEN: makeFEN({
             cells: cells,
-            currentTeam: initialState.currentTeam,
+            activeTeam: initialState.activeTeam,
             fiftyStepsRuleCount: initialState.fiftyStepsRuleCount,
             fullmoveNumber: initialState.fullmoveNumber,
           }),
@@ -215,9 +213,21 @@ export const cellsSlice = createCustomSlice({
 
       return initialState;
     },
+    startEngineLoading: (state) => {
+      state.loading = true;
+    },
+    setNextMove: (state, action) => {
+      state.nextMove = action.payload;
+    },
+    finishEngineLoading: (state) => {
+      state.loading = false;
+    },
+    setEngineError: (state, action) => {
+      state.errorMessage = action.payload;
+    },
   },
 });
 
-export const cellsActions = cellsSlice.actions;
+export const gameEngineActions = gameEngineSlice.actions;
 
-export default cellsSlice.reducer;
+export default gameEngineSlice.reducer;

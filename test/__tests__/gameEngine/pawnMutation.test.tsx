@@ -5,10 +5,16 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import Cells from '@/components/Cells';
 import { StaticGameStateUpdater } from '@/components/GameStateUpdater';
 import { dispatch } from '@/store';
-import { cellsActions } from '@/store/slices/cells/cellsSlice';
+import { gameEngineActions } from '@/store/slices/cells/cellsSlice';
 
 import { pawnMutateConfig } from '../../__mocks__/gameConfigs';
-import { clickOnCell, getFEN, renderUI } from '../../test-utils';
+import {
+  chessApiStartGameMocks,
+  clickOnCell,
+  closeWelcomeModal,
+  getFEN,
+  renderUI,
+} from '../../test-utils';
 
 const renderTestUI = () => {
   renderUI(
@@ -20,12 +26,18 @@ const renderTestUI = () => {
 };
 
 describe('pawn mutation', () => {
+  beforeAll(() => {
+    chessApiStartGameMocks();
+  });
+
   it('queen', async () => {
     renderTestUI();
 
     act(() => {
-      dispatch(cellsActions.startNewGame(pawnMutateConfig));
+      dispatch(gameEngineActions.startNewGame(pawnMutateConfig));
     });
+
+    await closeWelcomeModal();
 
     expect(getFEN()).toBe('5k2/2P5/8/8/8/8/8/4K3 w - - 0 1');
 
@@ -65,8 +77,10 @@ describe('pawn mutation', () => {
     renderTestUI();
 
     act(() => {
-      dispatch(cellsActions.startNewGame(pawnMutateConfig));
+      dispatch(gameEngineActions.startNewGame(pawnMutateConfig));
     });
+
+    await closeWelcomeModal();
 
     expect(getFEN()).toBe('5k2/2P5/8/8/8/8/8/4K3 w - - 0 1');
 

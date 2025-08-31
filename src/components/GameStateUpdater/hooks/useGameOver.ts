@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { FigureTeam } from '@/entities/Cell/enums';
 import GameOverModal from '@/modals/GameOverModal';
 import useModal from '@/shared/components/Modal/useModal';

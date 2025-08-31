@@ -9,6 +9,10 @@
   "gameOverModal": {
     "title": "Game over, {{ team }} win"
   },
+  "welcomeModal": {
+    "title": "Welcome to chess!",
+    "selectTeam": "Select Team"
+  },
   "confirm": "Confirm",
   "gotIt": "Got it"
 }

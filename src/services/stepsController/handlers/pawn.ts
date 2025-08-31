@@ -1,6 +1,6 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import type { ICell } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
 import { teamHandlersMap } from '@/services/stepsController/data';
 import { findById } from '@/shared/utils/findById';
@@ -28,7 +28,7 @@ export default function ({ cells, currentCell: pawnCell }: StepDataInterface) {
 
 function addPawnDefaultStep(
   targetCellId: CellIdType | null,
-  cells: ICellAsPlainObject[],
+  cells: ICell[],
   steps: IStep[],
   enPassantCellId?: CellIdType,
 ): boolean {
@@ -46,15 +46,15 @@ function addPawnDefaultStep(
 
 function addPawnKillStep(
   targetCellId: CellIdType | null,
-  cells: ICellAsPlainObject[],
+  cells: ICell[],
   steps: IStep[],
-  currentTeam: FigureTeam,
+  activeTeam: FigureTeam,
 ): boolean {
   if (!targetCellId) return false;
   const targetCell = findById(targetCellId, cells) as Cell;
   if (!targetCell) return false;
   if (!targetCell.figure) return false;
-  if (targetCell.figure.team === currentTeam) return false;
+  if (targetCell.figure.team === activeTeam) return false;
 
   steps.push({ cellId: targetCellId, highlight: HighlightType.KILL_STEP });
   return true;

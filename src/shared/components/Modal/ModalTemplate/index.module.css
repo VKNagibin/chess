@@ -1,5 +1,5 @@
 .overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
@@ -11,6 +11,7 @@
 .card {
   position: relative;
   padding: 24px;
+  padding-top: 10px;
   gap: 48px;
   display: flex;
   flex-direction: column;
@@ -22,6 +23,7 @@
 
 .header {
   position: relative;
+  padding-top: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,19 +32,13 @@
 
 .cross {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   right: 0;
   width: 24px;
   height: 24px;
   border-radius: 6px;
   background-color: beige;
-}
-
-.cross:after {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  inset: 0;
-  content: 'x';
 }

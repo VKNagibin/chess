@@ -5,6 +5,8 @@ import axios, {
   AxiosResponse,
 } from 'axios';
 
+const DEFAULT_API_TIMEOUT = 20000;
+
 export type ApiConfig = {
   baseURL: string;
   timeout?: number;
@@ -13,13 +15,13 @@ export type ApiConfig = {
 
 type RequestData = Record<string, any> | FormData;
 
-class ApiService {
+export default class ApiService {
   private instance: AxiosInstance;
 
   constructor(config: ApiConfig) {
     this.instance = axios.create({
       baseURL: config.baseURL,
-      timeout: 100000,
+      timeout: config.timeout || DEFAULT_API_TIMEOUT,
       headers: {
         'Content-Type': 'application/json',
         ...config.headers,
@@ -49,10 +51,9 @@ class ApiService {
 
   public async get<T = any>(
     path: string,
-    params?: RequestData,
     config?: AxiosRequestConfig<RequestData>,
   ): Promise<T> {
-    return this.instance.get(path, { params, ...config } as AxiosRequestConfig);
+    return this.instance.get(path, config);
   }
 
   public async post<T = any>(
@@ -86,5 +87,3 @@ class ApiService {
     return this.instance.delete(path, config);
   }
 }
-
-export default ApiService;

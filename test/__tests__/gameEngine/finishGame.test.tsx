@@ -5,10 +5,10 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import Cells from '@/components/Cells';
 import { StaticGameStateUpdater } from '@/components/GameStateUpdater';
 import { dispatch } from '@/store';
-import { cellsActions } from '@/store/slices/cells/cellsSlice';
+import { gameEngineActions } from '@/store/slices/cells/cellsSlice';
 
 import { gameOverStepConfig } from '../../__mocks__/gameConfigs';
-import { clickOnCell, getFEN, renderUI } from '../../test-utils';
+import { chessApiStartGameMocks, clickOnCell, getFEN, renderUI } from '../../test-utils';
 
 const renderTestUI = () => {
   renderUI(
@@ -20,11 +20,15 @@ const renderTestUI = () => {
 };
 
 describe('finish game', () => {
+  beforeAll(() => {
+    chessApiStartGameMocks();
+  });
+
   it('white team win', async () => {
     renderTestUI();
 
     act(() => {
-      dispatch(cellsActions.startNewGame(gameOverStepConfig));
+      dispatch(gameEngineActions.startNewGame(gameOverStepConfig));
     });
 
     expect(getFEN()).toBe('6Qk/7Q/8/5Q2/8/8/8/4K3 w - - 0 1');
@@ -44,7 +48,7 @@ describe('finish game', () => {
     });
 
     await waitFor(() =>
-      expect(getFEN()).toBe('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1'),
+      expect(getFEN()).toBe('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
     );
   });
 });

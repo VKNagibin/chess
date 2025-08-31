@@ -9,6 +9,10 @@
   "gameOverModal": {
     "title": "Игра окончена, {{ team }} победили"
   },
+  "welcomeModal": {
+    "title": "Добро пожаловать в шахматы!",
+    "selectTeam": "Выберите команду"
+  },
   "confirm": "Подтвердить",
   "gotIt": "Понятно"
 }

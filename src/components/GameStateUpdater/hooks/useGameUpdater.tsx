@@ -2,35 +2,26 @@ import { useEffect } from 'react';
 
 import useGameOver from '@/components/GameStateUpdater/hooks/useGameOver';
 import usePawnMutation from '@/components/GameStateUpdater/hooks/usePawnMutation';
-import Logger from '@/services/Logger';
 import { useAppActions, useAppSelector } from '@/store/hooks';
+
+import useWelcomeModal from './useWelcomeModal';
 
 const useGameUpdater = () => {
   const { handlePawnMutation } = usePawnMutation();
   const { handleGameOver } = useGameOver();
+  const { welcomeUser } = useWelcomeModal();
   const { changeActiveTeam } = useAppActions();
+  const { canChangeTeam, cellWithMutablePawnId, deadKingTeam, loading, errorMessage } =
+    useAppSelector(({ gameEngine }) => gameEngine);
 
-  const {
-    figureAnimationsInAction,
-    cellWithMutablePawnId,
-    deadKingTeam,
-    canChangeTeam,
-    FEN,
-  } = useAppSelector(({ figuresAnimations, cells }) => ({
-    deadKingTeam: cells.deadKingTeam,
-    FEN: cells.FEN,
-    canChangeTeam: cells.canChangeTeam,
-    cellWithMutablePawnId: cells.cellWithMutablePawnId,
-    figureAnimationsInAction: figuresAnimations.animationsInAction,
-  }));
+  const figuresAnimations = useAppSelector(({ figuresAnimations }) => figuresAnimations);
 
   useEffect(() => {
-    if (!FEN) return;
-    Logger.log('FEN', FEN);
-  }, [FEN]);
+    welcomeUser();
+  }, []);
 
   return {
-    figureAnimationsInAction,
+    actionsBlocked: figuresAnimations.animationsInAction || loading || errorMessage,
     cellWithMutablePawnId,
     deadKingTeam,
     canChangeTeam,

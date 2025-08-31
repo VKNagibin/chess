@@ -1,6 +1,6 @@
 import Cell from '@/entities/Cell/Cell';
 import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import type { ICell } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
 import { findById } from '@/shared/utils/findById';
 import { IStep } from '@/store/slices/cells/types';
@@ -9,9 +9,9 @@ type AddStepResultType = { done: boolean; type?: HighlightType };
 
 export default function addStep(
   targetCellId: CellIdType | null,
-  cells: ICellAsPlainObject[],
+  cells: ICell[],
   steps: IStep[],
-  currentTeam: FigureTeam,
+  activeTeam: FigureTeam,
 ): AddStepResultType {
   if (!targetCellId) return { done: false };
   const targetCell = findById(targetCellId, cells) as Cell;
@@ -23,7 +23,7 @@ export default function addStep(
     });
     return { done: true, type: HighlightType.DEFAULT_STEP };
   }
-  if (targetCell.figure.team === currentTeam) return { done: false };
+  if (targetCell.figure.team === activeTeam) return { done: false };
 
   steps.push({ cellId: targetCellId, highlight: HighlightType.KILL_STEP });
   return { done: true, type: HighlightType.KILL_STEP };

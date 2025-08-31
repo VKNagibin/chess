@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+ 
+.teamButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    background-color: rgb(206, 241, 229);
+    border-radius: 10px;
+    cursor: pointer;
+ 
+    &:hover { 
+        background-color: rgb(193, 226, 215);
+    }
+}  
+
+.black {
+    background-image: url('/black_wood.svg'); 
+}
+
+.white {
+    background-image: url('/white_wood.svg');
+}
+ 
+.selected {
+    background-color: rgb(90, 207, 170);
+}
+ 
+
+ 

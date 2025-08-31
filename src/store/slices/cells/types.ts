@@ -1,5 +1,5 @@
 import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
-import type { ICastling, ICellAsPlainObject } from '@/entities/Cell/types';
+import type { ICastling, ICell } from '@/entities/Cell/types';
 import type { CellIdType } from '@/entities/Cell/types';
 
 export interface IStep {
@@ -20,8 +20,14 @@ export interface ICellFocusHandler {
 }
 
 export interface StepDataInterface {
-  currentCell: ICellAsPlainObject;
-  cells: ICellAsPlainObject[];
-  stepOwner?: ICellAsPlainObject;
+  currentCell: ICell;
+  cells: ICell[];
+  stepOwner?: ICell;
   ignoreCastling?: boolean;
+}
+
+export enum DifficultyLevel {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  GRANDMASTER = 'grandmaster',
 }

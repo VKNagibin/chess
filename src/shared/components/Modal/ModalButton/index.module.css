@@ -8,12 +8,17 @@
   padding: 12px 24px;
   display: flex;
   font-size: 1.2rem;
-  color: darkslateblue;
+  color: antiquewhite;
   border: none;
   border-radius: 8px;
   font-weight: bold;
+  transition: background-color 0.2s;
   cursor: pointer;
-  background-color: aquamarine;
+  background-color: rgb(68, 51, 21);
   justify-content: center;
   align-items: center;
+}
+
+.submit:hover {
+  background-color: rgba(75, 57, 25, 0.899);
 }

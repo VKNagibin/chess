@@ -5,9 +5,9 @@ import { useAppSelector } from '@/store/hooks';
 function StepTeam() {
   const { t } = useTranslation();
 
-  const currentStepTeam = useAppSelector(({ cells }) => cells.currentTeam);
+  const gameEngine = useAppSelector(({ gameEngine }) => gameEngine);
 
-  return <h2>{t(`team.${currentStepTeam}`)}</h2>;
+  return <h2>{t(`team.${gameEngine.activeTeam}`)}</h2>;
 }
 
 export default StepTeam;

@@ -1,14 +1,10 @@
 import { HighlightType } from '@/entities/Cell/enums';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import type { ICell } from '@/entities/Cell/types';
 import { CellIdType } from '@/entities/Cell/types';
 import { findById } from '@/shared/utils/findById';
 import { IStep } from '@/store/slices/cells/types';
 
-export default function (
-  cells: ICellAsPlainObject[],
-  cellId: CellIdType,
-  steps: IStep[],
-): void {
+export default function (cells: ICell[], cellId: CellIdType, steps: IStep[]): void {
   cells.forEach((cell) => {
     if (cell.id === cellId && cell.figure) {
       cell.highlight = HighlightType.SELECTED;
@@ -18,7 +14,7 @@ export default function (
     if (!step) return;
 
     if (step?.highlight === HighlightType.CASTLING_STEP) {
-      const selectedCell = findById(cellId, cells) as ICellAsPlainObject;
+      const selectedCell = findById(cellId, cells) as ICell;
       selectedCell.castling.push(step.castling!);
     }
 

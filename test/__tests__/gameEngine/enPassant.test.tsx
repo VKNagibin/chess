@@ -3,10 +3,10 @@ import { act } from '@testing-library/react';
 import Cells from '@/components/Cells';
 import { StaticGameStateUpdater } from '@/components/GameStateUpdater';
 import { dispatch } from '@/store';
-import { cellsActions } from '@/store/slices/cells/cellsSlice';
+import { gameEngineActions } from '@/store/slices/cells/cellsSlice';
 
 import { enPassantConfig } from '../../__mocks__/gameConfigs';
-import { clickOnCell, getFEN, renderUI } from '../../test-utils';
+import { chessApiStartGameMocks, clickOnCell, getFEN, renderUI } from '../../test-utils';
 
 const renderTestUI = () => {
   renderUI(
@@ -18,10 +18,14 @@ const renderTestUI = () => {
 };
 
 describe('enPassant', () => {
+  beforeAll(() => {
+    chessApiStartGameMocks();
+  });
+
   it('enPassant kill', async () => {
     renderTestUI();
     act(() => {
-      dispatch(cellsActions.startNewGame(enPassantConfig));
+      dispatch(gameEngineActions.startNewGame(enPassantConfig));
     });
     expect(getFEN()).toBe('7k/8/8/8/5p2/8/4P3/4K3 w - - 0 1');
 
@@ -42,7 +46,7 @@ describe('enPassant', () => {
   it('enPassant ignore', async () => {
     renderTestUI();
     act(() => {
-      dispatch(cellsActions.startNewGame(enPassantConfig));
+      dispatch(gameEngineActions.startNewGame(enPassantConfig));
     });
 
     expect(getFEN()).toBe('7k/8/8/8/5p2/8/4P3/4K3 w - - 0 1');

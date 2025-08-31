@@ -93,7 +93,7 @@ export const gameOverStepConfig: Record<FigureTeam, ConfigItemType[]> = {
   ],
 };
 
-export const highlightsConfig = {
+export const highlightsConfig: Record<FigureTeam, ConfigItemType[]> = {
   [FigureTeam.BLACK]: [
     {
       cellsIds: ['e8'],

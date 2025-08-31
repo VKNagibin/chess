@@ -1,11 +1,11 @@
-import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import { HighlightType } from '@/entities/Cell/enums';
+import type { ICell } from '@/entities/Cell/types';
 import { RectangularCoordinatesType } from '@/shared/types';
 import { checkIsStep } from '@/store/slices/cells/utils/helpers';
 
-export const getHoverClass = (cell: ICellAsPlainObject) => {
+export const getHoverClass = (cell: ICell) => {
   if (checkIsStep(cell.highlight)) return ' filled';
-  if (cell.highlight === HighlightType.TEAM) return ' currentTeam';
+  if (cell.highlight === HighlightType.TEAM) return ' activeTeam';
   return '';
 };
 

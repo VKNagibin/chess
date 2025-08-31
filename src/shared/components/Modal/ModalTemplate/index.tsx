@@ -1,16 +1,18 @@
+import CrossIcon from 'icons/cross.svg';
 import React, { memo, PropsWithChildren } from 'react';
 
 import classes from '@/shared/components/Modal/ModalTemplate/index.module.css';
+import { noneFn } from '@/shared/types';
 
 interface IProps {
   title: string;
-  withCloseButton?: boolean;
+  close?: noneFn;
   buttons?: React.ReactElement | null;
 }
 
 const ModalTemplate = ({
   title,
-  withCloseButton,
+  close,
   children,
   buttons = null,
 }: PropsWithChildren<IProps>) => {
@@ -19,7 +21,15 @@ const ModalTemplate = ({
       <div className={classes.card}>
         <div className={classes.header}>
           <h3>{title}</h3>
-          {!!withCloseButton && <button className={classes.cross} />}
+          {!!close && (
+            <button
+              data-testid="modal_close_button"
+              className={classes.cross}
+              onClick={close}
+            >
+              <CrossIcon />
+            </button>
+          )}
         </div>
         {children}
         {buttons}

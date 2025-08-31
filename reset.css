@@ -17,7 +17,7 @@ body {
 #root {
   display: flex;
   min-height: inherit;
-  background-color: rgb(231 212 186);
+  background-color: var(--color-primary);
   flex-direction: column;
   align-items: center;
   justify-content: center;

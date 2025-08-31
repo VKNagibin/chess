@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import classes from './index.module.css';
 
 interface IProps {
@@ -12,7 +10,7 @@ interface ButtonItem {
   text: string;
 }
 
-const ModalButtons = ({ items }: IProps) => {
+const ModalButton = ({ items }: IProps) => {
   return (
     <div className={classes.buttonsContainer}>
       {items.map(({ text, buttonStyle, onClick }, index) => (
@@ -28,4 +26,4 @@ const ModalButtons = ({ items }: IProps) => {
   );
 };
 
-export default memo(ModalButtons);
+export default ModalButton;

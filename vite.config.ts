@@ -2,6 +2,7 @@
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 
 import app from './package.json';
 
@@ -20,6 +21,14 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    svgr({
+      svgrOptions: {
+        icon: true,
+        svgo: true,
+      },
+      include: '**/*.svg',
+      exclude: ['/public'],
+    }),
     // federation({
     //   name: 'chess',
     //   remotes: {
@@ -56,6 +65,7 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
       { find: 'test', replacement: path.resolve(__dirname, 'test') },
+      { find: 'icons', replacement: path.resolve(__dirname, 'src', 'assets', 'icons') },
     ],
   },
 });

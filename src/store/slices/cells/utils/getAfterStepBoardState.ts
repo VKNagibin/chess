@@ -3,7 +3,7 @@ import {
   PawnMutateCellNumbersType,
 } from '@/entities/Cell/constants';
 import { FigureTeam, FigureType, HighlightType } from '@/entities/Cell/enums';
-import type { CellIdType, ICellAsPlainObject } from '@/entities/Cell/types';
+import type { CellIdType, ICell } from '@/entities/Cell/types';
 import { AnimationActionType } from '@/entities/Cell/types';
 import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
 import { uniqId } from '@/shared/utils/uniqId';
@@ -13,10 +13,10 @@ import getKingAttackResult, { KingAttackResult } from './getKingAttackResult';
 import getKingEnemies from './getKingEnemies';
 import { getEnemyTeam, getKing } from './helpers';
 
-type PartialCellFieldsType = Partial<ICellAsPlainObject>;
+type PartialCellFieldsType = Partial<ICell>;
 
 interface IAfterStepBoardState {
-  updatedCells: ICellAsPlainObject[];
+  updatedCells: ICell[];
   deadKingTeam: FigureTeam | null;
   cellWithMutablePawnId: CellIdType | null;
   needResetFiftyStepsRule?: boolean;
@@ -24,9 +24,7 @@ interface IAfterStepBoardState {
   canUpdateFullmoveNumber?: boolean;
 }
 
-const getPawnForMutation = (
-  cells: ICellAsPlainObject[],
-): ICellAsPlainObject | undefined =>
+const getPawnForMutation = (cells: ICell[]): ICell | undefined =>
   cells.find((cell) => {
     if (cell.figure?.type !== FigureType.PAWN) return;
     return cellNumbersBoundaryValues.includes(cell.id[1] as PawnMutateCellNumbersType);
@@ -43,7 +41,7 @@ function getAfterStepBoardState({
   const stepOwnerFigure = stepOwnerCell!.figure!;
   const canUpdateFullmoveNumber = stepOwnerFigure.team === FigureTeam.BLACK;
 
-  const currentTeam = stepOwnerFigure.team;
+  const activeTeam = stepOwnerFigure.team;
 
   const sourceFigureCell = cells.find(
     (cell) => currentCell.figure?.id === cell.figure?.id && currentCell.id !== cell.id,
@@ -125,15 +123,15 @@ function getAfterStepBoardState({
     };
   }
 
-  const ourKing = getKing(afterStepBoardState, currentTeam)!;
-  const theirKing = getKing(afterStepBoardState, getEnemyTeam(currentTeam))!;
-  const ourKingEnemies = getKingEnemies(afterStepBoardState, currentTeam);
-  const theirKingEnemies = getKingEnemies(afterStepBoardState, getEnemyTeam(currentTeam));
+  const ourKing = getKing(afterStepBoardState, activeTeam)!;
+  const theirKing = getKing(afterStepBoardState, getEnemyTeam(activeTeam))!;
+  const ourKingEnemies = getKingEnemies(afterStepBoardState, activeTeam);
+  const theirKingEnemies = getKingEnemies(afterStepBoardState, getEnemyTeam(activeTeam));
 
   if (ourKingEnemies.length) {
     const ourKingEnemiesIds = ourKingEnemies.map((cell) => cell.id);
 
-    const ourKingBeforeStep = getKing(cells, currentTeam)!;
+    const ourKingBeforeStep = getKing(cells, activeTeam)!;
 
     const updatedCells = cells.map((cell) => {
       if (ourKingEnemiesIds.includes(cell.id)) {
@@ -175,7 +173,7 @@ function getAfterStepBoardState({
 
   if (theirKingEnemies.length) {
     const result = getKingAttackResult({
-      team: getEnemyTeam(currentTeam),
+      team: getEnemyTeam(activeTeam),
       cells: afterStepBoardState,
     });
 
@@ -195,7 +193,7 @@ function getAfterStepBoardState({
       canChangeTeam: true,
       canUpdateFullmoveNumber,
       needResetFiftyStepsRule,
-      deadKingTeam: result === KingAttackResult.ALIVE ? null : getEnemyTeam(currentTeam),
+      deadKingTeam: result === KingAttackResult.ALIVE ? null : getEnemyTeam(activeTeam),
       cellWithMutablePawnId: null,
     };
   }

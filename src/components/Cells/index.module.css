@@ -2,9 +2,9 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  background-color: #483116b8;
+  background-color: var(--color-secondary);
   padding: 5px;
-  border: 6px solid #544435;
+  border: 6px solid var(--color-border);
   border-radius: 10px;
   width: 640px;
   height: 640px;
