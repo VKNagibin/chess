@@ -6,9 +6,12 @@
   padding: 0;
 }
 
+*:focus {
+  outline: 4px solid var(--color-selected);
+}
+
 body {
   min-height: 100vh;
-  min-width: max-content;
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -65,6 +68,10 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+button {
+  cursor: pointer;
 }
 
 button,

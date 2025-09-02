@@ -1,7 +1,7 @@
 import CrossIcon from 'icons/cross.svg';
 import React, { memo, PropsWithChildren } from 'react';
 
-import classes from '@/shared/components/Modal/ModalTemplate/index.module.css';
+import classes from '@/shared/components/Modal/ModalTemplate/index.module.scss';
 import { noneFn } from '@/shared/types';
 
 interface IProps {
@@ -20,14 +20,14 @@ const ModalTemplate = ({
     <div className={classes.overlay}>
       <div className={classes.card}>
         <div className={classes.header}>
-          <h3>{title}</h3>
+          <h3 className={classes.title}>{title}</h3>
           {!!close && (
             <button
               data-testid="modal_close_button"
               className={classes.cross}
               onClick={close}
             >
-              <CrossIcon />
+              <CrossIcon className={classes.crossIcon} />
             </button>
           )}
         </div>

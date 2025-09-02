@@ -1,0 +1,62 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background-color: var(--color-overlay);
+} 
+
+.card {
+  position: relative;
+  padding: var(--spacing-md); 
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  border-radius: var(--border-radius-lg);
+  min-height: 50px;
+}
+
+.header {
+  position: relative;
+  padding-inline: 46px;
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  align-self: end; 
+  max-width: 300px;
+  text-align: center;
+}
+
+.cross {
+  position: absolute;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-primary);
+  transition: background-color var(--speed-2);
+
+  &:hover {
+    background-color: var(--color-primaryDim);
+  }
+}
+
+.crossIcon {
+  stroke-width: 6;
+  width: 12px;
+  min-width: 12px;
+  height: 12px;
+  min-height: 12px;
+  stroke: var(--color-secondary);
+}

@@ -23,6 +23,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme = 
     colors: { ...baseTheme.colors, ...theme.colors },
     spacing: { ...baseTheme.spacing, ...theme.spacing },
     borderRadius: { ...baseTheme.borderRadius, ...theme.borderRadius },
+    speed: { ...baseTheme.speed, ...theme.speed },
   };
 
   React.useEffect(() => {
@@ -38,6 +39,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme = 
 
     Object.entries(mergedTheme.borderRadius).forEach(([key, value]) => {
       root.style.setProperty(`--border-radius-${key}`, value);
+    });
+
+    Object.entries(mergedTheme.speed).forEach(([key, value]) => {
+      root.style.setProperty(`--speed-${key}`, value);
     });
   }, [mergedTheme]);
 
