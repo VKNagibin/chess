@@ -1,37 +1,40 @@
 import { t } from 'i18next';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, memo, useCallback, useMemo, useState } from 'react';
 
 import { FigureTeam } from '@/entities/Cell/enums';
-import { Dropdown, DropdownOption } from '@/shared/components/Dropdown';
+import { Dropdown } from '@/shared/components/Dropdown';
 import ModalButton from '@/shared/components/Modal/ModalButton';
 import ModalTemplate from '@/shared/components/Modal/ModalTemplate';
 import { ModalComponentProps } from '@/shared/components/Modal/types';
+import { noneFn } from '@/shared/types';
+import { DifficultyLevel } from '@/store/slices/cells/types';
 
 import classes from './index.module.scss';
-
-const options: DropdownOption[] = [
-  { value: '1', label: 'Apple', icon: '🍎' },
-  { value: '2', label: 'Banana', icon: '🍌' },
-  { value: '3', label: 'Orange', icon: '🍊' },
-  { value: '4', label: 'Grape', icon: '🍇' },
-  { value: '5', label: 'Lemon', icon: '🍋' },
-];
+import getDifficultyOptions from './utils/getDifficultyOptions';
 
 const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ submit }) => {
   const [team, setTeam] = useState<FigureTeam>(FigureTeam.WHITE);
-  const [selectedValue, setSelectedValue] = useState<string>();
+  const [selectedValue, setSelectedValue] = useState<DifficultyLevel>(
+    DifficultyLevel.BEGINNER,
+  );
+
+  const options = useMemo(() => getDifficultyOptions(team), [team]);
+  const onClose = useCallback(() => submit(team), [team, submit]);
+
+  const modalButtons = useMemo(
+    () => [{ onClick: () => submit(team), text: t('confirm'), type: 'submit' }],
+    [team, submit],
+  );
 
   return (
     <ModalTemplate
-      buttons={
-        <ModalButton items={[{ onClick: () => submit(team), text: t('confirm') }]} />
-      }
-      close={() => submit(team)}
+      buttons={<ModalButton items={modalButtons} />}
+      close={onClose}
       title={t('welcomeModal.title')}
     >
       <div className={classes.body}>
         <div className={classes.horizontalItemConteiner}>
-          <h4 className={classes.typography}>Команда:</h4>
+          <h4 className={classes.typography}>{t('team.one')}:</h4>
           <div className={classes.configItemValues}>
             <button
               className={`${
@@ -56,12 +59,12 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ subm
           </div>
         </div>
         <div className={classes.verticalItemConteiner}>
-          <h4 className={classes.typography}>Уровень сложности:</h4>
+          <h4 className={classes.typography}>{t('difficulty.level')}:</h4>
           <Dropdown
             options={options}
             value={selectedValue}
-            onChange={setSelectedValue}
-            placeholder="Select a fruit"
+            onChange={setSelectedValue as noneFn}
+            placeholder={t('difficulty.placeholder')}
             disabled={false}
           />
         </div>
@@ -70,4 +73,4 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ subm
   );
 };
 
-export default WelcomeModal;
+export default memo(WelcomeModal);

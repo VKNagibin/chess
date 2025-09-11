@@ -1,5 +1,16 @@
 {
+  "dropdown": {
+    "placeholder": "Select an option"
+  },
+  "difficulty": {
+    "level": "Difficulty Level",
+    "placeholder": "Select difficulty",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "grandmaster": "Grandmaster"
+  },
   "team": {
+    "one": "Team",
     "white": "White",
     "black": "Black"
   },

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import classes from '@/components/Board/index.module.css';
+import classes from '@/components/Board/index.module.scss';
 import Cells from '@/components/Cells';
 import Chars from '@/components/Chars';
 import Numbers from '@/components/Numbers';

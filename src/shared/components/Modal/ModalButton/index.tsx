@@ -1,4 +1,4 @@
-import classes from './index.module.css';
+import classes from './index.module.scss';
 
 interface IProps {
   items: ButtonItem[];
@@ -6,17 +6,17 @@ interface IProps {
 
 interface ButtonItem {
   onClick: (result?: void | undefined) => void;
-  buttonStyle?: string;
+  type: 'submit';
   text: string;
 }
 
 const ModalButton = ({ items }: IProps) => {
   return (
     <div className={classes.buttonsContainer}>
-      {items.map(({ text, buttonStyle, onClick }, index) => (
+      {items.map(({ text, type, onClick }, index) => (
         <button
           key={index}
-          className={classes[buttonStyle || 'submit']}
+          className={[classes[type], classes.button].join(' ')}
           onClick={onClick}
         >
           {text}

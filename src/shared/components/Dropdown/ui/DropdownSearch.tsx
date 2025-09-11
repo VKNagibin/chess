@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { IDropdownSearch } from './types';
+import classes from '@/shared/components/Dropdown/styles/DropdownSearch.module.scss';
+import { IDropdownSearch } from '@/shared/components/Dropdown/types';
 
 export const DropdownSearch: React.FC<IDropdownSearch> = ({
   value,
@@ -8,13 +9,13 @@ export const DropdownSearch: React.FC<IDropdownSearch> = ({
   placeholder = 'Search...',
 }) => {
   return (
-    <div className="dropdown-search">
+    <div className={classes.container}>
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="dropdown-search-input"
+        className={classes.input}
       />
     </div>
   );

@@ -1,7 +1,17 @@
+@import '@/style/mixins.scss';
+
 .buttonsContainer {
   width: 100%;
   display: flex;
-  justify-content: center;
+  margin-top: 24px;
+
+  @include media('mobileLarge') {
+    margin-top: auto;
+  }
+}
+
+.button {
+  width: 100%;
 }
 
 .submit {

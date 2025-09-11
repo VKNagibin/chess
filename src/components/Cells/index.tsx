@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import Cell from '@/components/Cell';
-import classes from '@/components/Cells/index.module.css';
+import classes from '@/components/Cells/index.module.scss';
 import { useAppSelector } from '@/store/hooks';
 
 const Cells = () => {

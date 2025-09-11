@@ -2,13 +2,11 @@
   position: relative;
   border-radius: 2px;
   cursor: default;
-  width: 80px;
-  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
-  transition: box-shadow .2s;
+  transition: box-shadow 0.05s;
 
   &:focus {
     outline: none;
@@ -16,10 +14,10 @@
 
   &.white {
     background-image: url('/white_wood.svg');
-  } 
- 
-  &.black {  
-    background-image: url('/black_wood.svg'); 
+  }
+
+  &.black {
+    background-image: url('/black_wood.svg');
   }
 
   &.selected {
@@ -29,7 +27,7 @@
   &.step {
     box-shadow: inset 0 0 4px 4px var(--color-success);
   }
- 
+
   &.step:hover {
     cursor: pointer;
 
@@ -44,10 +42,10 @@
   }
 
   &.activeTeam {
-      cursor: pointer;
+    cursor: pointer;
   }
 
-   &.castling {
+  &.castling {
     &::after {
       will-change: transform;
       transition: transform 0.3s;
@@ -64,6 +62,6 @@
       &::after {
         transform: translate(-50%, -50%) scale(1.2);
       }
-    } 
+    }
   }
-}  
+}

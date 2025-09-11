@@ -1,3 +1,5 @@
+@import '@/style/mixins.scss';
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -6,45 +8,52 @@
   justify-content: center;
   z-index: 100;
   background-color: var(--color-overlay);
-} 
+}
 
 .card {
   position: relative;
-  padding: var(--spacing-md); 
-  gap: 24px;
+  padding: 16px 48px 24px 48px;
   display: flex;
   flex-direction: column;
   background-color: antiquewhite;
-  border-radius: var(--border-radius-lg);
-  min-height: 50px;
+  border-radius: 12px;
+
+  @include media('mobileLarge') {
+    padding: 24px 32px;
+    gap: 16px;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
 }
 
 .header {
+  text-align: center;
   position: relative;
-  padding-inline: 46px;
-  min-height: 40px;
-  display: flex;
-  justify-content: space-between;
+  margin-bottom: 24px;
+
+  @include media('mobileLarge') {
+    font-size: 14px;
+  }
 }
 
 .title {
-  align-self: end; 
+  align-self: end;
   max-width: 300px;
   text-align: center;
 }
 
 .cross {
+  @include square(24px);
   position: absolute;
   align-self: start;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 0;
-  right: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-primary);
+  top: 8px;
+  right: 8px;
+  border-radius: 8px;
+  background-color: var(--color-primaryDim);
   transition: background-color var(--speed-2);
 
   &:hover {
@@ -54,9 +63,7 @@
 
 .crossIcon {
   stroke-width: 6;
-  width: 12px;
-  min-width: 12px;
-  height: 12px;
-  min-height: 12px;
+  @include square(12px);
+
   stroke: var(--color-secondary);
 }

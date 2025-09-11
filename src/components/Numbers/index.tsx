@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import classes from '@/components/Numbers/index.module.css';
+import classes from '@/components/Numbers/index.module.scss';
 import { cellNumbersReversedList } from '@/entities/Cell/constants';
 
 const Numbers = () => {

@@ -19,17 +19,17 @@ const ModalTemplate = ({
   return (
     <div className={classes.overlay}>
       <div className={classes.card}>
+        {!!close && (
+          <button
+            data-testid="modal_close_button"
+            className={classes.cross}
+            onClick={close}
+          >
+            <CrossIcon className={classes.crossIcon} />
+          </button>
+        )}
         <div className={classes.header}>
-          <h3 className={classes.title}>{title}</h3>
-          {!!close && (
-            <button
-              data-testid="modal_close_button"
-              className={classes.cross}
-              onClick={close}
-            >
-              <CrossIcon className={classes.crossIcon} />
-            </button>
-          )}
+          <h3>{title}</h3>
         </div>
         {children}
         {buttons}

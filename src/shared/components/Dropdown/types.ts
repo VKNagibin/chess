@@ -5,12 +5,15 @@ export interface IDropdownOption {
   icon?: React.ReactNode;
 }
 
-export type PositionType = 'top' | 'auto' | 'bottom';
-
+export enum PositionType {
+  TOP = 'top',
+  AUTO = 'auto',
+  BOTTOM = 'bottom',
+}
 export interface IDropdown {
   options: IDropdownOption[];
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: unknown) => void;
   placeholder?: string;
   disabled?: boolean;
   searchable?: boolean;

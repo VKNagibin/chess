@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { IDropdownOption } from './types';
+import classes from '@/shared/components/Dropdown/styles/DropdownItem.module.scss';
+import { IDropdownOption } from '@/shared/components/Dropdown/types';
 
 interface DropdownItemProps {
   option: IDropdownOption;
@@ -21,7 +22,7 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
     return parts.map((part, i) =>
       part.toLowerCase() === highlight.toLowerCase() ? (
-        <span key={i} className="dropdown-item-highlight">
+        <span key={i} className={classes.highlight}>
           {part}
         </span>
       ) : (
@@ -30,21 +31,22 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
     );
   };
 
+  const getButtonClasses = () => {
+    let className = classes.button;
+    if (isSelected) className = `${className} ${classes.selected}`;
+    if (option.disabled) className = `${className} ${classes.disabled}`;
+
+    return className;
+  };
+
   return (
-    <li
-      className={`dropdown-item ${isSelected ? 'selected' : ''} ${
-        option.disabled ? 'disabled' : ''
-      }`}
-    >
+    <li className={classes.container}>
       <button
-        className="itemButton"
+        className={getButtonClasses()}
         onClick={() => !option.disabled && onSelect(option.value)}
       >
-        {option.icon && <span className="dropdown-item-icon">{option.icon}</span>}
-        <span className="dropdown-item-label">
-          {searchValue ? highlightText(option.label, searchValue) : option.label}
-        </span>
-        {isSelected && <span className="dropdown-item-check">✓</span>}
+        {option.icon || null}
+        <p>{searchValue ? highlightText(option.label, searchValue) : option.label}</p>
       </button>
     </li>
   );

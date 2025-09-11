@@ -30,7 +30,7 @@ export default function useDropdown({
       options.filter((option) =>
         option.label.toLowerCase().includes(searchValue.toLowerCase()),
       ),
-    [options],
+    [searchValue, options],
   );
 
   const selectedOption = useMemo(

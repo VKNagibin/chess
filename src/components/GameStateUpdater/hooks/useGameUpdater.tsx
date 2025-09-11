@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 import useGameOver from '@/components/GameStateUpdater/hooks/useGameOver';
 import usePawnMutation from '@/components/GameStateUpdater/hooks/usePawnMutation';
@@ -16,7 +16,7 @@ const useGameUpdater = () => {
 
   const figuresAnimations = useAppSelector(({ figuresAnimations }) => figuresAnimations);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     welcomeUser();
   }, []);
 

@@ -20,6 +20,7 @@ body {
 #root {
   display: flex;
   min-height: inherit;
+  min-width: fit-content;
   background-color: var(--color-primary);
   flex-direction: column;
   align-items: center;
