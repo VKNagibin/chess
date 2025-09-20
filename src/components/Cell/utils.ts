@@ -30,7 +30,7 @@ export const getCellCoordinates = (
   } = cellElement.getBoundingClientRect();
 
   return {
-    x: parseInt(String(left - width / 2)),
-    y: parseInt(String(top - height / 2)),
+    x: left - width / 2,
+    y: top - height / 2,
   };
 };

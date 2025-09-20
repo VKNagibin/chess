@@ -13,7 +13,7 @@
   height: 640px;
 
   @include media('tablet') {
-    width: calc(100vw );
+    width: calc(100vw);
     height: calc(100vw);
   }
 }

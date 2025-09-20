@@ -21,8 +21,8 @@
   @include media('mobileLarge') {
     padding: 24px 32px;
     gap: 16px;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     border-radius: 0;
   }
 }
