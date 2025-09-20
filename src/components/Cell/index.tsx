@@ -6,12 +6,12 @@ import AnimationActor from '@/components/Cell/components/AnimationActor';
 import useCellLogic from '@/components/Cell/useCellLogic';
 import FigureIcon from '@/components/FigureIcon';
 import { HighlightType } from '@/entities/Cell/enums';
-import { ICellAsPlainObject } from '@/entities/Cell/types';
+import { ICell } from '@/entities/Cell/types';
 import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
 import { useAppActions } from '@/store/hooks';
 
 interface IProps {
-  cell: ICellAsPlainObject;
+  cell: ICell;
 }
 
 const rejectedHighlightType = [HighlightType.SELECTED, HighlightType.ENEMY];

@@ -1,6 +1,6 @@
-import { ICellAsPlainObject } from '@/entities/Cell/types';
+import { ICell } from '@/entities/Cell/types';
 
-const getEnPassantFEN = (cells: ICellAsPlainObject[]) => {
+const getEnPassantFEN = (cells: ICell[]) => {
   let result = '-';
 
   cells.forEach((cell) => {

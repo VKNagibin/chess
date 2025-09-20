@@ -1,33 +1,27 @@
-name: ChessCI
+name: Chess CI
 
-on: [ push ]
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  integration:
+  quality-checks:
+    name: 'Lint, Test'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node environment
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 23
           cache: 'npm'
 
-      - name: Cache node_modules
-        uses: actions/cache@v4.2.0
-        with:
-          path: node_modules
-          key: ubuntu-latest-node-v23-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
-
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
-
-      - name: Run typecheck
-        run: npm run ts
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint

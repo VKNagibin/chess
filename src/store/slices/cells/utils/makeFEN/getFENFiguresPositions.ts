@@ -2,11 +2,11 @@ import {
   cellCharsBoundaryValues,
   cellNumbersBoundaryValues,
 } from '@/entities/Cell/constants';
-import { ICellAsPlainObject } from '@/entities/Cell/types';
+import { ICell } from '@/entities/Cell/types';
 import { parseCellId } from '@/services/stepsController/utils';
 import { getFENFigureNotation } from '@/store/slices/cells/utils/makeFEN/getFENFigureNotation';
 
-export const getFENFiguresPositions = (cells: ICellAsPlainObject[]) => {
+export const getFENFiguresPositions = (cells: ICell[]) => {
   let result = '';
   let emptyHorizontalCellsCount = 0;
 

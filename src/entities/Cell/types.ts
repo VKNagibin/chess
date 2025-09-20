@@ -1,12 +1,12 @@
 import Cell from '@/entities/Cell/Cell';
 import { CELL_CHAR, CELL_NUMBER } from '@/entities/Cell/constants';
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
-import { FigureAsPlainObjectType, FigureSvgNameType } from '@/entities/Figure/Figure';
+import { FigureSvgNameType, IFigure } from '@/entities/Figure/Figure';
 import { CastlingType } from '@/services/stepsController/handlers/king/getCastlingSteps';
 import { RectangularCoordinatesType } from '@/shared/types';
 
-export interface ICellAsPlainObject extends Omit<Cell, 'toPlainObject' | 'figure'> {
-  figure: FigureAsPlainObjectType | null;
+export interface ICell extends Omit<Cell, 'toPlainObject' | 'figure'> {
+  figure: IFigure | null;
 }
 
 export type CharValueType = (typeof CELL_CHAR)[keyof typeof CELL_CHAR];
@@ -18,8 +18,8 @@ export interface ICastling {
   targetCellId: CellIdType;
   type: CastlingType;
   dependent: {
-    ownerCell: ICellAsPlainObject;
-    targetCell: ICellAsPlainObject;
+    ownerCell: ICell;
+    targetCell: ICell;
   };
 }
 

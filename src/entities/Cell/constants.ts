@@ -1,6 +1,6 @@
 import { ArrayElement } from '@/shared/types';
 
-import { CharValueType } from './types';
+import { CharValueType, NumberValueType } from './types';
 
 export const CELLS_COUNT_IN_ROW = 8;
 
@@ -29,7 +29,10 @@ export const CELL_NUMBER = {
 export const cellCharsList = Object.values(CELL_CHAR);
 export const cellNumbersReversedList = Object.values(CELL_NUMBER).reverse();
 
-export const cellNumbersBoundaryValues = [CELL_NUMBER.ONE, CELL_NUMBER.EIGHT];
+export const cellNumbersBoundaryValues = [
+  CELL_NUMBER.ONE,
+  CELL_NUMBER.EIGHT,
+] as NumberValueType[];
 export const cellCharsBoundaryValues = [CELL_CHAR.A, CELL_CHAR.H] as CharValueType[];
 
 export type PawnMutateCellNumbersType = ArrayElement<typeof cellNumbersBoundaryValues>;

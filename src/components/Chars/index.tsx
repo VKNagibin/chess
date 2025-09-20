@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import classes from '@/components/Chars/index.module.css';
+import classes from '@/components/Chars/index.module.scss';
 import { cellCharsList } from '@/entities/Cell/constants';
 
 const Chars = () => {

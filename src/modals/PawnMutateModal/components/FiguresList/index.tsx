@@ -17,7 +17,7 @@ interface IProps {
 }
 
 const FiguresList = ({ selectedType, onSelectFigure }: IProps) => {
-  const currentStepTeam = useAppSelector(({ cells }) => cells.currentTeam);
+  const gameEngine = useAppSelector(({ gameEngine }) => gameEngine);
 
   const getClasses = (type: FigureType) => {
     let classList = [classes.figure];
@@ -33,6 +33,7 @@ const FiguresList = ({ selectedType, onSelectFigure }: IProps) => {
     <div className={classes.container}>
       {figuresTypesList.map((type) => (
         <button
+          data-testid={`mutate_${type}`}
           className={getClasses(type)}
           key={type}
           onClick={() => {
@@ -44,7 +45,7 @@ const FiguresList = ({ selectedType, onSelectFigure }: IProps) => {
             className={classes.svg}
             name={getFigureSvgName({
               type,
-              team: currentStepTeam,
+              team: gameEngine.activeTeam,
             })}
           />
         </button>

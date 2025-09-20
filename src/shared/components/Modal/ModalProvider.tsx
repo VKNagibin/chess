@@ -36,22 +36,14 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     return new Promise<any>((resolve) => {
       const id = uniqId();
 
-      const close = (result?: any) => {
+      const close = () => {
         setDisplayedModals((prev) => prev.filter((modal) => modal.id !== id));
-        resolve({
-          status: MODAL_STATUSES.CLOSE,
-          id,
-          data: result,
-        });
+        resolve(null);
       };
 
       const submit = (result: any) => {
         setDisplayedModals((prev) => prev.filter((modal) => modal.id !== id));
-        resolve({
-          status: MODAL_STATUSES.SUBMIT,
-          id,
-          data: result,
-        });
+        resolve(result);
       };
 
       setDisplayedModals((prev) => [

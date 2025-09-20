@@ -1,0 +1,66 @@
+@import '@/style/mixins.scss';
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.typography {
+  text-align: left;
+}
+
+.horizontalItemConteiner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.verticalItemConteiner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.configItemValues {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.teamButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  transition: opacity 0.2s, outline 0.1s;
+  height: 40px;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.black {
+  background-color: var(--color-secondary);
+  color: var(--color-brightTypography);
+}
+
+.white {
+  background-color: var(--color-primary);
+  color: var(--color-darkTypography);
+}
+
+.figure {
+  position: static;
+  @include square(40px);
+}

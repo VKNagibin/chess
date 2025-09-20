@@ -28,9 +28,7 @@ const AnimationActor = ({ animationConfig, coordinates, styles }: IProps) => {
     if (!animation) return;
 
     animation.onfinish = () => {
-      setTimeout(() => {
-        removeAnimation(animationConfig.id);
-      });
+      removeAnimation(animationConfig.id);
     };
   }, [animationConfig]);
 

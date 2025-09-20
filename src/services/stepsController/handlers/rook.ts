@@ -5,15 +5,15 @@ import { IStep, StepDataInterface } from '@/store/slices/cells/types';
 
 export default function ({ cells, currentCell: rookCell }: StepDataInterface) {
   const steps: IStep[] = [];
-  const currentTeam = rookCell.figure?.team;
-  if (!currentTeam) return [];
-  const { forward, backward, left, right } = teamHandlersMap[currentTeam];
+  const activeTeam = rookCell.figure?.team;
+  if (!activeTeam) return [];
+  const { forward, backward, left, right } = teamHandlersMap[activeTeam];
   const rookStepsHandlers: RecursiveStepType = [forward, backward, left, right];
 
   rookStepsHandlers.forEach((handler) => {
     addStepsRecursively({
       targetCellId: rookCell.id,
-      currentTeam,
+      activeTeam,
       cells,
       steps,
       handler,

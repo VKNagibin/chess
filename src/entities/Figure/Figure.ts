@@ -1,7 +1,7 @@
 import { FigureTeam, FigureType } from '@/entities/Cell/enums';
 import { uniqId } from '@/shared/utils/uniqId';
 
-export type FigureAsPlainObjectType = Omit<Figure, 'mutate' | 'toPlainObject'>;
+export type IFigure = Omit<Figure, 'mutate' | 'toPlainObject'>;
 
 export type FigureSvgNameType = `${FigureType}_${FigureTeam}`;
 
@@ -12,7 +12,7 @@ class Figure {
 
   constructor(public type: FigureType, public team: FigureTeam) {}
 
-  toPlainObject = (): FigureAsPlainObjectType => ({
+  toPlainObject = (): IFigure => ({
     id: this.id,
     team: this.team,
     type: this.type,

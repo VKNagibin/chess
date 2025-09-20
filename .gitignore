@@ -2,7 +2,7 @@ node_modules
 .DS_Store
 build
 .idea
-dist-ssr
 *.local
 .vscode
-node_modules/*
+node_modules/* 
+build/*

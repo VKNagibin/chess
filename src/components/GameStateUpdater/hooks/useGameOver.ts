@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { FigureTeam } from '@/entities/Cell/enums';
 import GameOverModal from '@/modals/GameOverModal';
 import useModal from '@/shared/components/Modal/useModal';
@@ -16,7 +14,7 @@ const useGameOver = () => {
         team: getEnemyTeam(team),
       });
       resetFiguresAnimationsState();
-      startNewGame();
+      startNewGame(null);
     } catch (error) {
       console.error('Ошибка в модальном окне окончания партии: ', error);
     }

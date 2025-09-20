@@ -1,5 +1,16 @@
 {
+  "dropdown": {
+    "placeholder": "Выберите опцию"
+  },
+  "difficulty": {
+    "level": "Уровень сложности",
+    "placeholder": "ВЫберите сложность",
+    "beginner": "Начинающий",
+    "intermediate": "Средний",
+    "grandmaster": "Гроссмейстер"
+  },
   "team": {
+    "one": "Команда",
     "white": "Белые",
     "black": "Черные"
   },
@@ -8,6 +19,10 @@
   },
   "gameOverModal": {
     "title": "Игра окончена, {{ team }} победили"
+  },
+  "welcomeModal": {
+    "title": "Добро пожаловать в шахматы!",
+    "selectTeam": "Выберите команду"
   },
   "confirm": "Подтвердить",
   "gotIt": "Понятно"

@@ -1,5 +1,16 @@
 {
+  "dropdown": {
+    "placeholder": "Select an option"
+  },
+  "difficulty": {
+    "level": "Difficulty Level",
+    "placeholder": "Select difficulty",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "grandmaster": "Grandmaster"
+  },
   "team": {
+    "one": "Team",
     "white": "White",
     "black": "Black"
   },
@@ -8,6 +19,10 @@
   },
   "gameOverModal": {
     "title": "Game over, {{ team }} win"
+  },
+  "welcomeModal": {
+    "title": "Welcome to chess!",
+    "selectTeam": "Select Team"
   },
   "confirm": "Confirm",
   "gotIt": "Got it"

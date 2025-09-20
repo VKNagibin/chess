@@ -1,11 +1,21 @@
-import { FigureTeam, HighlightType } from '@/entities/Cell/enums';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import classes from '@/components/Cell/Cell.module.scss';
+import { HighlightType } from '@/entities/Cell/enums';
+import type { ICell } from '@/entities/Cell/types';
 import { RectangularCoordinatesType } from '@/shared/types';
 import { checkIsStep } from '@/store/slices/cells/utils/helpers';
 
-export const getHoverClass = (cell: ICellAsPlainObject) => {
+export const getHoverClass = (cell: ICell) => {
   if (checkIsStep(cell.highlight)) return ' filled';
-  if (cell.highlight === HighlightType.TEAM) return ' currentTeam';
+  if (cell.highlight === HighlightType.TEAM) return ' activeTeam';
+  return '';
+};
+
+export const getBorderClass = (cell: ICell) => {
+  if (cell.id === 'a8') return classes.borderLeftTop;
+  if (cell.id === 'h8') return classes.borderRightTop;
+  if (cell.id === 'a1') return classes.borderLeftBottom;
+  if (cell.id === 'h1') return classes.borderRightBottom;
+
   return '';
 };
 
@@ -20,7 +30,7 @@ export const getCellCoordinates = (
   } = cellElement.getBoundingClientRect();
 
   return {
-    x: parseInt(String(left - width / 2)),
-    y: parseInt(String(top - height / 2)),
+    x: left - width / 2,
+    y: top - height / 2,
   };
 };
