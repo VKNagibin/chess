@@ -2,7 +2,7 @@ import { CellColor, FigureTeam, HighlightType } from '@/entities/Cell/enums';
 import {
   CellIdType,
   ICastling,
-  ICellAsPlainObject,
+  ICell,
   IFigureAnimationConfig,
 } from '@/entities/Cell/types';
 import Figure from '@/entities/Figure/Figure';
@@ -19,7 +19,7 @@ class Cell {
 
   constructor(public id: CellIdType, public color: CellColor) {}
 
-  toPlainObject = (): ICellAsPlainObject => ({
+  toPlainObject = (): ICell => ({
     id: this.id,
     color: this.color,
     enPassantCellId: this.enPassantCellId,

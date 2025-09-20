@@ -1,10 +1,10 @@
 import { FigureTeam } from '@/entities/Cell/enums';
-import { type ICellAsPlainObject } from '@/entities/Cell/types';
+import { type ICell } from '@/entities/Cell/types';
 import checkIsKingCanBeSaved from '@/store/slices/cells/utils/checkIsKingCanBeSaved';
 
 interface IAttackResultProps {
   team: FigureTeam;
-  cells: ICellAsPlainObject[];
+  cells: ICell[];
 }
 
 export enum KingAttackResult {

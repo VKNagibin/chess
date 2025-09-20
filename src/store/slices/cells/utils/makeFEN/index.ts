@@ -1,13 +1,13 @@
 import { FigureTeam } from '@/entities/Cell/enums';
-import { ICellAsPlainObject } from '@/entities/Cell/types';
+import { ICell } from '@/entities/Cell/types';
 import getCastlingsFEN from '@/store/slices/cells/utils/makeFEN/getCastlingsFEN';
 import { getFENFiguresPositions } from '@/store/slices/cells/utils/makeFEN/getFENFiguresPositions';
 
 import getEnPassantFEN from './getEnPassantFEN';
 
 interface IMakeFEN {
-  cells: ICellAsPlainObject[];
-  currentTeam: FigureTeam;
+  cells: ICell[];
+  activeTeam: FigureTeam;
   fullmoveNumber: number;
   fiftyStepsRuleCount: number;
 }
@@ -17,19 +17,16 @@ interface IMakeFEN {
 // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
 
 const makeFEN = ({
-  currentTeam,
+  activeTeam,
   fullmoveNumber,
   fiftyStepsRuleCount,
   cells,
 }: IMakeFEN) => {
-  const castlingsFEN = getCastlingsFEN(cells);
-  const FENActiveTeam = currentTeam[0];
+  const FENActiveTeam = activeTeam[0];
 
-  return `${getFENFiguresPositions(
+  return `${getFENFiguresPositions(cells)} ${FENActiveTeam} ${getCastlingsFEN(
     cells,
-  )} ${FENActiveTeam} ${castlingsFEN} ${getEnPassantFEN(
-    cells,
-  )} ${fiftyStepsRuleCount} ${fullmoveNumber}`;
+  )} ${getEnPassantFEN(cells)} ${fiftyStepsRuleCount} ${fullmoveNumber}`;
 };
 
 export default makeFEN;

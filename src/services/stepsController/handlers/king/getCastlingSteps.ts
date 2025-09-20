@@ -1,5 +1,6 @@
+import { cellNumbersBoundaryValues } from '@/entities/Cell/constants';
 import { FigureType } from '@/entities/Cell/enums';
-import type { ICellAsPlainObject } from '@/entities/Cell/types';
+import type { ICell, NumberValueType } from '@/entities/Cell/types';
 import type { CellIdType } from '@/entities/Cell/types';
 import getLongCastlingStep from '@/services/stepsController/handlers/king/getLongCastlingStep';
 import getShortCastlingStep from '@/services/stepsController/handlers/king/getShortCastlingStep';
@@ -15,18 +16,19 @@ export enum CastlingType {
 }
 
 export interface ICastlingStep {
-  kingCell: ICellAsPlainObject;
-  rookCell: ICellAsPlainObject;
-  cells: ICellAsPlainObject[];
+  kingCell: ICell;
+  rookCell: ICell;
+  cells: ICell[];
   enemiesStepsIds: CellIdType[];
   handleMove: HandlerType;
 }
 
-export const getCastlingType = (cell: ICellAsPlainObject) =>
-  getLeftId(cell.id) ? CastlingType.SHORT : CastlingType.LONG;
+export const getCastlingType = (cellId: CellIdType) =>
+  getLeftId(cellId) ? CastlingType.SHORT : CastlingType.LONG;
 
-export default function (cells: ICellAsPlainObject[], kingCell: ICellAsPlainObject) {
-  if (!kingCell.figure!.isFirstStep) return [];
+export default function (cells: ICell[], kingCell: ICell) {
+  if (!kingCell.figure!.isFirstStep || kingCell.figure?.isUnderAttack) return [];
+  if (!cellNumbersBoundaryValues.includes(kingCell.id[1] as NumberValueType)) return [];
 
   const team = kingCell.figure!.team;
   const rookCells = cells.filter(
@@ -46,10 +48,12 @@ export default function (cells: ICellAsPlainObject[], kingCell: ICellAsPlainObje
 
   rookCells.forEach((rookCell) => {
     if (!rookCell.figure!.isFirstStep) return;
+    if (rookCell.id[1] !== kingCell.id[1]) return;
+    if (!cellNumbersBoundaryValues.includes(rookCell.id[1] as NumberValueType)) return;
     const baseCastlingProps = { enemiesStepsIds, kingCell, rookCell, cells };
 
     const castlingStep =
-      getCastlingType(rookCell) === CastlingType.SHORT
+      getCastlingType(rookCell.id) === CastlingType.SHORT
         ? getShortCastlingStep({ handleMove: getRightId, ...baseCastlingProps })
         : getLongCastlingStep({ handleMove: getLeftId, ...baseCastlingProps });
     if (castlingStep) castlingSteps.push(castlingStep);

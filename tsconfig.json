@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "@testing-library/jest-dom", "vite/client"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
@@ -19,11 +20,18 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@/assets/*": ["src/assets/*"],
-      "test-utils": ["src/test-utils"]
+      "test/*": ["test/*"],
+      "icons": ["src/assets/icons"]
     }
   },
-  "include": ["src", "global.d.ts", "setupTests.ts"],
+  "include": [
+    "src",
+    "test",
+    "global.d.ts",
+    "env.d.ts",
+    "vite.config.ts",
+    "src/vite-env.d.ts"
+  ],
   "exclude": ["**/node_modules", "**/build"],
   "references": [
     {

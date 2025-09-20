@@ -5,18 +5,12 @@ import {
   CELLS_COUNT_IN_ROW,
 } from '@/entities/Cell/constants';
 import { CellColor, FigureTeam, HighlightType } from '@/entities/Cell/enums';
-import type {
-  CharValueType,
-  ICellAsPlainObject,
-  NumberValueType,
-} from '@/entities/Cell/types';
+import type { CharValueType, ICell, NumberValueType } from '@/entities/Cell/types';
 import Figure from '@/entities/Figure/Figure';
 import { getCellId } from '@/services/stepsController/utils';
 import { ConfigItemType } from '@/store/slices/cells/placesConfig';
 
-export default function (
-  config: Record<FigureTeam, ConfigItemType[]>,
-): ICellAsPlainObject[] {
+export default function (config: Record<FigureTeam, ConfigItemType[]>): ICell[] {
   const cellsList = new Array(64).fill(undefined);
 
   const cells = cellsList.map((_, index) => {
@@ -42,7 +36,7 @@ export default function (
 }
 
 function arrangeFiguresIntoCells(
-  cells: ICellAsPlainObject[],
+  cells: ICell[],
   config: Record<FigureTeam, ConfigItemType[]>,
 ) {
   const teamsNames = Object.keys(config) as FigureTeam[];

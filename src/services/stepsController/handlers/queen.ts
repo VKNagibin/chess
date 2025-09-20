@@ -5,9 +5,9 @@ import { IStep, StepDataInterface } from '@/store/slices/cells/types';
 
 export default function ({ cells, currentCell: queenCell }: StepDataInterface) {
   const steps: IStep[] = [];
-  const currentTeam = queenCell.figure!.team;
+  const activeTeam = queenCell.figure!.team;
   const { topRight, bottomRight, topLeft, bottomLeft, forward, backward, left, right } =
-    teamHandlersMap[currentTeam];
+    teamHandlersMap[activeTeam];
 
   const queenStepsHandlers: RecursiveStepType = [
     topRight,
@@ -23,7 +23,7 @@ export default function ({ cells, currentCell: queenCell }: StepDataInterface) {
   queenStepsHandlers.forEach((handler) => {
     addStepsRecursively({
       targetCellId: queenCell.id,
-      currentTeam,
+      activeTeam,
       cells,
       steps,
       handler,

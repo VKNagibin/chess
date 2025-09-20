@@ -12,10 +12,9 @@ const usePawnMutation = () => {
 
   const handlePawnMutation = useCallback(async (cellId: CellIdType) => {
     try {
-      const result = await openModal(PawnMutateModal, {
+      const selectedType = await openModal(PawnMutateModal, {
         cellId,
       });
-      const { selectedType } = result.data;
       mutateFigure({ cellId, figureType: selectedType });
     } catch (error) {
       console.error('Ошибка в модальном окне мутации пешки: ', error);

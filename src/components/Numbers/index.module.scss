@@ -1,0 +1,22 @@
+@import '@/style/mixins.scss';
+
+.numset {
+  width: 40px;
+  height: 100;
+  display: flex;
+  flex-direction: column;
+
+  @include media('tablet') {
+    display: none;
+  }
+}
+
+.number {
+  width: inherit;
+  height: 80px;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

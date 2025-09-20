@@ -6,9 +6,9 @@ import { teamHandlersMap } from '../data';
 
 export default function ({ cells, currentCell: knightCell }: StepDataInterface) {
   const steps: IStep[] = [];
-  const currentTeam = knightCell.figure?.team;
-  if (!currentTeam) return [];
-  const { forward, left, right, backward } = teamHandlersMap[currentTeam];
+  const activeTeam = knightCell.figure?.team;
+  if (!activeTeam) return [];
+  const { forward, left, right, backward } = teamHandlersMap[activeTeam];
 
   const knightPotentialSteps: PotentialStepType = {
     oneTopTwoLeftStep: forward(left(left(knightCell.id))),
@@ -22,7 +22,7 @@ export default function ({ cells, currentCell: knightCell }: StepDataInterface) 
   };
 
   Object.keys(knightPotentialSteps).forEach((stepName) => {
-    addStep(knightPotentialSteps[stepName], cells, steps, currentTeam);
+    addStep(knightPotentialSteps[stepName], cells, steps, activeTeam);
   });
 
   return steps;
