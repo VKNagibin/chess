@@ -32,7 +32,6 @@ fetchBestMoveMiddleware.startListening({
       dispatch(rootActions.finishEngineLoading());
       return;
     }
-    dispatch(rootActions.finishEngineLoading());
     dispatch(rootActions.setNextMove(response.data));
   },
 });

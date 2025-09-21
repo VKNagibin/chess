@@ -8,11 +8,11 @@ const Cells = () => {
   const animationsInAction = useAppSelector(
     ({ figuresAnimations }) => figuresAnimations.animationsInAction,
   );
-  const { cells } = useAppSelector(({ gameEngine }) => gameEngine);
+  const { cells, loading } = useAppSelector(({ gameEngine }) => gameEngine);
 
   const getContainerClassName = () => {
     let className = `${classes.container}`;
-    if (animationsInAction) className += ` ${classes.disabled}`;
+    if (animationsInAction || loading) className += ` ${classes.disabled}`;
 
     return className;
   };

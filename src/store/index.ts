@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import changeActiveTeamMiddleware from '@/store/middlewares/changeActiveTeamMiddleware';
 import fetchBestMoveMiddleware from '@/store/middlewares/fetchBestMoveMiddleware';
-import makeEnemyStepMiddleware from '@/store/middlewares/makeEnemyStepMiddleware';
+import makeEnemyMoveMiddleware from '@/store/middlewares/makeEnemyMoveMiddleware';
 import rootReducer from '@/store/rootReducer';
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend([
+      changeActiveTeamMiddleware.middleware,
       fetchBestMoveMiddleware.middleware,
-      makeEnemyStepMiddleware.middleware,
+      makeEnemyMoveMiddleware.middleware,
     ]),
 });
 

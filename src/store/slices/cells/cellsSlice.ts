@@ -120,7 +120,6 @@ export const gameEngineSlice = createCustomSlice({
         currentCell,
       });
       resetCellsHighlight(cells, state.activeTeam);
-
       handleFigureSelect(cells, cellId, allowedSteps);
     },
     mutateFigure(state, action) {
