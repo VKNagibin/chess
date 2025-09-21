@@ -6,5 +6,4 @@ export const StyledApp = styled.div`
   flex-flow: column;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 `;

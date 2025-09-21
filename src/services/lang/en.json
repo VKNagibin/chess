@@ -2,6 +2,10 @@
   "dropdown": {
     "placeholder": "Select an option"
   },
+  "step": {
+    "own": "Your move",
+    "enemy": "Opponent's move"
+  },
   "difficulty": {
     "level": "Difficulty Level",
     "placeholder": "Select difficulty",

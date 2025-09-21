@@ -2,6 +2,10 @@
   "dropdown": {
     "placeholder": "Выберите опцию"
   },
+  "step": {
+    "own": "Ваш ход",
+    "enemy": "Ход соперника"
+  },
   "difficulty": {
     "level": "Уровень сложности",
     "placeholder": "ВЫберите сложность",

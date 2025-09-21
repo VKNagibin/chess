@@ -18,18 +18,20 @@ const AnimationActor = ({ animationConfig, coordinates, styles }: IProps) => {
   useEffect(() => {
     if (!actorRef.current || !animationConfig || !coordinates) return;
 
-    const animation = runActorAnimation({
-      actor: actorRef.current,
-      animationConfig,
-      coordinates,
-      addAnimation,
+    requestAnimationFrame(() => {
+      const animation = runActorAnimation({
+        actor: actorRef.current!,
+        animationConfig,
+        coordinates,
+        addAnimation,
+      });
+
+      if (!animation) return;
+
+      animation.onfinish = () => {
+        removeAnimation(animationConfig.id);
+      };
     });
-
-    if (!animation) return;
-
-    animation.onfinish = () => {
-      removeAnimation(animationConfig.id);
-    };
   }, [animationConfig]);
 
   if (!animationConfig?.figureName) return;

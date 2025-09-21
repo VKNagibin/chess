@@ -6,9 +6,18 @@ import { useAppSelector } from '@/store/hooks';
 function StepTeam() {
   const { t } = useTranslation();
 
-  const activeTeam = useAppSelector(({ gameEngine }) => gameEngine.activeTeam);
+  const { activeTeam, userTeam } = useAppSelector(({ gameEngine }) => gameEngine);
 
-  return <p className={classes.team}>{t(`team.${activeTeam}`)}</p>;
+  const getTeamColorClasses = () => [classes.teamColor, classes[activeTeam]].join(' ');
+
+  const text = activeTeam === userTeam ? t('step.own') : t('step.enemy');
+
+  return (
+    <div className={classes.container}>
+      <div className={getTeamColorClasses()} />
+      {<p className={classes.team}>{text}</p>}
+    </div>
+  );
 }
 
 export default StepTeam;
