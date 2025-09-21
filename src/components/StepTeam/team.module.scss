@@ -18,7 +18,7 @@
 }
 
 .teamColor {
-  @include square(40px);
+  @include square(32px);
   border: 2px solid black;
   border-radius: 20%;
 

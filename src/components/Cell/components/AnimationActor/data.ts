@@ -5,7 +5,7 @@ const swapAnimationDuration = 200;
 const moveAnimationDuration = 300;
 const killAnimationDuration = 400;
 const pulsateAnimationDuration = 600;
-const pulsateScale = '1.5';
+const pulsateScale = '1.3';
 const killAnimationDistance = '-1000px';
 const pulsateIterations = 2;
 
@@ -22,11 +22,13 @@ export const getMoveAnimationKeyframes = (x: number, y: number) => [
 export const deadAnimationOptions = {
   fill: 'forwards' as FillMode,
   duration: killAnimationDuration,
+  easing: 'ease-in-out',
 };
 
 export const moveAnimationOptions = {
   fill: 'forwards' as FillMode,
   duration: moveAnimationDuration,
+  easing: 'ease-in-out',
 };
 
 export const hideAnimationOptions = {
