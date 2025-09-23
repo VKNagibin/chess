@@ -24,12 +24,12 @@ export default function useCellLogic(cell: ICell) {
   const showFigure = cell.figure && !cell.hiddenFigure && !withAnimation;
 
   useEffect(() => {
-    if (!cellRef.current) return;
+    if (!cellRef.current || cell.coordinates) return;
     setCellCoordinates({
       id: cell.id,
       ...getCellCoordinates(cellRef.current),
     });
-  }, [cellRef.current]);
+  }, [cellRef.current, !!cell.coordinates]);
 
   return {
     additionalClasses,

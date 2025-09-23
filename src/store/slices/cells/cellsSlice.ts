@@ -186,6 +186,11 @@ export const gameEngineSlice = createCustomSlice({
         if (cell.animationConfig.length) cell.animationConfig = [];
       });
     },
+    resetCellsCoordinates({ cells }) {
+      cells.forEach((cell) => {
+        cell.coordinates = null;
+      });
+    },
     setCellCoordinates({ cells }, action) {
       const cell = cells.find((cell) => cell.id === action.payload.id);
       cell!.coordinates = {
