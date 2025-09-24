@@ -1,7 +1,6 @@
-import { StyledApp } from '@/components/App/styled';
+import classes from '@/components/App/App.module.css';
 import Board from '@/components/Board';
 import { GameStateUpdater, StaticGameStateUpdater } from '@/components/GameStateUpdater';
-import LanguageDropdown from '@/components/LanguageDropdown';
 import StepTeam from '@/components/StepTeam';
 import Cache from '@/services/Cache';
 
@@ -11,11 +10,10 @@ function App() {
   return (
     <>
       {Cache.get('figuresAnimations') ? <GameStateUpdater /> : <StaticGameStateUpdater />}
-      <StyledApp>
-        <LanguageDropdown />
+      <div className={classes.container}>
         <StepTeam />
         <Board />
-      </StyledApp>
+      </div>
     </>
   );
 }
