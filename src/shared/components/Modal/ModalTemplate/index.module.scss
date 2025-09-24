@@ -2,14 +2,18 @@
 
 .overlay {
   position: fixed;
-  padding: 20px 0;
   inset: 0;
-  height: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
   background-color: var(--color-overlay);
+
+  @media (max-height: 300px) {
+    padding: 10px;
+    overflow: scroll;
+    align-items: flex-start;
+  }
 }
 
 .card {
