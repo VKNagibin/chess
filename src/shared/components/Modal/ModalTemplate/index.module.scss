@@ -2,7 +2,9 @@
 
 .overlay {
   position: fixed;
+  padding: 20px 0;
   inset: 0;
+  height: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
