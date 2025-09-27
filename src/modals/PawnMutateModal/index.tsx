@@ -1,5 +1,5 @@
-import { t } from 'i18next';
 import { FunctionComponent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { FigureType } from '@/entities/Cell/enums';
 import FiguresList from '@/modals/PawnMutateModal/components/FiguresList';
@@ -15,6 +15,8 @@ const PawnMutateModal: FunctionComponent<
   ModalComponentProps<FigureType> & IPawnMutateModalProps
 > = ({ cellId, submit }) => {
   const [selectedType, setSelectedType] = useState<FigureType>(FigureType.QUEEN);
+
+  const { t } = useTranslation();
 
   return (
     <ModalTemplate

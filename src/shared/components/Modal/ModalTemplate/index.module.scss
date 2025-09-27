@@ -3,6 +3,7 @@
 .overlay {
   position: fixed;
   inset: 0;
+  height: 100%;
   display: flex;
   z-index: 100;
   background-color: var(--color-overlay);

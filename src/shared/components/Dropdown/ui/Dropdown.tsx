@@ -39,7 +39,7 @@ export const Dropdown: React.FC<IDropdown> = ({
   });
 
   const getContainerClasses = () => {
-    let className = '';
+    let className = classes.container;
     if (disabled) className + classes.disabled;
 
     return className;
