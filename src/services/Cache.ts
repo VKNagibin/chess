@@ -1,5 +1,8 @@
+import { LanguagesKeysType } from '@/services/lang/i18n';
+
 interface ICache {
   figuresAnimations?: boolean;
+  language: LanguagesKeysType;
 }
 
 class Cache {

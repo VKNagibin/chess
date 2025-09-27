@@ -20,10 +20,10 @@ export interface IModal<Result = void> {
 }
 
 export type IOpenModal = (
-  component: FunctionComponent<any>,
-  props?: { [key: string]: unknown },
+  component: FunctionComponent<ModalComponentProps<unknown>>,
+  props?: { [key: string]: unknown } | null,
   ...options: any[]
-) => Promise<any>;
+) => Promise<any> | null;
 
 export type ModalContextType = {
   openModal: IOpenModal;

@@ -34,6 +34,7 @@ module.exports = {
   plugins: ['simple-import-sort', 'prettier'],
   rules: {
     'prefer-const': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],

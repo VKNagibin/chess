@@ -1,0 +1,37 @@
+{
+  "language": {
+    "title": "Idioma",
+    "current": "Español"
+  },
+  "dropdown": {
+    "placeholder": "Seleccionar una opción"
+  },
+  "step": {
+    "own": "Tu turno",
+    "enemy": "Turno del oponente"
+  },
+  "difficulty": {
+    "level": "Nivel de dificultad",
+    "placeholder": "Seleccionar dificultad",
+    "beginner": "Principiante",
+    "intermediate": "Intermedio",
+    "grandmaster": "Gran Maestro"
+  },
+  "team": {
+    "one": "Equipo",
+    "white": "Blanco",
+    "black": "Negro"
+  },
+  "pawnMutationModal": {
+    "title": "Elige una figura para reemplazar el peón {{ cellId }}"
+  },
+  "gameOverModal": {
+    "title": "Juego terminado, {{ team }} gana"
+  },
+  "welcomeModal": {
+    "title": "¡Bienvenido al ajedrez!",
+    "selectTeam": "Seleccionar equipo"
+  },
+  "confirm": "Confirmar",
+  "gotIt": "Entendido"
+}

@@ -1,0 +1,37 @@
+{
+  "language": {
+    "title": "Langue",
+    "current": "Français"
+  },
+  "dropdown": {
+    "placeholder": "Sélectionner une option"
+  },
+  "step": {
+    "own": "Votre coup",
+    "enemy": "Coup de l'adversaire"
+  },
+  "difficulty": {
+    "level": "Niveau de difficulté",
+    "placeholder": "Sélectionner la difficulté",
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "grandmaster": "Grand Maître"
+  },
+  "team": {
+    "one": "Équipe",
+    "white": "Blanc",
+    "black": "Noir"
+  },
+  "pawnMutationModal": {
+    "title": "Choisissez une pièce pour remplacer le pion {{ cellId }}"
+  },
+  "gameOverModal": {
+    "title": "Jeu terminé, {{ team }} gagne"
+  },
+  "welcomeModal": {
+    "title": "Bienvenue aux échecs !",
+    "selectTeam": "Sélectionner l'équipe"
+  },
+  "confirm": "Confirmer",
+  "gotIt": "Compris"
+}

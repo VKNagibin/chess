@@ -1,0 +1,37 @@
+{
+  "language": {
+    "title": "Sprache",
+    "current": "Deutsch"
+  },
+  "dropdown": {
+    "placeholder": "Wählen Sie eine Option"
+  },
+  "step": {
+    "own": "Ihr Zug",
+    "enemy": "Zug des Gegners"
+  },
+  "difficulty": {
+    "level": "Schwierigkeitsgrad",
+    "placeholder": "Schwierigkeitsgrad wählen",
+    "beginner": "Anfänger",
+    "intermediate": "Fortgeschrittener",
+    "grandmaster": "Großmeister"
+  },
+  "team": {
+    "one": "Team",
+    "white": "Weiß",
+    "black": "Schwarz"
+  },
+  "pawnMutationModal": {
+    "title": "Wählen Sie eine Figur, um den Bauer {{ cellId }} zu ersetzen"
+  },
+  "gameOverModal": {
+    "title": "Spiel beendet, {{ team }} gewinnt"
+  },
+  "welcomeModal": {
+    "title": "Willkommen beim Schach!",
+    "selectTeam": "Team wählen"
+  },
+  "confirm": "Bestätigen",
+  "gotIt": "Verstanden"
+}

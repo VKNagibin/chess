@@ -1,0 +1,37 @@
+{
+  "language": {
+    "title": "语言",
+    "current": "中文"
+  },
+  "dropdown": {
+    "placeholder": "选择一个选项"
+  },
+  "step": {
+    "own": "你的回合",
+    "enemy": "对手的回合"
+  },
+  "difficulty": {
+    "level": "难度级别",
+    "placeholder": "选择难度",
+    "beginner": "初学者",
+    "intermediate": "中级",
+    "grandmaster": "大师级"
+  },
+  "team": {
+    "one": "团队",
+    "white": "白方",
+    "black": "黑方"
+  },
+  "pawnMutationModal": {
+    "title": "选择一个棋子替换{{ cellId }}的兵"
+  },
+  "gameOverModal": {
+    "title": "游戏结束，{{ team }} 胜利"
+  },
+  "welcomeModal": {
+    "title": "欢迎来到国际象棋！",
+    "selectTeam": "选择团队"
+  },
+  "confirm": "确认",
+  "gotIt": "知道了"
+}

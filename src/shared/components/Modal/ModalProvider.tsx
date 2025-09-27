@@ -1,12 +1,5 @@
-import {
-  createContext,
-  createElement,
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { createContext, createElement, memo, useCallback, useState } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 
 import {
@@ -26,15 +19,12 @@ export const MODAL_STATUSES = {
   SUBMIT: 'SUBMIT',
 } as const;
 
-const modalRootElement = document.createElement('div');
-
 const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [displayedModals, setDisplayedModals] = useState<IModal[]>([]);
-  const modalRoot = useRef(modalRootElement).current;
 
   const openModal: IOpenModal = (component, props, options) => {
     return new Promise<any>((resolve) => {
-      const id = uniqId();
+      const id = options?.customId || uniqId();
 
       const close = () => {
         setDisplayedModals((prev) => prev.filter((modal) => modal.id !== id));
@@ -46,16 +36,25 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         resolve(result);
       };
 
-      setDisplayedModals((prev) => [
-        ...prev,
-        {
-          id,
-          component,
-          props: { ...props, close, submit },
-          resolve,
-          ...options,
-        },
-      ]);
+      setDisplayedModals((modals) => {
+        if (modals.find((modal) => modal.id === options?.customId)) return modals;
+
+        return [
+          ...modals,
+          {
+            id,
+            component,
+            props: {
+              ...props,
+              zIndex: minimalPriorityModalZIndex + modals.length,
+              close,
+              submit,
+            },
+            resolve,
+            ...options,
+          },
+        ];
+      });
     });
   };
 
@@ -73,27 +72,16 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     closeAllModals,
   };
 
-  useEffect(() => {
-    document.body.appendChild(modalRoot);
-    return () => {
-      document.body.removeChild(modalRoot);
-    };
-  }, [modalRoot]);
-
   return (
     <ModalContext.Provider value={contextValue}>
       {children}
       {createPortal(
-        displayedModals.map((modal, index) => (
-          <div
-            className="modal"
-            key={modal.id}
-            style={{ zIndex: minimalPriorityModalZIndex + index }}
-          >
+        displayedModals.map((modal) => (
+          <React.Fragment key={modal.id}>
             {createElement<ModalComponentProps<void>>(modal.component, modal.props)}
-          </div>
+          </React.Fragment>
         )),
-        modalRoot,
+        document.body,
       )}
     </ModalContext.Provider>
   );
