@@ -1,0 +1,37 @@
+{
+  "language": {
+    "title": "言語",
+    "current": "日本語"
+  },
+  "dropdown": {
+    "placeholder": "オプションを選択"
+  },
+  "step": {
+    "own": "あなたの手番",
+    "enemy": "相手の手番"
+  },
+  "difficulty": {
+    "level": "難易度",
+    "placeholder": "難易度を選択",
+    "beginner": "初級者",
+    "intermediate": "中級者",
+    "grandmaster": "グランドマスター"
+  },
+  "team": {
+    "one": "チーム",
+    "white": "ホワイト",
+    "black": "ブラック"
+  },
+  "pawnMutationModal": {
+    "title": "{{ cellId }}のポーンを置き換える駒を選択"
+  },
+  "gameOverModal": {
+    "title": "ゲーム終了、{{ team }}の勝利"
+  },
+  "welcomeModal": {
+    "title": "チェスへようこそ！",
+    "selectTeam": "チームを選択"
+  },
+  "confirm": "確認",
+  "gotIt": "了解"
+}
