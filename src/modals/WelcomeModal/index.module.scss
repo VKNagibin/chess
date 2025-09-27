@@ -1,6 +1,7 @@
 @import '@/style/mixins.scss';
 
 .body {
+  width: 290px;
   display: flex;
   flex-direction: column;
   gap: 24px;

@@ -1,4 +1,8 @@
 {
+  "language": {
+    "title": "Language",
+    "current": "English"
+  },
   "dropdown": {
     "placeholder": "Select an option"
   },

@@ -1,5 +1,5 @@
-export interface IDropdownOption {
-  value: string;
+export interface IDropdownOption<T extends string = string> {
+  value: T;
   label: string;
   disabled?: boolean;
   icon?: React.ReactNode;
@@ -10,10 +10,10 @@ export enum PositionType {
   AUTO = 'auto',
   BOTTOM = 'bottom',
 }
-export interface IDropdown {
+export interface IDropdown<T extends string = string> {
   options: IDropdownOption[];
-  value?: string;
-  onChange?: (value: unknown) => void;
+  value?: T;
+  onChange?: (value: T) => void;
   placeholder?: string;
   disabled?: boolean;
   searchable?: boolean;

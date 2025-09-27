@@ -1,7 +1,9 @@
-import { t } from 'i18next';
 import { FunctionComponent, memo, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { FigureTeam } from '@/entities/Cell/enums';
+import Cache from '@/services/Cache';
+import { LanguagesKeysType } from '@/services/lang/i18n';
 import { Dropdown } from '@/shared/components/Dropdown';
 import ModalButton from '@/shared/components/Modal/ModalButton';
 import ModalTemplate from '@/shared/components/Modal/ModalTemplate';
@@ -9,21 +11,25 @@ import { ModalComponentProps } from '@/shared/components/Modal/types';
 import { noneFn } from '@/shared/types';
 import { DifficultyLevel } from '@/store/slices/cells/types';
 
+import languagesOptions from './data/languagesOptions';
 import classes from './index.module.scss';
 import getDifficultyOptions from './utils/getDifficultyOptions';
 
 const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ submit }) => {
   const [team, setTeam] = useState<FigureTeam>(FigureTeam.WHITE);
-  const [selectedValue, setSelectedValue] = useState<DifficultyLevel>(
+  const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>(
     DifficultyLevel.BEGINNER,
   );
 
-  const options = useMemo(() => getDifficultyOptions(team), [team]);
+  const { t, i18n } = useTranslation();
+
+  const difficultyOptions = useMemo(() => getDifficultyOptions(team), [t, team]);
+
   const onClose = useCallback(() => submit(team), [team, submit]);
 
   const modalButtons = useMemo(
     () => [{ onClick: () => submit(team), text: t('confirm'), type: 'submit' }],
-    [team, submit],
+    [t, team, submit],
   );
 
   return (
@@ -33,6 +39,19 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ subm
       title={t('welcomeModal.title')}
     >
       <div className={classes.body}>
+        <div className={classes.horizontalItemConteiner}>
+          <h4 className={classes.typography}>{t('language.title')}</h4>
+          <Dropdown
+            options={languagesOptions}
+            value={i18n.language}
+            onChange={(value: LanguagesKeysType) => {
+              i18n.changeLanguage(value);
+              Cache.set('language', value);
+            }}
+            placeholder={t('language.title')}
+            disabled={false}
+          />
+        </div>
         <div className={classes.horizontalItemConteiner}>
           <h4 className={classes.typography}>{t('team.one')}:</h4>
           <div className={classes.configItemValues}>
@@ -61,9 +80,9 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ subm
         <div className={classes.verticalItemConteiner}>
           <h4 className={classes.typography}>{t('difficulty.level')}:</h4>
           <Dropdown
-            options={options}
-            value={selectedValue}
-            onChange={setSelectedValue as noneFn}
+            options={difficultyOptions}
+            value={difficultyLevel}
+            onChange={setDifficultyLevel as noneFn}
             placeholder={t('difficulty.placeholder')}
             disabled={false}
           />

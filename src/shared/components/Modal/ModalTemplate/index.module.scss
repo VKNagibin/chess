@@ -3,11 +3,13 @@
 .overlay {
   position: fixed;
   inset: 0;
+  border: 1px solid transparent;
+  margin-top: -1px;
   display: flex;
   z-index: 100;
   background-color: var(--color-overlay);
   padding-block: 16px;
-  overflow: auto;
+  overflow: scroll;
   scrollbar-width: none;
 
   @include media('mobileLarge') {

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { IDropdownOption, PositionType } from './types';
 import calculateMenuPosition from './utils/calculateMenuPosition';
@@ -24,6 +25,8 @@ export default function useDropdown({
   const [selectedValue, setSelectedValue] = useState(value);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { t } = useTranslation();
 
   const filteredOptions = useMemo(
     () =>
@@ -84,7 +87,7 @@ export default function useDropdown({
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleResize, true);
     };
-  }, [handleClickOutside]);
+  }, [t]);
 
   return {
     isOpen,

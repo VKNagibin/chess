@@ -17,8 +17,8 @@ const ModalTemplate = ({
   buttons = null,
 }: PropsWithChildren<IProps>) => {
   return (
-    <div className={classes.overlay}>
-      <div className={classes.card}>
+    <div className={`${classes.overlay} modal`}>
+      <div className={`${classes.card}`}>
         {!!close && (
           <button
             data-testid="modal_close_button"

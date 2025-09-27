@@ -1,4 +1,8 @@
 {
+  "language": {
+    "title": "Язык",
+    "current": "Русский"
+  },
   "dropdown": {
     "placeholder": "Выберите опцию"
   },

@@ -6,8 +6,15 @@
   padding: 0;
 }
 
+html:has(.modal) {
+  body {
+    overflow: hidden;
+  }
+}
+
 body {
   min-height: 100dvh;
+  height: max-content;
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -16,6 +23,7 @@ body {
 #root {
   display: flex;
   min-height: inherit;
+  height: inherit;
   min-width: fit-content;
   background-color: var(--color-primary);
   flex-direction: column;
