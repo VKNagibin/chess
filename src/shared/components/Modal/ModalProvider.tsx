@@ -85,7 +85,11 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {children}
       {createPortal(
         displayedModals.map((modal, index) => (
-          <div key={modal.id} style={{ zIndex: minimalPriorityModalZIndex + index }}>
+          <div
+            className="modal"
+            key={modal.id}
+            style={{ zIndex: minimalPriorityModalZIndex + index }}
+          >
             {createElement<ModalComponentProps<void>>(modal.component, modal.props)}
           </div>
         )),
