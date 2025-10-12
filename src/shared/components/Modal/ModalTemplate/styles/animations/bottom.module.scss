@@ -1,0 +1,51 @@
+.bottomShowOverlay {
+  animation: overlayColor 0.5s ease-in-out forwards;
+}
+
+.bottomCloseOverlay {
+  animation: overlayTransparent 0.5s ease-in-out forwards;
+}
+
+@keyframes overlayColor {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: var(--color-overlay);
+  }
+}
+
+@keyframes overlayTransparent {
+  from {
+    background-color: var(--color-overlay);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.bottomShowCard {
+  animation: cardFromBottom 0.5s ease-in-out;
+}
+
+.bottomCloseCard {
+  animation: cardToBottomClose 0.5s ease-in-out forwards;
+}
+
+@keyframes cardFromBottom {
+  from {
+    transform: translateY(1000px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardToBottomClose {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(1000px);
+  }
+}

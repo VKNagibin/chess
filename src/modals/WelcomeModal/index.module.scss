@@ -1,11 +1,15 @@
-@import '@/style/mixins.scss';
+@use '@/style/mixins.scss' as mixins;
 
 .body {
-  width: 290px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
   align-items: center;
+
+  @include mixins.media('mobileLarge') {
+    gap: 20px;
+  }
 }
 
 .typography {
@@ -18,6 +22,11 @@
   align-items: center;
   gap: 24px;
   justify-content: space-between;
+
+  @include mixins.media('mobileMedium') {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 }
 
 .verticalItemConteiner {
@@ -67,5 +76,5 @@
 
 .figure {
   position: static;
-  @include square(40px);
+  @include mixins.square(40px);
 }

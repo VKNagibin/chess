@@ -1,18 +1,17 @@
-@import '@/style/mixins.scss';
+@use '@/style/mixins.scss' as mixins;
 
 .overlay {
   position: fixed;
-  inset: 0;
-  border: 1px solid transparent;
-  margin-top: -1px;
   display: flex;
-  z-index: 100;
-  background-color: var(--color-overlay);
-  padding-block: 16px;
+  inset: 0;
   overflow: scroll;
   scrollbar-width: none;
+  padding-block: 16px;
+  border-top: 1px solid transparent;
+  background-color: var(--color-overlay);
+  margin-top: -1px;
 
-  @include media('mobileLarge') {
+  @include mixins.media('mobileLarge') {
     padding-block: 0;
   }
 }
@@ -27,12 +26,13 @@
   border-radius: 12px;
   padding: 16px 48px 24px 48px;
 
-  @include media('mobileLarge') {
-    gap: 16px;
+  @include mixins.media('mobileLarge') {
+    gap: 24px;
     padding: 24px 32px;
+    margin: auto 0 0 0;
     width: 100%;
-    min-height: 100%;
-    border-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
 
@@ -41,8 +41,9 @@
   position: relative;
   margin-bottom: 24px;
 
-  @include media('mobileLarge') {
+  @include mixins.media('mobileLarge') {
     font-size: 14px;
+    margin-bottom: 0;
   }
 }
 
@@ -53,7 +54,7 @@
 }
 
 .cross {
-  @include square(24px);
+  @include mixins.square(24px);
   position: absolute;
   display: flex;
   align-items: center;
@@ -71,7 +72,7 @@
 
 .crossIcon {
   stroke-width: 6;
-  @include square(12px);
+  @include mixins.square(12px);
 
   stroke: var(--color-secondary);
 }

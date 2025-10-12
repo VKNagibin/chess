@@ -1,12 +1,13 @@
 import { LanguagesKeysType } from '@/services/lang/i18n';
 
 interface ICache {
+  modalsAnimations?: boolean;
   figuresAnimations?: boolean;
   language: LanguagesKeysType;
 }
 
 class Cache {
-  static get(key: string) {
+  static get(key: keyof ICache) {
     const value = localStorage.getItem(key);
     if (!value) return value;
     return JSON.parse(value);

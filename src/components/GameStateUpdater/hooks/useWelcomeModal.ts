@@ -5,7 +5,7 @@ import useModal from '@/shared/components/Modal/useModal';
 import { useAppActions } from '@/store/hooks';
 
 const useWelcomeModal = () => {
-  const { openModal, closeAllModals } = useModal();
+  const { openModal } = useModal();
   const { selectTeam } = useAppActions();
 
   const welcomeUser = useCallback(async () => {
@@ -14,7 +14,6 @@ const useWelcomeModal = () => {
         customId: 'welcomeModal',
       });
       selectTeam(selectedTeam);
-      closeAllModals();
     } catch (error) {
       console.error('Ошибка в модальном окне начала игры: ', error);
     }

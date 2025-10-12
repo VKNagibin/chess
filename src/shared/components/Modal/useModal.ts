@@ -8,8 +8,6 @@ const useModal = () => {
 
   return {
     openModal: modalContext?.openModal || emptyFunction,
-    closeModal: modalContext?.closeModal || emptyFunction,
-    closeAllModals: modalContext?.closeAllModals || emptyFunction,
   };
 };
 

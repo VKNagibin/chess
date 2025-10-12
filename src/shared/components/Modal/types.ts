@@ -1,32 +1,37 @@
 import { FunctionComponent } from 'react';
 
-import { AbstractFieldsType } from '@/shared/types';
+import { AbstractFieldsType, noneFn } from '@/shared/types';
 
-export type ModalComponentProps<Result = void> = {
-  submit: (result?: Result) => void;
-  close: (result?: Result) => void;
-} & AbstractFieldsType;
+import { ModalAnimationType } from './ModalTemplate';
 
 export type ModalOptions = {
   disableBackdropClick?: boolean;
 } & AbstractFieldsType;
 
+export type ModalComponentProps<Result = void> = {
+  serviceProps: {
+    zIndex: number;
+    animationType: ModalAnimationType;
+    handleClose?: noneFn;
+  };
+  submit: (result?: Result) => void;
+} & AbstractFieldsType;
+
 export interface IModal<Result = void> {
   id: string;
   component: React.FunctionComponent;
-  resolve: (value?: any) => void;
-  disableBackdropClick?: boolean;
   props?: ModalComponentProps<Result>;
 }
 
 export type IOpenModal = (
   component: FunctionComponent<ModalComponentProps<unknown>>,
-  props?: { [key: string]: unknown } | null,
+  props?: {
+    serviceProps: ModalComponentProps['serviceProps'];
+    [key: string]: unknown;
+  } | null,
   ...options: any[]
 ) => Promise<any> | null;
 
 export type ModalContextType = {
   openModal: IOpenModal;
-  closeModal: (id: string) => void;
-  closeAllModals: () => void;
 };

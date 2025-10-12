@@ -15,7 +15,10 @@ import languagesOptions from './data/languagesOptions';
 import classes from './index.module.scss';
 import getDifficultyOptions from './utils/getDifficultyOptions';
 
-const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ submit }) => {
+const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
+  serviceProps,
+  submit,
+}) => {
   const [team, setTeam] = useState<FigureTeam>(FigureTeam.WHITE);
   const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>(
     DifficultyLevel.BEGINNER,
@@ -37,12 +40,14 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({ subm
       buttons={<ModalButton items={modalButtons} />}
       close={onClose}
       title={t('welcomeModal.title')}
+      {...serviceProps}
     >
       <div className={classes.body}>
         <div className={classes.horizontalItemConteiner}>
-          <h4 className={classes.typography}>{t('language.title')}</h4>
+          <h4 className={classes.typography}>{t('language.title')}:</h4>
           <Dropdown
             options={languagesOptions}
+            f
             value={i18n.language}
             onChange={(value: LanguagesKeysType) => {
               i18n.changeLanguage(value);

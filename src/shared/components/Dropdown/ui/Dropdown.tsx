@@ -19,22 +19,21 @@ export const Dropdown: React.FC<IDropdown> = ({
 }) => {
   const {
     isOpen,
+    setIsOpen,
     searchValue,
     selectedValue,
     selectedOption,
     filteredOptions,
-    menuStyle,
     dropdownRef,
-    menuRef,
     handleToggle,
     handleSelect,
     setSearchValue,
   } = useDropdown({
     disabled,
     multiSelect,
-    position,
     value,
     options,
+
     onChange,
   });
 
@@ -65,10 +64,10 @@ export const Dropdown: React.FC<IDropdown> = ({
             searchable={searchable}
             searchValue={searchValue}
             selectedValue={selectedValue}
+            dropdownElement={dropdownRef?.current}
             position={position}
+            setIsOpen={setIsOpen}
             filteredOptions={filteredOptions}
-            menuRef={menuRef}
-            menuStyle={menuStyle}
             handleSelect={handleSelect}
             setSearchValue={setSearchValue}
           />,

@@ -1,7 +1,8 @@
-import { createContext, createElement, memo, useCallback, useState } from 'react';
+import { createContext, createElement, memo, useState } from 'react';
 import React from 'react';
 import { createPortal } from 'react-dom';
 
+import Cache from '@/services/Cache';
 import {
   IModal,
   IOpenModal,
@@ -9,6 +10,8 @@ import {
   ModalContextType,
 } from '@/shared/components/Modal/types';
 import { uniqId } from '@/shared/utils/uniqId';
+
+import { ModalAnimationType } from './ModalTemplate';
 
 let minimalPriorityModalZIndex = 1000;
 
@@ -23,21 +26,41 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const [displayedModals, setDisplayedModals] = useState<IModal[]>([]);
 
   const openModal: IOpenModal = (component, props, options) => {
-    return new Promise<any>((resolve) => {
+    return new Promise<unknown>((resolve) => {
       const id = options?.customId || uniqId();
 
-      const close = () => {
-        setDisplayedModals((prev) => prev.filter((modal) => modal.id !== id));
-        resolve(null);
+      const allowAnimations = Cache.get('modalsAnimations');
+      const getAnimationType = () => {
+        if (!allowAnimations) return null;
+        return props?.serviceProps.animationType || ModalAnimationType.BOTTOM;
       };
 
-      const submit = (result: any) => {
-        setDisplayedModals((prev) => prev.filter((modal) => modal.id !== id));
-        resolve(result);
+      const submit = (result: unknown) => {
+        const handleClose = () => {
+          setDisplayedModals((prev) => prev.filter((modal) => modal.id !== id));
+          resolve(result);
+        };
+
+        setDisplayedModals((modals) =>
+          modals.map((modal) => {
+            if (modal.id !== id) return modal;
+            return {
+              ...modal,
+              props: {
+                ...modal.props!,
+                serviceProps: {
+                  ...modal.props!.serviceProps!,
+                  handleClose,
+                },
+              },
+            };
+          }),
+        );
       };
 
       setDisplayedModals((modals) => {
         if (modals.find((modal) => modal.id === options?.customId)) return modals;
+        const zIndex = minimalPriorityModalZIndex + modals.length;
 
         return [
           ...modals,
@@ -46,11 +69,12 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             component,
             props: {
               ...props,
-              zIndex: minimalPriorityModalZIndex + modals.length,
-              close,
               submit,
+              serviceProps: {
+                zIndex,
+                animationType: getAnimationType(),
+              },
             },
-            resolve,
             ...options,
           },
         ];
@@ -58,18 +82,8 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     });
   };
 
-  const closeModal = useCallback((id: string) => {
-    setDisplayedModals((modals) => modals.filter((modal) => modal.id !== id));
-  }, []);
-
-  const closeAllModals = useCallback(() => {
-    setDisplayedModals([]);
-  }, []);
-
   const contextValue = {
     openModal,
-    closeModal,
-    closeAllModals,
   };
 
   return (

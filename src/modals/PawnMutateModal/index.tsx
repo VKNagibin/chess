@@ -13,7 +13,7 @@ interface IPawnMutateModalProps {
 
 const PawnMutateModal: FunctionComponent<
   ModalComponentProps<FigureType> & IPawnMutateModalProps
-> = ({ cellId, submit }) => {
+> = ({ cellId, submit, serviceProps }) => {
   const [selectedType, setSelectedType] = useState<FigureType>(FigureType.QUEEN);
 
   const { t } = useTranslation();
@@ -25,12 +25,14 @@ const PawnMutateModal: FunctionComponent<
           items={[
             {
               text: t('confirm'),
+              type: 'submit',
               onClick: () => submit(selectedType),
             },
           ]}
         />
       }
       title={t('pawnMutationModal.title', { cellId })}
+      {...serviceProps}
     >
       <FiguresList selectedType={selectedType} onSelectFigure={setSelectedType} />
     </ModalTemplate>

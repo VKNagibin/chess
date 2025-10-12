@@ -1,4 +1,5 @@
-@import '@/style/mixins.scss';
+@use '@/style/mixins.scss' as mixins;
+
 
 .container {
   margin-left: 8px;
@@ -8,22 +9,22 @@
 
   margin-bottom: 32px;
 
-  @include media('tablet') {
+  @include mixins.media('tablet') {
     margin-bottom: 12px;
   }
 
-  @include media('mobileLarge') {
+  @include mixins.media('mobileLarge') {
     margin-bottom: 6px;
   }
 }
 
 .teamColor {
-  @include square(32px);
+  @include mixins.square(32px);
   border: 2px solid black;
   border-radius: 20%;
 
-  @include media('tablet') {
-    @include square(24px);
+  @include mixins.media('tablet') {
+    @include mixins.square(24px);
   }
 }
 

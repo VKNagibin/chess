@@ -13,13 +13,17 @@ interface ModalProps {
 const GameOverModal: FunctionComponent<ModalComponentProps<void> & ModalProps> = ({
   submit,
   team,
+  serviceProps,
 }) => {
   const { t } = useTranslation();
 
   return (
     <ModalTemplate
-      buttons={<ModalButton items={[{ onClick: submit, text: t('gotIt') }]} />}
+      buttons={
+        <ModalButton items={[{ onClick: submit, type: 'submit', text: t('gotIt') }]} />
+      }
       title={t('gameOverModal.title', { team: t(`team.${team}`) })}
+      {...serviceProps}
     ></ModalTemplate>
   );
 };

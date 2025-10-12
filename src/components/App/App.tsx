@@ -5,6 +5,7 @@ import StepTeam from '@/components/StepTeam';
 import Cache from '@/services/Cache';
 
 if (Cache.get('figuresAnimations') === null) Cache.set('figuresAnimations', true);
+if (Cache.get('modalsAnimations') === null) Cache.set('modalsAnimations', true);
 
 function App() {
   return (
