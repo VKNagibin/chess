@@ -42,11 +42,10 @@ export default function useDropdown({
     }
   }, []);
 
-  const handleToggle = useCallback(() => {
-    if (!disabled) {
-      setIsOpen((prev) => !prev);
-      setSearchValue('');
-    }
+  const openMenu = useCallback(() => {
+    if (disabled) return;
+    setIsOpen((prev) => !prev);
+    setSearchValue('');
   }, []);
 
   return {
@@ -56,7 +55,7 @@ export default function useDropdown({
     selectedOption,
     filteredOptions,
     dropdownRef,
-    handleToggle,
+    openMenu,
     handleSelect,
     setIsOpen,
     setSearchValue,

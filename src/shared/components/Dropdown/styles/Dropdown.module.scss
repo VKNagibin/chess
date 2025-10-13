@@ -13,9 +13,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  border: 2px solid var(--color-secondary);
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-primarySoft);
+  border: 2px solid var(--colorSecondary);
+  border-radius: var(--borderRadiusMd);
+  background-color: var(--colorPrimarySoft);
   min-height: 44px;
 
   &:hover {
@@ -30,7 +30,7 @@
 }
 
 .value {
-  color: var(--color-darkTypography);
+  color: var(--colorDarkTypography);
   font-size: 14px;
 }
 

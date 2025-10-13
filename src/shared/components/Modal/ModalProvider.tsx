@@ -17,11 +17,6 @@ let minimalPriorityModalZIndex = 1000;
 
 export const ModalContext = createContext<ModalContextType | null>(null);
 
-export const MODAL_STATUSES = {
-  CLOSE: 'CLOSE',
-  SUBMIT: 'SUBMIT',
-} as const;
-
 const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [displayedModals, setDisplayedModals] = useState<IModal[]>([]);
 
@@ -32,7 +27,7 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       const allowAnimations = Cache.get('modalsAnimations');
       const getAnimationType = () => {
         if (!allowAnimations) return null;
-        return props?.serviceProps.animationType || ModalAnimationType.BOTTOM;
+        return props?.serviceProps?.animationType || ModalAnimationType.BOTTOM;
       };
 
       const submit = (result: unknown) => {

@@ -1,9 +1,9 @@
 $breakpoints: (
-  'mobileSmall': 320px,
-  'mobileMedium': 375px,
-  'mobileLarge': 425px,
-  'tablet': 768px,
-  'laptop': 1024px,
-  'desktop': 1440px,
-  'desktopLarge': 2560px,
+  'mobileSmall': var(--breakpointMobileSmall),
+  'mobileMedium': var(--breakpointMobileMedium),
+  'mobileLarge': var(--breakpointMobileLarge),
+  'tablet': var(--breakpointTablet),
+  'laptop': var(--breakpointLaptop),
+  'desktop': var(--breakpointDesktop),
+  'desktopLarge': var(--breakpointDesktopLarge),
 );

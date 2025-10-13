@@ -20,6 +20,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme = 
   const mergedTheme: Theme = {
     ...baseTheme,
     ...theme,
+    breakpoints: { ...baseTheme.breakpoints, ...theme.breakpoints },
     colors: { ...baseTheme.colors, ...theme.colors },
     spacing: { ...baseTheme.spacing, ...theme.spacing },
     borderRadius: { ...baseTheme.borderRadius, ...theme.borderRadius },
@@ -30,19 +31,23 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme = 
     const root = document.documentElement;
 
     Object.entries(mergedTheme.colors).forEach(([key, value]) => {
-      root.style.setProperty(`--color-${key}`, value);
+      root.style.setProperty(`--color${key.capitalize?.()}`, value);
+    });
+
+    Object.entries(mergedTheme.breakpoints).forEach(([key, value]) => {
+      root.style.setProperty(`--breakpoint${key.capitalize?.()}`, `${value}px`);
     });
 
     Object.entries(mergedTheme.spacing).forEach(([key, value]) => {
-      root.style.setProperty(`--spacing-${key}`, value);
+      root.style.setProperty(`--spacing${key.capitalize?.()}`, value);
     });
 
     Object.entries(mergedTheme.borderRadius).forEach(([key, value]) => {
-      root.style.setProperty(`--border-radius-${key}`, value);
+      root.style.setProperty(`--borderRadius${key.capitalize?.()}`, value);
     });
 
     Object.entries(mergedTheme.speed).forEach(([key, value]) => {
-      root.style.setProperty(`--speed-${key}`, value);
+      root.style.setProperty(`--speed${key.capitalize?.()}`, value);
     });
   }, [mergedTheme]);
 
@@ -54,9 +59,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme = 
 };
 
 export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
+  const { theme } = useContext(ThemeContext);
+  if (!theme) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
-  return context;
+  return theme;
 };

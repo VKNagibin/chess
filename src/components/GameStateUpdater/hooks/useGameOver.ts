@@ -6,14 +6,13 @@ import { getEnemyTeam } from '@/store/slices/cells/utils/helpers';
 
 const useGameOver = () => {
   const { openModal } = useModal();
-  const { startNewGame, resetFiguresAnimationsState } = useAppActions();
+  const { startNewGame } = useAppActions();
 
   const handleGameOver = async (team: FigureTeam) => {
     try {
       await openModal(GameOverModal, {
         team: getEnemyTeam(team),
       });
-      resetFiguresAnimationsState();
       startNewGame(null);
     } catch (error) {
       console.error('Ошибка в модальном окне окончания партии: ', error);

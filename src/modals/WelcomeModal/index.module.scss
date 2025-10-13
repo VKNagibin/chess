@@ -51,7 +51,7 @@
   padding: 16px;
   transition: opacity 0.2s, outline 0.1s;
   height: 40px;
-  border-radius: var(--border-radius-md);
+  border-radius: var(--borderRadiusMd);
   cursor: pointer;
   opacity: 0.9;
 
@@ -61,17 +61,17 @@
 }
 
 .black {
-  background-color: var(--color-secondary);
-  color: var(--color-brightTypography);
+  background-color: var(--colorSecondary);
+  color: var(--colorBrightTypography);
 }
 
 .selected {
-  outline: 4px solid var(--color-selected);
+  outline: 4px solid var(--colorSelected);
 }
 
 .white {
-  background-color: var(--color-primary);
-  color: var(--color-darkTypography);
+  background-color: var(--colorPrimary);
+  color: var(--colorDarkTypography);
 }
 
 .figure {

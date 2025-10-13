@@ -4,7 +4,7 @@ import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
 import { findById } from '@/shared/utils/findById';
 import { uniqId } from '@/shared/utils/uniqId';
 import createCustomSlice from '@/store/createCustomSlice';
-import { ConfigItemType, teamsConfigs } from '@/store/slices/cells/placesConfig';
+import { teamsConfigs } from '@/store/slices/cells/placesConfig';
 import { IStep } from '@/store/slices/cells/types';
 import arrangeCells from '@/store/slices/cells/utils/arrangeCells';
 import getAfterStepBoardState from '@/store/slices/cells/utils/getAfterStepBoardState';
@@ -92,9 +92,9 @@ export const gameEngineSlice = createCustomSlice({
 
         resetCellsHighlight(updatedCells, activeTaamAfterStep);
 
-        state.cellWithMutablePawnId = cellWithMutablePawnId;
         state.cells = updatedCells;
         state.deadKingTeam = deadKingTeam;
+        state.cellWithMutablePawnId = cellWithMutablePawnId;
         canUpdateFullmoveNumber && ++state.fullmoveNumber;
 
         state.fiftyStepsRuleCount = calculateFiftyStepsRuleCount({

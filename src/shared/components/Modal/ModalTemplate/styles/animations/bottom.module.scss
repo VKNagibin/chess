@@ -11,13 +11,13 @@
     background-color: transparent;
   }
   to {
-    background-color: var(--color-overlay);
+    background-color: var(--colorOverlay);
   }
 }
 
 @keyframes overlayTransparent {
   from {
-    background-color: var(--color-overlay);
+    background-color: var(--colorOverlay);
   }
   to {
     background-color: transparent;

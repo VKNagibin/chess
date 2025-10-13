@@ -9,9 +9,9 @@ export type ModalOptions = {
 } & AbstractFieldsType;
 
 export type ModalComponentProps<Result = void> = {
-  serviceProps: {
-    zIndex: number;
-    animationType: ModalAnimationType;
+  serviceProps?: {
+    zIndex?: number;
+    animationType?: ModalAnimationType;
     handleClose?: noneFn;
   };
   submit: (result?: Result) => void;
@@ -25,8 +25,8 @@ export interface IModal<Result = void> {
 
 export type IOpenModal = (
   component: FunctionComponent<ModalComponentProps<unknown>>,
-  props?: {
-    serviceProps: ModalComponentProps['serviceProps'];
+  props: {
+    serviceProps?: ModalComponentProps['serviceProps'];
     [key: string]: unknown;
   } | null,
   ...options: any[]

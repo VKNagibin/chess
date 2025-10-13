@@ -13,7 +13,10 @@ const GameStateUpdater = () => {
 
   useEffect(() => {
     if (actionsBlocked) return;
-    if (deadKingTeam) handleGameOver(deadKingTeam);
+    if (deadKingTeam) {
+      handleGameOver(deadKingTeam);
+      return;
+    }
     if (cellWithMutablePawnId) handlePawnMutation(cellWithMutablePawnId);
   }, [actionsBlocked]);
 

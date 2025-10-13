@@ -13,14 +13,14 @@ fetchBestMoveMiddleware.startListening({
   predicate: (action, currentState) => {
     const { type: actionType } = action;
 
-    const { canChangeTeam, activeTeam, userTeam, cellWithMutablePawnId } = (
+    const { canChangeTeam, activeTeam, userTeam, cellWithMutablePawnId, deadKingTeam } = (
       currentState as RootState
     ).gameEngine;
 
     if (actionType === 'gameEngine/selectTeam' && userTeam === FigureTeam.BLACK)
       return true;
 
-    if (cellWithMutablePawnId || activeTeam !== userTeam) return false;
+    if (cellWithMutablePawnId || deadKingTeam || activeTeam !== userTeam) return false;
     return canChangeTeam && legalActions.includes(actionType);
   },
   effect: async (_, { dispatch }) => {

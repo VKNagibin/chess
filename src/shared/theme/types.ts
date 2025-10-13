@@ -31,4 +31,14 @@ export interface Theme {
     3: string;
     4: string;
   };
+  breakpoints: {
+    mobileSmall: number;
+    mobileMedium: number;
+    mobileLarge: number;
+    tablet: number;
+    laptop: number;
+    desktop: number;
+    desktopLarge: number;
+    [key: string]: number;
+  };
 }

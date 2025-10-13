@@ -12,6 +12,8 @@ export default defineConfig({
   publicDir: 'public',
   build: {
     outDir: 'build',
+    minify: 'esbuild',
+    sourcemap: false,
   },
   define: {
     __APP__: JSON.stringify({
@@ -55,6 +57,7 @@ export default defineConfig({
       localsConvention: 'camelCaseOnly',
       generateScopedName: '[name]__[local]___[hash:base64:5]',
     },
+    devSourcemap: false,
   },
   server: {
     port: 2000,
@@ -69,3 +72,5 @@ export default defineConfig({
     ],
   },
 });
+
+// npx vite-bundle-analyzer build/

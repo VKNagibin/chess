@@ -25,7 +25,7 @@ export const Dropdown: React.FC<IDropdown> = ({
     selectedOption,
     filteredOptions,
     dropdownRef,
-    handleToggle,
+    openMenu,
     handleSelect,
     setSearchValue,
   } = useDropdown({
@@ -33,7 +33,6 @@ export const Dropdown: React.FC<IDropdown> = ({
     multiSelect,
     value,
     options,
-
     onChange,
   });
 
@@ -53,7 +52,7 @@ export const Dropdown: React.FC<IDropdown> = ({
 
   return (
     <div ref={dropdownRef} className={getContainerClasses()}>
-      <button className={classes.trigger} onClick={handleToggle}>
+      <button className={classes.trigger} onClick={openMenu}>
         <span className={classes.value}>{selectedOption?.label || placeholder}</span>
         <span className={getArrowClasses()}>▼</span>
       </button>
