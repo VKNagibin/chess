@@ -5,32 +5,37 @@ import { AbstractFieldsType, noneFn } from '@/shared/types';
 import { ModalAnimationType } from './ModalTemplate';
 
 export type ModalOptions = {
-  disableBackdropClick?: boolean;
+  closeOnClickOutside?: boolean;
+  customId?: string;
 } & AbstractFieldsType;
 
-export type ModalComponentProps<Result = void> = {
-  serviceProps?: {
-    zIndex?: number;
-    animationType?: ModalAnimationType;
+export type ModalComponentProps<Result = unknown> = {
+  serviceProps: {
+    zIndex: number;
+    animationType: ModalAnimationType;
     handleClose?: noneFn;
   };
   submit: (result?: Result) => void;
 } & AbstractFieldsType;
 
-export interface IModal<Result = void> {
-  id: string;
-  component: React.FunctionComponent;
-  props?: ModalComponentProps<Result>;
+interface IOpenModalProps {
+  ui: FunctionComponent<ModalComponentProps & AbstractFieldsType>;
+  props?: {
+    serviceProps?: {
+      animationType: ModalAnimationType;
+    };
+  } & AbstractFieldsType;
+  options?: ModalOptions;
 }
 
-export type IOpenModal = (
-  component: FunctionComponent<ModalComponentProps<unknown>>,
-  props: {
-    serviceProps?: ModalComponentProps['serviceProps'];
-    [key: string]: unknown;
-  } | null,
-  ...options: any[]
-) => Promise<any> | null;
+export type IOpenModal = ({ ui, props, options }: IOpenModalProps) => Promise<any> | null;
+
+export interface IModal {
+  id: string;
+  ui: FunctionComponent<ModalComponentProps & AbstractFieldsType>;
+  props?: ModalComponentProps;
+  options?: ModalOptions;
+}
 
 export type ModalContextType = {
   openModal: IOpenModal;

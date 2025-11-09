@@ -3,14 +3,14 @@ import Logger from '@/services/Logger';
 import { IBaseResponse } from '@/shared/services/types';
 import { DifficultyLevel } from '@/store/slices/cells/types';
 
-class StepsService {
-  private static instance: StepsService;
+class ChessBot {
+  private static instance: ChessBot;
 
-  public static getInstance(): StepsService {
-    if (!StepsService.instance) {
-      StepsService.instance = new StepsService();
+  public static getInstance(): ChessBot {
+    if (!ChessBot.instance) {
+      ChessBot.instance = new ChessBot();
     }
-    return StepsService.instance;
+    return ChessBot.instance;
   }
 
   public async getBestMove({
@@ -31,4 +31,4 @@ class StepsService {
   }
 }
 
-export default StepsService.getInstance();
+export default ChessBot.getInstance();

@@ -4,8 +4,8 @@ import { getFigureSvgName } from '@/entities/Figure/utils/getFigureSvgName';
 import { findById } from '@/shared/utils/findById';
 import { uniqId } from '@/shared/utils/uniqId';
 import createCustomSlice from '@/store/createCustomSlice';
-import { teamsConfigs } from '@/store/slices/cells/placesConfig';
-import { IStep } from '@/store/slices/cells/types';
+import { ConfigItemType, teamsConfigs } from '@/store/slices/cells/placesConfig';
+import { DifficultyLevel, IStep } from '@/store/slices/cells/types';
 import arrangeCells from '@/store/slices/cells/utils/arrangeCells';
 import getAfterStepBoardState from '@/store/slices/cells/utils/getAfterStepBoardState';
 import handleFigureSelect from '@/store/slices/cells/utils/handleFigureSelect';
@@ -21,16 +21,18 @@ import makeFEN from '@/store/slices/cells/utils/makeFEN';
 export interface IGameEngineState {
   cells: ICell[];
   nextMove: string | null;
-  loading: boolean;
-  errorMessage: boolean;
-  userTeam: FigureTeam;
-  activeTeam: FigureTeam;
-  canChangeTeam: boolean;
-  deadKingTeam: FigureTeam | null;
-  cellWithMutablePawnId: CellIdType | null;
   FEN: string | null;
   fullmoveNumber: number;
   fiftyStepsRuleCount: number;
+  loading: boolean;
+  canStartGame: boolean;
+  canChangeTeam: boolean;
+  errorMessage: boolean;
+  userTeam: FigureTeam;
+  activeTeam: FigureTeam;
+  deadKingTeam: FigureTeam | null;
+  cellWithMutablePawnId: CellIdType | null;
+  difficultyLevel: DifficultyLevel;
 }
 
 const initialCells = arrangeCells(teamsConfigs);
@@ -39,6 +41,7 @@ const initialFiftyStepsRuleCount = 0;
 const initialFullmoveNumber = 1;
 
 const initialState: IGameEngineState = {
+  canStartGame: false,
   cells: initialCells,
   nextMove: null,
   loading: false,
@@ -56,14 +59,21 @@ const initialState: IGameEngineState = {
   }),
   fullmoveNumber: initialFullmoveNumber,
   fiftyStepsRuleCount: initialFiftyStepsRuleCount,
+  difficultyLevel: DifficultyLevel.BEGINNER,
 };
 
 export const gameEngineSlice = createCustomSlice({
   name: 'gameEngine',
   initialState,
   reducers: {
-    selectTeam(state, action) {
+    setUserTeam(state, action) {
       state.userTeam = action.payload;
+    },
+    setDifficultyLevel(state, action) {
+      state.difficultyLevel = action.payload;
+    },
+    startGame(state) {
+      state.canStartGame = true;
     },
     clickOnCell(state, action) {
       const { cellId } = action.payload;

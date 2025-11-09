@@ -1,4 +1,4 @@
-@use '@/style/mixins.scss' as mixins;
+@use '@/style/media.scss' as media;
 
 .numset {
   width: 40px;
@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
 
-  @include mixins.media('tablet') {
+  @include media.media('tablet') {
     display: none;
   }
 }

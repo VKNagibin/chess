@@ -1,4 +1,4 @@
-import { createContext, createElement, memo, useState } from 'react';
+import { createContext, createElement, memo, useEffect, useRef, useState } from 'react';
 import React from 'react';
 import { createPortal } from 'react-dom';
 
@@ -20,13 +20,15 @@ export const ModalContext = createContext<ModalContextType | null>(null);
 const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [displayedModals, setDisplayedModals] = useState<IModal[]>([]);
 
-  const openModal: IOpenModal = (component, props, options) => {
+  const modalContainerRef = useRef<HTMLDivElement>(null);
+
+  const openModal: IOpenModal = ({ ui, props, options }) => {
     return new Promise<unknown>((resolve) => {
       const id = options?.customId || uniqId();
 
       const allowAnimations = Cache.get('modalsAnimations');
       const getAnimationType = () => {
-        if (!allowAnimations) return null;
+        if (!allowAnimations) return ModalAnimationType.EMPTY;
         return props?.serviceProps?.animationType || ModalAnimationType.BOTTOM;
       };
 
@@ -48,6 +50,7 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   handleClose,
                 },
               },
+              options,
             };
           }),
         );
@@ -61,7 +64,7 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           ...modals,
           {
             id,
-            component,
+            ui,
             props: {
               ...props,
               submit,
@@ -70,12 +73,35 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 animationType: getAnimationType(),
               },
             },
-            ...options,
+            options,
           },
         ];
       });
     });
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      const closableModals = displayedModals.filter(
+        (modal) => modal.options?.closeOnClickOutside === true,
+      );
+
+      if (closableModals.length === 0) return;
+
+      if ((event.target as HTMLDivElement)?.classList?.contains?.('modalOverlay')) {
+        const topModal = closableModals[closableModals.length - 1];
+        topModal.props?.submit();
+      }
+    };
+
+    if (displayedModals.some((modal) => modal.options?.closeOnClickOutside === true)) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [displayedModals]);
 
   const contextValue = {
     openModal,
@@ -85,11 +111,13 @@ const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <ModalContext.Provider value={contextValue}>
       {children}
       {createPortal(
-        displayedModals.map((modal) => (
-          <React.Fragment key={modal.id}>
-            {createElement<ModalComponentProps<void>>(modal.component, modal.props)}
-          </React.Fragment>
-        )),
+        <div ref={modalContainerRef}>
+          {displayedModals.map((modal) => (
+            <React.Fragment key={modal.id}>
+              {createElement<ModalComponentProps<unknown>>(modal.ui, modal.props)}
+            </React.Fragment>
+          ))}
+        </div>,
         document.body,
       )}
     </ModalContext.Provider>

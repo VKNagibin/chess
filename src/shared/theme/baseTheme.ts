@@ -1,3 +1,4 @@
+import defaultBreakpoints from './defaultBreakpoints.json';
 import { Theme } from './types';
 
 export const baseTheme: Theme = {
@@ -33,13 +34,5 @@ export const baseTheme: Theme = {
     3: '.3s',
     4: '3s',
   },
-  breakpoints: {
-    mobileSmall: 320,
-    mobileMedium: 375,
-    mobileLarge: 425,
-    tablet: 768,
-    laptop: 1024,
-    desktop: 1440,
-    desktopLarge: 2560,
-  },
+  breakpoints: defaultBreakpoints,
 };

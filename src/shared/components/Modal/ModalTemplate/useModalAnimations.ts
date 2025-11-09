@@ -39,7 +39,7 @@ const useModalAnimations = ({
   }, [cardAnimationEnd, overlayAnimationEnd, onAnimationsEnd]);
 
   useEffect(() => {
-    if (!animationType) {
+    if (!animationType || animationType === ModalAnimationType.EMPTY) {
       handleClose?.();
       return;
     }

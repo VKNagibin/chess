@@ -39,6 +39,5 @@ export interface Theme {
     laptop: number;
     desktop: number;
     desktopLarge: number;
-    [key: string]: number;
   };
 }

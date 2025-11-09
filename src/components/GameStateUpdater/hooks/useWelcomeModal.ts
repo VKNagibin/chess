@@ -6,14 +6,18 @@ import { useAppActions } from '@/store/hooks';
 
 const useWelcomeModal = () => {
   const { openModal } = useModal();
-  const { selectTeam } = useAppActions();
+
+  const { startGame } = useAppActions();
 
   const welcomeUser = useCallback(async () => {
     try {
-      const selectedTeam = await openModal(WelcomeModal, null, {
-        customId: 'welcomeModal',
+      await openModal({
+        ui: WelcomeModal,
+        options: {
+          customId: 'welcomeModal',
+        },
       });
-      selectTeam(selectedTeam);
+      startGame();
     } catch (error) {
       console.error('Ошибка в модальном окне начала игры: ', error);
     }

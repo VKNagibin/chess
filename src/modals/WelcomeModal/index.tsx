@@ -1,4 +1,4 @@
-import { FunctionComponent, memo, useCallback, useMemo, useState } from 'react';
+import { FunctionComponent, memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FigureTeam } from '@/entities/Cell/enums';
@@ -8,8 +8,7 @@ import { Dropdown } from '@/shared/components/Dropdown';
 import ModalButton from '@/shared/components/Modal/ModalButton';
 import ModalTemplate from '@/shared/components/Modal/ModalTemplate';
 import { ModalComponentProps } from '@/shared/components/Modal/types';
-import { noneFn } from '@/shared/types';
-import { DifficultyLevel } from '@/store/slices/cells/types';
+import { useAppActions, useAppSelector } from '@/store/hooks';
 
 import languagesOptions from './data/languagesOptions';
 import classes from './index.module.scss';
@@ -19,26 +18,21 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
   serviceProps,
   submit,
 }) => {
-  const [team, setTeam] = useState<FigureTeam>(FigureTeam.WHITE);
-  const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>(
-    DifficultyLevel.BEGINNER,
-  );
-
+  const { setUserTeam, setDifficultyLevel } = useAppActions();
+  const { userTeam, difficultyLevel } = useAppSelector((state) => state.gameEngine);
   const { t, i18n } = useTranslation();
 
-  const difficultyOptions = useMemo(() => getDifficultyOptions(team), [t, team]);
-
-  const onClose = useCallback(() => submit(team), [team, submit]);
+  const difficultyOptions = useMemo(() => getDifficultyOptions(userTeam), [t, userTeam]);
 
   const modalButtons = useMemo(
-    () => [{ onClick: () => submit(team), text: t('confirm'), type: 'submit' }],
-    [t, team, submit],
+    () => [{ onClick: () => submit(), text: t('confirm'), type: 'submit' }],
+    [t, submit],
   );
 
   return (
     <ModalTemplate
       buttons={<ModalButton items={modalButtons} />}
-      close={onClose}
+      close={submit}
       title={t('welcomeModal.title')}
       {...serviceProps}
     >
@@ -62,20 +56,20 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
           <div className={classes.configItemValues}>
             <button
               className={`${
-                team === FigureTeam.WHITE ? classes.selected : ''
+                userTeam === FigureTeam.WHITE ? classes.selected : ''
               } ${`${classes.teamButton} ${classes.white}`}`}
               onClick={() => {
-                setTeam(FigureTeam.WHITE);
+                setUserTeam(FigureTeam.WHITE);
               }}
             >
               {t('team.white')}
             </button>
             <button
               className={`${
-                team === FigureTeam.BLACK ? classes.selected : ''
+                userTeam === FigureTeam.BLACK ? classes.selected : ''
               } ${`${classes.teamButton} ${classes.black}`}`}
               onClick={() => {
-                setTeam(FigureTeam.BLACK);
+                setUserTeam(FigureTeam.BLACK);
               }}
             >
               {t('team.black')}
@@ -87,7 +81,7 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
           <Dropdown
             options={difficultyOptions}
             value={difficultyLevel}
-            onChange={setDifficultyLevel as noneFn}
+            onChange={(value: string) => setDifficultyLevel(value)}
             placeholder={t('difficulty.placeholder')}
             disabled={false}
           />

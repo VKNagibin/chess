@@ -10,8 +10,11 @@ const useGameOver = () => {
 
   const handleGameOver = async (team: FigureTeam) => {
     try {
-      await openModal(GameOverModal, {
-        team: getEnemyTeam(team),
+      await openModal({
+        ui: GameOverModal,
+        props: {
+          team: getEnemyTeam(team),
+        },
       });
       startNewGame(null);
     } catch (error) {

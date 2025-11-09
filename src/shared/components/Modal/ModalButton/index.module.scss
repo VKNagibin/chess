@@ -1,11 +1,11 @@
-@use '@/style/mixins.scss' as mixins;
+@use '@/style/media.scss' as media;
 
 .buttonsContainer {
   width: 100%;
   display: flex;
   margin-top: 24px;
 
-  @include mixins.media('mobileLarge') {
+  @include media.media('mobileLarge') {
     margin-top: auto;
   }
 }

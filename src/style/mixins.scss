@@ -1,20 +1,8 @@
 @use 'sass:map';
-@use './variables' as vars;
 
 @mixin square($size) {
   width: $size;
   min-width: $size;
   height: $size;
   min-height: $size;
-}
-
-@mixin media($breakpoint) {
-  $width: map.get(vars.$breakpoints, $breakpoint);
-  @if $width != null {
-    @media (max-width: $width) {
-      @content;
-    }
-  } @else {
-    @warn "Breakpoint `#{$breakpoint}` not found. Please use one of: #{map-keys($breakpoints)}.";
-  }
 }

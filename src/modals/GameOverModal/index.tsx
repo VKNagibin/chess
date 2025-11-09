@@ -1,16 +1,11 @@
 import { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FigureTeam } from '@/entities/Cell/enums';
 import ModalButton from '@/shared/components/Modal/ModalButton';
 import ModalTemplate from '@/shared/components/Modal/ModalTemplate';
 import { ModalComponentProps } from '@/shared/components/Modal/types';
 
-interface ModalProps {
-  team: FigureTeam;
-}
-
-const GameOverModal: FunctionComponent<ModalComponentProps<void> & ModalProps> = ({
+const GameOverModal: FunctionComponent<ModalComponentProps<void>> = ({
   submit,
   team,
   serviceProps,

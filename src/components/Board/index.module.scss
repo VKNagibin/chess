@@ -1,4 +1,4 @@
-@use '@/style/mixins.scss' as mixins;
+@use '@/style/media.scss' as media;
 
 .board {
   display: flex;
@@ -10,7 +10,7 @@
   box-shadow: 0 0 20px 2px rgb(84, 74, 63);
   border: 8px solid rgb(133 107 79);
 
-  @include mixins.media('tablet') {
+  @include media.media('tablet') {
     background: none;
     box-shadow: none;
     border: none;

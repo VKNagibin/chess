@@ -9,6 +9,7 @@ import useModalAnimations from './useModalAnimations';
 
 export enum ModalAnimationType {
   BOTTOM = 'bottom',
+  EMPTY = 'empty',
 }
 
 interface IProps {
@@ -18,6 +19,7 @@ interface IProps {
   handleClose?: noneFn;
   zIndex: number;
   animationType: ModalAnimationType;
+  className?: string;
 }
 
 const ModalTemplate = ({
@@ -28,6 +30,7 @@ const ModalTemplate = ({
   buttons = null,
   zIndex,
   animationType,
+  className = '',
 }: PropsWithChildren<IProps>) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -40,33 +43,36 @@ const ModalTemplate = ({
   });
 
   return (
-    <div
-      ref={overlayRef}
-      className={`${classes.overlay} ${animationClasses[`${animationType}ShowOverlay`]} ${
-        animationClasses[`${closeAnimationClass}Overlay`]
-      } modal`}
-    >
+    <div className={classes.modalWrapper}>
       <div
-        ref={cardRef}
-        className={`${classes.card} ${animationClasses[`${animationType}ShowCard`]} ${
-          animationClasses[`${closeAnimationClass}Card`]
-        }`}
-        style={{ zIndex }}
-      >
-        {!!close && (
-          <button
-            data-testid="modal_close_button"
-            className={classes.cross}
-            onClick={close}
-          >
-            <CrossIcon className={classes.crossIcon} />
-          </button>
-        )}
-        <div className={classes.header}>
-          <h3>{title}</h3>
+        ref={overlayRef}
+        className={`${classes.overlay} ${
+          animationClasses[`${animationType}ShowOverlay`]
+        } ${animationClasses[`${closeAnimationClass}Overlay`]} modalOverlay`}
+      />
+      <div className={classes.container}>
+        <div
+          ref={cardRef}
+          className={`${classes.card} ${className} ${
+            animationClasses[`${animationType}ShowCard`]
+          } ${animationClasses[`${closeAnimationClass}Card`]}`}
+          style={{ zIndex }}
+        >
+          {!!close && (
+            <button
+              data-testid="modal_close_button"
+              className={classes.cross}
+              onClick={close}
+            >
+              <CrossIcon className={classes.crossIcon} />
+            </button>
+          )}
+          <div className={classes.header}>
+            <h3>{title}</h3>
+          </div>
+          {children}
+          {buttons}
         </div>
-        {children}
-        {buttons}
       </div>
     </div>
   );

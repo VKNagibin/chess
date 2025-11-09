@@ -10,7 +10,10 @@ class Figure {
   isFirstStep = true;
   isUnderAttack = false;
 
-  constructor(public type: FigureType, public team: FigureTeam) {}
+  constructor(
+    public type: FigureType,
+    public team: FigureTeam,
+  ) {}
 
   toPlainObject = (): IFigure => ({
     id: this.id,

@@ -1,13 +1,17 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
 import { FigureTeam } from '@/entities/Cell/enums';
-import StepsService from '@/services/StepsService';
+import ChessBot from '@/services/ChessBot';
 import { RootState, store } from '@/store';
 import rootActions from '@/store/rootActions';
 
 const fetchBestMoveMiddleware = createListenerMiddleware();
 
-const legalActions = ['gameEngine/clickOnCell', 'gameEngine/mutateFigure'];
+const legalActions = [
+  'gameEngine/clickOnCell',
+  'gameEngine/mutateFigure',
+  'gameEngine/startGame',
+];
 
 fetchBestMoveMiddleware.startListening({
   predicate: (action, currentState) => {
@@ -17,7 +21,7 @@ fetchBestMoveMiddleware.startListening({
       currentState as RootState
     ).gameEngine;
 
-    if (actionType === 'gameEngine/selectTeam' && userTeam === FigureTeam.BLACK)
+    if (actionType === 'gameEngine/startGame' && userTeam === FigureTeam.BLACK)
       return true;
 
     if (cellWithMutablePawnId || deadKingTeam || activeTeam !== userTeam) return false;
@@ -26,7 +30,10 @@ fetchBestMoveMiddleware.startListening({
   effect: async (_, { dispatch }) => {
     const { gameEngine } = store.getState();
     dispatch(rootActions.startEngineLoading());
-    const response = await StepsService.getBestMove({ FEN: gameEngine.FEN! });
+    const response = await ChessBot.getBestMove({
+      FEN: gameEngine.FEN!,
+      difficulty: gameEngine.difficultyLevel,
+    });
     if (!response?.success) {
       dispatch(rootActions.setEngineError(response?.messages));
       dispatch(rootActions.finishEngineLoading());

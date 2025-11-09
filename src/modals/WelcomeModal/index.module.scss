@@ -1,13 +1,15 @@
+@use '@/style/media.scss' as media;
 @use '@/style/mixins.scss' as mixins;
 
 .body {
-  width: 100%;
+  max-width: 100%;
+  width: 290px;
   display: flex;
   flex-direction: column;
   gap: 24px;
   align-items: center;
 
-  @include mixins.media('mobileLarge') {
+  @include media.media('mobileLarge') {
     gap: 20px;
   }
 }
@@ -23,7 +25,7 @@
   gap: 24px;
   justify-content: space-between;
 
-  @include mixins.media('mobileMedium') {
+  @include media.media('mobileMedium') {
     flex-wrap: wrap;
     gap: 6px;
   }

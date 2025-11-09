@@ -1,6 +1,5 @@
-node_modules
 .DS_Store
-dist
-dist-ssr
+build
 *.local
 node_modules/*
+src/shared/theme/defaultBreakpoints.json

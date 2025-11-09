@@ -7,13 +7,11 @@ import ModalButton from '@/shared/components/Modal/ModalButton';
 import ModalTemplate from '@/shared/components/Modal/ModalTemplate';
 import { ModalComponentProps } from '@/shared/components/Modal/types';
 
-interface IPawnMutateModalProps {
-  cellId: string;
-}
-
-const PawnMutateModal: FunctionComponent<
-  ModalComponentProps<FigureType> & IPawnMutateModalProps
-> = ({ cellId, submit, serviceProps }) => {
+const PawnMutateModal: FunctionComponent<ModalComponentProps<FigureType>> = ({
+  cellId,
+  submit,
+  serviceProps,
+}) => {
   const [selectedType, setSelectedType] = useState<FigureType>(FigureType.QUEEN);
 
   const { t } = useTranslation();

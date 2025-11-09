@@ -16,7 +16,6 @@ interface IDropdownMenu {
   setIsOpen: (prop: boolean) => void;
   filteredOptions: IDropdownOption[];
   dropdownElement: HTMLDivElement | null;
-  menuStyle: React.StyleHTMLAttributes<HTMLDivElement>;
   handleSelect: (value: string) => void;
   setSearchValue: (value: string) => void;
 }

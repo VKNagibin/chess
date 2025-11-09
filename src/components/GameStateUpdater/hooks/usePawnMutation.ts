@@ -12,8 +12,11 @@ const usePawnMutation = () => {
 
   const handlePawnMutation = useCallback(async (cellId: CellIdType) => {
     try {
-      const selectedType = await openModal(PawnMutateModal, {
-        cellId,
+      const selectedType = await openModal({
+        ui: PawnMutateModal,
+        props: {
+          cellId,
+        },
       });
       mutateFigure({ cellId, figureType: selectedType });
     } catch (error) {

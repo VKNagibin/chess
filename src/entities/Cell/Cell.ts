@@ -17,7 +17,10 @@ class Cell {
   figure: Figure | null = null;
   animationConfig: IFigureAnimationConfig[] = [];
 
-  constructor(public id: CellIdType, public color: CellColor) {}
+  constructor(
+    public id: CellIdType,
+    public color: CellColor,
+  ) {}
 
   toPlainObject = (): ICell => ({
     id: this.id,

@@ -1,0 +1,25 @@
+// AUTO-GENERATED FILE - DO NOT EDIT
+// This file is generated automatically from your theme configuration
+
+@use 'sass:map';
+
+$breakpoints: (
+  'mobileSmall': 320px,
+  'mobileMedium': 375px,
+  'mobileLarge': 425px,
+  'tablet': 768px,
+  'laptop': 1024px,
+  'desktop': 1440px,
+  'desktopLarge': 1920px
+);
+
+@mixin media($breakpoint) {
+  $width: map.get($breakpoints, $breakpoint);
+  @if $width != null {
+    @media (max-width: $width) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoints not found";
+  }
+}

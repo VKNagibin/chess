@@ -1,9 +1,16 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import { useBreakpoints } from '@/hooks/useMobileSmall';
+import MobileDropdownModal from '@/modals/MobileDropdownModal';
+import Logger from '@/services/Logger';
+
+import useModal from '../Modal/useModal';
 import { IDropdownOption } from './types';
 
 export default function useDropdown({
   disabled,
+  placeholder,
   value,
   options,
   multiSelect,
@@ -12,9 +19,11 @@ export default function useDropdown({
   disabled: boolean;
   value?: string;
   options: IDropdownOption[];
+  placeholder: string;
   multiSelect: boolean;
   onChange?: (value: string) => void;
 }) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [selectedValue, setSelectedValue] = useState(value);
@@ -42,11 +51,37 @@ export default function useDropdown({
     }
   }, []);
 
-  const openMenu = useCallback(() => {
+  const { openModal } = useModal();
+
+  const isTablet = useBreakpoints('tablet');
+
+  const openMenu = useCallback(async () => {
     if (disabled) return;
-    setIsOpen((prev) => !prev);
-    setSearchValue('');
-  }, []);
+
+    if (!isTablet) {
+      setIsOpen((prev) => !prev);
+      return;
+    }
+
+    try {
+      const value = await openModal({
+        ui: MobileDropdownModal,
+        props: {
+          list: options,
+          title: placeholder,
+        },
+        options: {
+          closeOnClickOutside: true,
+        },
+      });
+
+      if (!value) return;
+
+      handleSelect(value);
+    } catch (error) {
+      Logger.error('error while open mobile dropdown');
+    }
+  }, [isTablet, t]);
 
   return {
     isOpen,

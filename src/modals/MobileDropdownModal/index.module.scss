@@ -1,0 +1,36 @@
+@use '@/style/media.scss' as media;
+
+.template {
+  scrollbar-gutter: stable;
+  max-width: 300px;
+  max-height: 300px;
+  padding-bottom: 10px;
+  overflow: scroll;
+  box-sizing: content-box;
+
+  @include media.media('mobileMedium') {
+    max-width: 240px;
+  }
+}
+
+.list {
+  padding-bottom: 8px;
+  max-width: inherit;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.element {
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 6px;
+  background-color: var(--colorPrimary);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--colorPrimaryDim);
+  }
+}

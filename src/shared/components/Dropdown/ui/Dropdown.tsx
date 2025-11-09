@@ -29,6 +29,7 @@ export const Dropdown: React.FC<IDropdown> = ({
     handleSelect,
     setSearchValue,
   } = useDropdown({
+    placeholder,
     disabled,
     multiSelect,
     value,

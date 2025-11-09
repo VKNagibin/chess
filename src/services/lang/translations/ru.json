@@ -1,6 +1,7 @@
 {
   "language": {
     "title": "Язык",
+    "placeholder": "Выбор языка",
     "current": "Русский"
   },
   "dropdown": {
@@ -12,7 +13,7 @@
   },
   "difficulty": {
     "level": "Уровень сложности",
-    "placeholder": "ВЫберите сложность",
+    "placeholder": "Уровень сложности",
     "beginner": "Начинающий",
     "intermediate": "Средний",
     "grandmaster": "Гроссмейстер"

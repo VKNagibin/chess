@@ -1,4 +1,4 @@
-@use '@/style/mixins' as mixins;
+@use '@/style/media.scss' as media;
 
 .container {
   position: relative;
@@ -13,7 +13,7 @@
   width: 640px;
   height: 640px;
 
-  @include mixins.media('tablet') {
+  @include media.media('tablet') {
     width: calc(100vw);
     height: calc(100vw);
   }
