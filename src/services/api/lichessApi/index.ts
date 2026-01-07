@@ -1,7 +1,7 @@
 import ApiService from '@/shared/services/api';
 
 export const ChessApi = new ApiService({
-  baseURL: `https://nagibin-chess.com/api/`,
+  baseURL: `http://localhost:3000/api`,
   headers: {
     'Content-Type': 'application/json',
   },

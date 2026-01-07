@@ -63,6 +63,13 @@ export default defineConfig({
     port: 2000,
     strictPort: true,
     open: true,
+    proxy: {
+      '/api': {
+        target: 'https://nagibin-chess.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
   resolve: {
     alias: [
