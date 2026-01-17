@@ -2,8 +2,9 @@
 @use '@/style/mixins.scss' as mixins;
 
 .body {
+  height: 80vh;
   max-width: 100%;
-  width: 290px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -51,7 +52,9 @@
   justify-content: center;
   width: 100%;
   padding: 16px;
-  transition: opacity 0.2s, outline 0.1s;
+  transition:
+    opacity 0.2s,
+    outline 0.1s;
   height: 40px;
   border-radius: var(--borderRadiusMd);
   cursor: pointer;

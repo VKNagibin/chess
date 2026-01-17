@@ -1,6 +1,6 @@
 {
   "name": "nagibin-chess",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "author": {
     "name": "Vyacheslav Nagibin",
     "email": "itisnotstupid@gmail.com"
@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^2.10.1",
     "axios": "^1.13.2",
     "i18next": "^25.6.3",
+    "jsqr": "^1.4.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-i18next": "^16.3.5",

@@ -1,6 +1,7 @@
 import { FunctionComponent, memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import QRScanner from '@/components/QRScanner';
 import { FigureTeam } from '@/entities/Cell/enums';
 import Cache from '@/services/Cache';
 import { LanguagesKeysType } from '@/services/lang/i18n';
@@ -37,7 +38,8 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
       {...serviceProps}
     >
       <div className={classes.body}>
-        <div className={classes.horizontalItemConteiner}>
+        <QRScanner />
+        {/* <div className={classes.horizontalItemConteiner}>
           <h4 className={classes.typography}>{t('language.title')}:</h4>
           <Dropdown
             options={languagesOptions}
@@ -85,7 +87,7 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
             placeholder={t('difficulty.placeholder')}
             disabled={false}
           />
-        </div>
+      </div> */}
       </div>
     </ModalTemplate>
   );
