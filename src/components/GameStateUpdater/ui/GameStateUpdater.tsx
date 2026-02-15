@@ -4,6 +4,7 @@ import useGameUpdater from '../hooks/useGameUpdater';
 
 const GameStateUpdater = () => {
   const {
+    isMyStep,
     actionsBlocked,
     cellWithMutablePawnId,
     deadKingTeam,
@@ -17,7 +18,7 @@ const GameStateUpdater = () => {
       handleGameOver(deadKingTeam);
       return;
     }
-    if (cellWithMutablePawnId) handlePawnMutation(cellWithMutablePawnId);
+    if (cellWithMutablePawnId && isMyStep) handlePawnMutation(cellWithMutablePawnId);
   }, [actionsBlocked]);
 
   return <></>;

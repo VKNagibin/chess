@@ -26,8 +26,9 @@ export interface StepDataInterface {
   ignoreCastling?: boolean;
 }
 
-export enum DifficultyLevel {
+export enum DifficultyLevels {
   BEGINNER = 'beginner',
+  MEDIUM = 'medium',
   INTERMEDIATE = 'intermediate',
   GRANDMASTER = 'grandmaster',
 }

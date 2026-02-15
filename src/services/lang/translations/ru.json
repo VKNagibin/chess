@@ -15,7 +15,8 @@
     "level": "Уровень сложности",
     "placeholder": "Уровень сложности",
     "beginner": "Начинающий",
-    "intermediate": "Средний",
+    "medium": "Средний",
+    "intermediate": "Опытный",
     "grandmaster": "Гроссмейстер"
   },
   "team": {

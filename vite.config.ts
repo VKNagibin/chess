@@ -65,7 +65,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'https://nagibin-chess.com',
+        target: 'https://nagibin-chess.com:1188',
         changeOrigin: true,
         secure: true,
       },

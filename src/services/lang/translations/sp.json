@@ -14,6 +14,7 @@
     "level": "Nivel de dificultad",
     "placeholder": "Seleccionar dificultad",
     "beginner": "Principiante",
+    "medium": "Medio",
     "intermediate": "Intermedio",
     "grandmaster": "Gran Maestro"
   },

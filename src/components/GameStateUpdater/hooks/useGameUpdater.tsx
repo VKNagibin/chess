@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 
 import useGameOver from '@/components/GameStateUpdater/hooks/useGameOver';
 import usePawnMutation from '@/components/GameStateUpdater/hooks/usePawnMutation';
@@ -10,17 +10,24 @@ const useGameUpdater = () => {
   const { handlePawnMutation } = usePawnMutation();
   const { handleGameOver } = useGameOver();
   const { welcomeUser } = useWelcomeModal();
-  const { cellWithMutablePawnId, deadKingTeam, loading, errorMessage } = useAppSelector(
-    ({ gameEngine }) => gameEngine,
-  );
+  const {
+    isMyStep,
+    canChangeTeam,
+    cellWithMutablePawnId,
+    deadKingTeam,
+    loading,
+    errorMessage,
+  } = useAppSelector(({ gameEngine }) => gameEngine);
 
   const figuresAnimations = useAppSelector(({ figuresAnimations }) => figuresAnimations);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     welcomeUser();
   }, []);
 
   return {
+    isMyStep,
+    canChangeTeam,
     actionsBlocked: figuresAnimations.animationsInAction || loading || errorMessage,
     cellWithMutablePawnId,
     deadKingTeam,

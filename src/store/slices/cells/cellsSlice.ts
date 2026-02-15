@@ -5,7 +5,7 @@ import { findById } from '@/shared/utils/findById';
 import { uniqId } from '@/shared/utils/uniqId';
 import createCustomSlice from '@/store/createCustomSlice';
 import { ConfigItemType, teamsConfigs } from '@/store/slices/cells/placesConfig';
-import { DifficultyLevel, IStep } from '@/store/slices/cells/types';
+import { DifficultyLevels, IStep } from '@/store/slices/cells/types';
 import arrangeCells from '@/store/slices/cells/utils/arrangeCells';
 import getAfterStepBoardState from '@/store/slices/cells/utils/getAfterStepBoardState';
 import handleFigureSelect from '@/store/slices/cells/utils/handleFigureSelect';
@@ -19,20 +19,21 @@ import {
 import makeFEN from '@/store/slices/cells/utils/makeFEN';
 
 export interface IGameEngineState {
-  cells: ICell[];
-  nextMove: string | null;
-  FEN: string | null;
-  fullmoveNumber: number;
-  fiftyStepsRuleCount: number;
   loading: boolean;
   canStartGame: boolean;
   canChangeTeam: boolean;
   errorMessage: boolean;
+  isMyStep: boolean;
   userTeam: FigureTeam;
   activeTeam: FigureTeam;
   deadKingTeam: FigureTeam | null;
+  nextMove: string | null;
+  FEN: string | null;
+  fullmoveNumber: number;
+  fiftyStepsRuleCount: number;
   cellWithMutablePawnId: CellIdType | null;
-  difficultyLevel: DifficultyLevel;
+  DifficultyLevels: DifficultyLevels;
+  cells: ICell[];
 }
 
 const initialCells = arrangeCells(teamsConfigs);
@@ -50,6 +51,7 @@ const initialState: IGameEngineState = {
   activeTeam: initialActiveTeam,
   canChangeTeam: false,
   deadKingTeam: null,
+  isMyStep: true,
   cellWithMutablePawnId: null,
   FEN: makeFEN({
     cells: initialCells,
@@ -59,7 +61,7 @@ const initialState: IGameEngineState = {
   }),
   fullmoveNumber: initialFullmoveNumber,
   fiftyStepsRuleCount: initialFiftyStepsRuleCount,
-  difficultyLevel: DifficultyLevel.BEGINNER,
+  DifficultyLevels: DifficultyLevels.BEGINNER,
 };
 
 export const gameEngineSlice = createCustomSlice({
@@ -69,8 +71,8 @@ export const gameEngineSlice = createCustomSlice({
     setUserTeam(state, action) {
       state.userTeam = action.payload;
     },
-    setDifficultyLevel(state, action) {
-      state.difficultyLevel = action.payload;
+    setDifficultyLevels(state, action) {
+      state.DifficultyLevels = action.payload;
     },
     startGame(state) {
       state.canStartGame = true;
@@ -105,7 +107,7 @@ export const gameEngineSlice = createCustomSlice({
         state.cells = updatedCells;
         state.deadKingTeam = deadKingTeam;
         state.cellWithMutablePawnId = cellWithMutablePawnId;
-        canUpdateFullmoveNumber && ++state.fullmoveNumber;
+        if (canUpdateFullmoveNumber) ++state.fullmoveNumber;
 
         state.fiftyStepsRuleCount = calculateFiftyStepsRuleCount({
           needResetFiftyStepsRule,
@@ -178,7 +180,7 @@ export const gameEngineSlice = createCustomSlice({
 
       state.cellWithMutablePawnId = cellWithMutablePawnId;
       state.cells = updatedCells;
-      canUpdateFullmoveNumber && ++state.fullmoveNumber;
+      if (canUpdateFullmoveNumber) ++state.fullmoveNumber;
       state.deadKingTeam = deadKingTeam;
       state.FEN = makeFEN({
         cells: updatedCells,
@@ -190,8 +192,10 @@ export const gameEngineSlice = createCustomSlice({
       state.canChangeTeam = !!canChangeTeam;
     },
     changeActiveTeam(state) {
+      const newActiveTeam = getEnemyTeam(state.activeTeam);
       state.canChangeTeam = false;
-      state.activeTeam = getEnemyTeam(state.activeTeam);
+      state.activeTeam = newActiveTeam;
+      state.isMyStep = newActiveTeam === state.userTeam;
       state.cells.forEach((cell) => {
         if (cell.animationConfig.length) cell.animationConfig = [];
       });

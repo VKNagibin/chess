@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 
+import { useAppActions } from '@/store/hooks';
+
 import useGameUpdater from '../hooks/useGameUpdater';
 
 const StaticGameStateUpdater = () => {
   const {
+    canChangeTeam,
     cellWithMutablePawnId,
     deadKingTeam,
-    canChangeTeam,
     handlePawnMutation,
     handleGameOver,
-    changeActiveTeam,
   } = useGameUpdater();
+
+  const { changeActiveTeam } = useAppActions();
 
   useEffect(() => {
     if (deadKingTeam) handleGameOver(deadKingTeam);

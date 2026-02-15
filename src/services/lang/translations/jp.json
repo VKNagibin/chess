@@ -14,6 +14,7 @@
     "level": "難易度",
     "placeholder": "難易度を選択",
     "beginner": "初級者",
+    "medium": "中級",
     "intermediate": "中級者",
     "grandmaster": "グランドマスター"
   },

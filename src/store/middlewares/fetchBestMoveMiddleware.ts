@@ -32,7 +32,7 @@ fetchBestMoveMiddleware.startListening({
     dispatch(rootActions.startEngineLoading());
     const response = await ChessBot.getBestMove({
       FEN: gameEngine.FEN!,
-      difficulty: gameEngine.difficultyLevel,
+      difficulty: gameEngine.DifficultyLevels,
     });
     if (!response?.success) {
       dispatch(rootActions.setEngineError(response?.messages));

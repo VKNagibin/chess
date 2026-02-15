@@ -18,8 +18,8 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
   serviceProps,
   submit,
 }) => {
-  const { setUserTeam, setDifficultyLevel } = useAppActions();
-  const { userTeam, difficultyLevel } = useAppSelector((state) => state.gameEngine);
+  const { setUserTeam, setDifficultyLevels } = useAppActions();
+  const { userTeam, DifficultyLevels } = useAppSelector((state) => state.gameEngine);
   const { t, i18n } = useTranslation();
 
   const difficultyOptions = useMemo(() => getDifficultyOptions(userTeam), [t, userTeam]);
@@ -80,8 +80,8 @@ const WelcomeModal: FunctionComponent<ModalComponentProps<FigureTeam>> = ({
           <h4 className={classes.typography}>{t('difficulty.level')}:</h4>
           <Dropdown
             options={difficultyOptions}
-            value={difficultyLevel}
-            onChange={(value: string) => setDifficultyLevel(value)}
+            value={DifficultyLevels}
+            onChange={(value: string) => setDifficultyLevels(value)}
             placeholder={t('difficulty.placeholder')}
             disabled={false}
           />

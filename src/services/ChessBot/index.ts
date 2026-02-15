@@ -1,7 +1,7 @@
 import { ChessApi } from '@/services/api/lichessApi';
 import Logger from '@/services/Logger';
 import { IBaseResponse } from '@/shared/services/types';
-import { DifficultyLevel } from '@/store/slices/cells/types';
+import { DifficultyLevels } from '@/store/slices/cells/types';
 
 class ChessBot {
   private static instance: ChessBot;
@@ -15,10 +15,10 @@ class ChessBot {
 
   public async getBestMove({
     FEN,
-    difficulty = DifficultyLevel.INTERMEDIATE,
+    difficulty = DifficultyLevels.MEDIUM,
   }: {
     FEN: string;
-    difficulty?: DifficultyLevel;
+    difficulty?: DifficultyLevels;
   }): Promise<IBaseResponse<string> | undefined> {
     try {
       return await ChessApi.post<IBaseResponse<string>>('best-move', {

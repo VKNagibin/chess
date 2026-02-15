@@ -17,7 +17,7 @@ export default function (cells: ICell[], activeTeam: FigureTeam): ICell[] {
   enemyTeamCells.forEach((enemyCell) => {
     const cellSteps = getSteps({ cells, currentCell: enemyCell, ignoreCastling: true });
     cellSteps.forEach((step) => {
-      step.cellId === kingCellId && kingEnemies.push(enemyCell);
+      if (step.cellId === kingCellId) kingEnemies.push(enemyCell);
     });
   });
 
